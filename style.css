@@ -9,21 +9,21 @@ body {
 header {
     background-color: #5D3A1A; /* Walnut Brown */
     color: #F5F5DC; /* Beige */
+
+    font-size: 16px;
+    font-family: 'Tinos', serif;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1em 2em;
-}
-
-header .logo {
-    font-size: 1.5em;
-    font-family: 'Tinos', serif;
+    padding: 3em 4em;
 }
 
 nav ul {
     list-style: none;
     display: flex;
-    gap: 1em;
+    gap: 3em;
+    padding-right: 3em;
 }
 
 nav ul li a {
@@ -32,17 +32,20 @@ nav ul li a {
 }
 
 #hero {
-    background-color: #F5F5DC; /* Beige */
-    color: #000000; /* Black */
-    text-align: center;
-    padding: 4em 2em;
+    background-color: #5D3A1A; /* Brown */
+    color: #F5F5DC;
+    text-align: left;
+    padding: 2em 5em;
 }
 
 #hero button {
     background-color: #5D3A1A; /* Walnut Brown */
     color: #F5F5DC; /* Beige */
-    border: none;
-    padding: 0.5em 1em;
+    text-decoration: none;
+    font-size: 15px;
+    border: 2px solid #F5F5DC;
+    border-radius: 30px;
+    padding: 1em 1em;
     cursor: pointer;
 }
 
@@ -59,15 +62,26 @@ nav ul li a {
     margin-right: 2em;
 }
 
-#works, #contact {
+#works {
     background-color: #F5F5DC; /* Beige */
     color: #000000; /* Black */
     padding: 2em;
 }
 
+#contact {
+    background-color: #000000; /* Beige */
+    color: #F5F5DC; /* Black */
+    padding: 2em;
+}
 footer {
     background-color: #000000; /* Black */
     color: #F5F5DC; /* Beige */
     text-align: center;
     padding: 1em 0;
+}
+
+.logo > a{
+    text-decoration: none;
+    color: #F5F5DC;
+    font-size: 20px;
 }
