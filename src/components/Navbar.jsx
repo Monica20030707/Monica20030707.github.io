@@ -2,17 +2,16 @@ import React from "react"
 
 const Navbar = () => {
     return (
-        <nav className="w-full fixed top-0 bg-transparent backdrop-blur-sm flex items-center justify-between px-8 py-4 z-10">
-            <div>
-                <div className="text-2xl font-bold"><a href="#home">Monica Nguyen</a></div>
-                <ul className="flex space-x-6 text-lg">
-                    <li className="hover:text-gray-300 cursor-pointer"><a href="#work">Works</a></li>
-                    <li className="hover:text-gray-300 cursor-pointer">About</li>
-                    <li className="hover:text-gray-300 cursor-pointer">Contacts</li>
-                </ul>
+        <nav className="w-full fixed bg-transparent px-8 md:px-16 lg:px-24">
+            <div className="container py-2 flex justify-center md:justify-between items-center">
+                <div className="font-tinos font-bold text-2xl md:inline"><a href="#home">Monica Nguyen</a></div>
+                <div className="flex space-x-6 text-lg">
+                    <a className="font-montserrat hover:text-gray-400 cursor-pointer" href="#work">Works</a>
+                    <a className="font-montserrat hover:text-gray-400 cursor-pointer" href="#about">About Me</a>
+                    <a className="font-montserrat hover:text-gray-400 cursor-pointer" href="#contact">Contact</a>
+                </div>
             </div>
         </nav>
-    )
-}
+    )}
 
 export default Navbar
