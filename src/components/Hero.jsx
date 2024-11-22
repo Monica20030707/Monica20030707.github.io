@@ -1,14 +1,21 @@
 import React from 'react'
-import raccoonGif from '../assets/pedroRacoon.gif';
-
+import avatar from '../assets/avatarGithub.png';
 
 const Hero = () => {
     return(
-        <div className="flex flex-col justify-center items-center h-full px-4 text-center">
-            <img src={raccoonGif} alt="My Animation" className="h-52 w-52 overflow-hidden rounded-full border-5 border-white object-cover" />
-            <h1 className="text-5xl font-bold mb-4">Hey there! I'm Monica Nguyen</h1>
-            <p className="text-xl max-w-2xl">I am a Software Enginner, Web Developer and a wanna be Mobile Developer</p>
-            <button className='bg-gradient-to-r from-plum to-deepPurple text-beige hidden md:inline transform transition-transform duration-300 hover:scale-105 px-4 py-2 rounded-full'>View My Work</button>
+        <div className="bg-beige text-darkMaroon text-center py-16">
+            <img src={avatar} alt="Monica profile pic" className="mx-auto mb-8 h-48 w-48 rounded-full object-cover transform transition-transform duration-300 hover:scale-105" />
+            <h1 className="text-4xl font-bold">
+                Hey there! I'm {" "}
+                <span className='text-transparent bg-clip-text bg-gradient-to-r from-wine to-plum'>Monica Nguyen</span>
+            </h1>
+            <p className="mt-4 text-lg text-deepPurple px-4 md:px-32">
+                I'm a Software Enginner, Full-stack developer and a wanna be Mobile Developer.
+            </p>
+            <div className='mt-8 space-x-4'>
+                <button className='bg-gradient-to-r from-plum to-deepPurple text-beige hidden md:inline transform transition-transform duration-300 hover:scale-105 px-4 py-2 rounded-full'>View My Work
+                </button>
+            </div>
         </div>
     )
 }
