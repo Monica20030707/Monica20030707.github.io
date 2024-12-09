@@ -3,6 +3,7 @@ import Hero from './components/Hero';
 import Navbar from './components/Navbar';
 import Work from './components/Work';
 import About from './components/About';
+import Footer from './components/Footer';
 
 function App() {
 
@@ -22,7 +23,8 @@ function App() {
 
       {/* Gradient between About me and the copyrights*/}
       <div className="h-40 bg-gradient-to-b from-deepPurple via-darkMaroon to-black"></div>
-
+      <Footer />
+      
     </div>
   );
 }

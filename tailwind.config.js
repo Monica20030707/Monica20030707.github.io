@@ -20,10 +20,6 @@ export default {
         tinos: ['Tinos', 'serif'],
       },
 
-      // Will soon get rid of this when each part have a color
-      backgroundImage: {
-        'custom-gradient': 'linear-gradient(to bottom, #F5F5DC, #E3B6B1, #845162, #522C5D, #29104A, #150016)',
-      },
     },
   },
   plugins: [],
