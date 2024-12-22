@@ -8,7 +8,7 @@ export default {
     extend: {
       colors: {
         beige: "#F5F5DC",
-        blush: "#E3B6B1",
+        blush: "#D9AFA6",
         wine: "#845162",
         plum: "#522C5D",
         deepPurple: "#29104A",

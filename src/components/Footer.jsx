@@ -2,15 +2,15 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <footer className="bg-black text-beige py-8">
+    <footer className="bg-black text-beige py-8" id='contact'>
       <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
         {/* Left: Let's Connect */}
         <div className="mb-4 md:mb-0">
           <h3 className="text-lg font-semibold">Let's Connect</h3>
           <div className="flex space-x-4 mt-2">
-            <a href="#facebook" className="hover:text-gray-400">Facebook</a>
-            <a href="#twitter" className="hover:text-gray-400">Twitter</a>
-            <a href="#linkedin" className="hover:text-gray-400">LinkedIn</a>
+            <a href="#facebook" className="hover:text-gray-400">LinkedIn</a>
+            <a href="#twitter" className="hover:text-gray-400">GitHub</a>
+            <a href="#linkedin" className="hover:text-gray-400">Instagram</a>
           </div>
         </div>
 

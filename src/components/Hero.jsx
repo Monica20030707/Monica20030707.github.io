@@ -3,7 +3,7 @@ import avatar from '../assets/avatarGithub.png';
 
 const Hero = () => {
     return(
-        <div className="bg-beige text-darkMaroon text-center py-16">
+        <div className="bg-beige text-darkMaroon text-center py-16" id='home'>
             <img src={avatar} alt="Monica profile pic" className="mx-auto mb-8 h-48 w-48 rounded-full object-cover transform transition-transform duration-300 hover:scale-105" />
             <h1 className="text-4xl font-bold">
                 Hey there! I'm {" "}

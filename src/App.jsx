@@ -14,7 +14,7 @@ function App() {
       <Hero />
 
       {/* Gradient between Hero and Works*/}
-      <div className="h-40 bg-gradient-to-b from-beige via-blush to-wine"></div>
+      <div className=" h-40 bg-gradient-to-b from-beige via-blush to-wine"></div>
       <Work/>
 
       {/* Gradient between Works and about me*/}
