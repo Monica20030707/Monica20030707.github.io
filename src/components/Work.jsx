@@ -2,6 +2,7 @@ import React from "react";
 import tradingDashboard from '../assets/stockDashboard.png';
 import licenseReader from '../assets/license-plate-reader.jpg';
 import handwritten from '../assets/MLdata.png';
+import docConverter from '../assets/doc2pdf.png';
 
 const projects = [
     {
@@ -9,13 +10,13 @@ const projects = [
         name: "Stock tracking Dashboard",
         technologies: "Python, Typescript",
         image: tradingDashboard,
-        description: "Used JPMorgan Chase’s open-source library, Perspective, to build a live graph that tracks stock ratios, highlights historical correlations, and provides real-time updates with threshold alerts, offering traders a clear and visually engaging monitoring tool.",
+        description: "Used JPMorgan Chase’s open-source library called Perspective to generate a live graph that displays a data feed in a clear and visually appealing way for traders to monitor.",
         github: "https://github.com/Monica20030707/tradingDashboard-UI"
     },
     {
         id:2,
         name: "Traffic Violation Tracker",
-        technologies: "AWS S3, AWS EventBridge, AWS Lambda, AWS Rekcognition",
+        technologies: "AWS Services",
         image: licenseReader,
         description: "Developed a traffic violation detection system using AWS S3 for storing license plate images with metadata, integrating California DMV data to identify vehicles, classify violations, and send automated email notices with ticket details.",
         github: "https://github.com/Monica20030707/AWS_rekonigition-N-read-database"
@@ -30,11 +31,11 @@ const projects = [
     },
     {
         id:4,
-        name: "Read Handwritten Dataset",
-        technologies: "Python - Machine Learning",
-        image: handwritten,
-        description: "Built an Artificial Neural Network (ANN) from scratch using Backpropagation to classify handwritten digits (0-9).",
-        github: "https://github.com/Monica20030707/Artificial-Neutral-Network_ML"
+        name: "Docx Converter (Ongoing)",
+        technologies: "Python",
+        image: docConverter,
+        description: "A converter that automatically transforms DOCX files into PDF and update the README files upon upload to GitHub.",
+        github: "https://github.com/Monica20030707/Docx2PdfConverter"
     }
 ]
 
@@ -46,15 +47,14 @@ const Work = () => {
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
                     {projects.map(projects => (
                         <div key = {projects.id}
-                        className="bg-gray-800 px-6 pb-6 rounded-lg hover:shadow-lg transform transition-transform duration-300 hover:scale-105">
-                            <div className="text-right text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-blue-400">
-                                {projects.id}
-                            </div>
+                        className="bg-gray-800 p-6 rounded-lg hover:shadow-lg transform transition-transform duration-300 hover:scale-105">
+                            <img src = {projects.image} alt = {projects.name} className="rounded-lg mb-4  w-full h-48 object-cover"/>
                             <h3 className="mt-2 text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from bg-green-400 to-blue-500">
-                                {projects.title}
+                                {projects.name}
                             </h3>
+                            <h4 className="text-gray-400 mb-4">{projects.technologies}</h4>
                             <p className="mt-2 text-gray-300"> {projects.description} </p>
-                            <a href="#" className="mt-4 inline-block text-green-400 hover:text-blue-500">Read More</a>
+                            <a href= {projects.github} className="inline-block bg-gradient-to-r from-green-400 to-blue-500 text-white px-4 py-2 rounded-full" target="_blank" rel="noopener noreferrer">GitHub</a>
                         </div>
                     ))}
                 </div>
