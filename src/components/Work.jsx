@@ -40,21 +40,43 @@ const projects = [
 ]
 
 const Work = () => {
-    return(
-        <div className='bg-wine text-beige py-20' id='work'>
-            <div className='container mx-auto px-8 md:px-16 lg:px-24'>
-                <h2 className='text-4xl font-montserrat font-bold text-left mb-12'>Selected Projects</h2>
-                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
-                    {projects.map(projects => (
-                        <div key = {projects.id}
-                        className="bg-gray-800 p-6 rounded-lg hover:shadow-lg transform transition-transform duration-300 hover:scale-105">
-                            <img src = {projects.image} alt = {projects.name} className="rounded-lg mb-4  w-full h-48 object-cover"/>
-                            <h3 className="mt-2 text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from bg-green-400 to-blue-500">
-                                {projects.name}
+    return (
+        <div className="bg-wine text-beige py-20" id="work">
+            <div className="container mx-auto px-8 md:px-16 lg:px-24">
+                <h2 className="text-4xl font-montserrat font-bold text-left mb-12">Selected Projects</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {projects.map(project => (
+                        <div
+                            key={project.id}
+                            className="bg-gray-800 p-6 rounded-lg hover:shadow-lg transform transition-transform duration-300 hover:scale-105"
+                        >
+                            {/* Project Image */}
+                            <img
+                                src={project.image}
+                                alt={project.name}
+                                className="rounded-lg mb-4 w-full h-48 object-cover"
+                            />
+
+                            {/* Project Name and Technologies */}
+                            <h3 className="mt-2 text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500">
+                                {project.name}
                             </h3>
-                            <h4 className="text-gray-400 mb-4">{projects.technologies}</h4>
-                            <p className="mt-2 text-gray-300"> {projects.description} </p>
-                            <a href= {projects.github} className="inline-block bg-gradient-to-r from-green-400 to-blue-500 text-white px-4 py-2 rounded-full" target="_blank" rel="noopener noreferrer">GitHub</a>
+                            <h4 className="text-gray-400 mb-4">{project.technologies}</h4>
+                            
+                            {/* Project Description */}
+                            <p className="mt-2 text-gray-300">{project.description}</p>
+                            
+                            {/* GitHub Button */}
+                            <div className="mt-4">
+                                <a
+                                    href={project.github}
+                                    className="inline-block bg-gradient-to-r from-green-400 to-blue-500 text-white px-4 py-2 rounded-full w-max"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    GitHub
+                                </a>
+                            </div>
                         </div>
                     ))}
                 </div>
