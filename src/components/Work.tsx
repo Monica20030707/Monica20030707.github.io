@@ -1,8 +1,8 @@
 import React from "react";
-import tradingDashboard from '../assets/stockDashboard.png';
-import licenseReader from '../assets/license-plate-reader.jpg';
-import handwritten from '../assets/MLdata.png';
-import docConverter from '../assets/doc2pdf.png';
+import tradingDashboard from '../assets/image/project_stockDashboard.png';
+import licenseReader from '../assets/image/project_licensePlateReader.jpg';
+import handwritten from '../assets/image/project_MLdata.png';
+import docConverter from '../assets/image/project_doc2pdf.png';
 
 const projects = [
     {

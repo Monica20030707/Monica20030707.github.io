@@ -1,9 +1,9 @@
-import './App.css'
-import Hero from './components/Hero';
-import Navbar from './components/Navbar';
-import Work from './components/Work';
-import About from './components/About';
-import Footer from './components/Footer';
+import './assets/styles/App.css'
+import Hero from './components/Hero.tsx';
+import Navbar from './components/Navbar.tsx';
+import Work from './components/Work.tsx';
+import About from './components/About.tsx';
+import Footer from './components/Footer.tsx';
 
 function App() {
 

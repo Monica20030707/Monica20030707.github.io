@@ -1,5 +1,5 @@
 import React from 'react'
-import avatar from '../assets/avatarGithub.png';
+import avatar from '/monica_avatar.png';
 
 const Hero = () => {
     return(
