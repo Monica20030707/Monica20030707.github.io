@@ -1,32 +1,40 @@
-import './assets/styles/App.css'
-import Hero from './components/Hero.tsx';
-import Navbar from './components/Navbar.tsx';
-import Work from './components/Work.tsx';
-import About from './components/About.tsx';
-import Footer from './components/Footer.tsx';
+import Navigation from "./layout/Navigation";
+import { Hero } from "./layout/Hero";
+import { About } from "./layout/About";
+import { Skills } from "./layout/Skills";
+import { Projects } from "./layout/Projects";
+import { Contact } from "./layout/Contact";
 
-function App() {
-
+export default function App() {
   return (
-    // The background gradient is in tailwind config
-    <div className="h-screen w-screen bg-custom-gradient text-darkMaroon" >
-      <Navbar />
-      <Hero />
-
-      {/* Gradient between Hero and Works*/}
-      <div className=" h-40 bg-gradient-to-b from-beige via-blush to-wine"></div>
-      <Work/>
-
-      {/* Gradient between Works and about me*/}
-      <div className="h-40 bg-gradient-to-b from-wine via-plum to-deepPurple"></div>
-      <About/>
-
-      {/* Gradient between About me and the copyrights*/}
-      <div className="h-40 bg-gradient-to-b from-deepPurple via-darkMaroon to-black"></div>
-      <Footer />
+    <div className="min-h-screen">
+      <Navigation />
+      <main>
+        <section id="home">
+          <Hero />
+        </section>
+        <section id="about">
+          <About />
+        </section>
+        <section id="skills">
+          <Skills />
+        </section>
+        <section id="projects">
+          <Projects />
+        </section>
+        <section id="contact">
+          <Contact />
+        </section>
+      </main>
       
+      {/* Footer */}
+      <footer className="bg-[#150016] border-t border-[#522C5D] py-6 sm:py-8">
+        <div className="container mx-auto px-4 sm:px-6 text-center">
+          <p className="text-gray-400 text-sm sm:text-base">
+            © 2025 Sarah Chen. Built with React & Tailwind CSS.
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }
-
-export default App
