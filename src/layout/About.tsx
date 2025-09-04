@@ -3,32 +3,6 @@ import { useState, useEffect } from "react";
 
 export function About() {
   const { scrollY, isVisible, elementRef } = useScrollAnimation();
-  const [counters, setCounters] = useState({ projects: 0, years: 0, clients: 0 });
-
-  // Animated counter effect when visible
-  useEffect(() => {
-    if (isVisible) {
-      const animateCounter = (target: number, key: 'projects' | 'years' | 'clients', duration: number = 2000) => {
-        const start = 0;
-        const increment = target / (duration / 16);
-        let current = start;
-        
-        const timer = setInterval(() => {
-          current += increment;
-          if (current >= target) {
-            current = target;
-            clearInterval(timer);
-          }
-          setCounters(prev => ({ ...prev, [key]: Math.floor(current) }));
-        }, 16);
-      };
-
-      // Staggered counter animations
-      setTimeout(() => animateCounter(50, 'projects'), 300);
-      setTimeout(() => animateCounter(5, 'years'), 600);
-      setTimeout(() => animateCounter(20, 'clients'), 900);
-    }
-  }, [isVisible]);
 
   return (
     <section 
@@ -73,75 +47,20 @@ export function About() {
               className="animate-fade-in hover:text-white transition-colors duration-300"
               style={{ animationDelay: isVisible ? '0.6s' : '0s' }}
             >
-              I'm a passionate full stack developer with 5+ years of experience building 
-              scalable web applications. My journey started with a curiosity about how 
-              websites work, and it has evolved into a love for creating digital experiences 
-              that make a difference.
+              I’m a Software Engineering student deeply passionate about Machine Learning and Data Analytics. I love the challenge of turning raw data into meaningful insights that people can understand and use. One of my favorite projects was creating real-time stock graphs for a fintech app, making complex financial data simple and interactive.
             </p>
             <p 
               className="animate-fade-in hover:text-white transition-colors duration-300"
               style={{ animationDelay: isVisible ? '0.8s' : '0s' }}
             >
-              I specialize in modern JavaScript frameworks, cloud technologies, and 
-              database design. When I'm not coding, you'll find me exploring new 
-              technologies, contributing to open source projects, or mentoring aspiring 
-              developers in my community.
+              While my studies have built a strong foundation in software development, I’m currently exploring full-stack web and mobile development because I enjoy building tools that save time and make life easier. I believe technology should empower people to focus on what truly matters.
             </p>
             <p 
               className="animate-fade-in hover:text-white transition-colors duration-300"
               style={{ animationDelay: isVisible ? '1s' : '0s' }}
             >
-              I believe in writing clean, maintainable code and creating applications 
-              that are not only functional but also delightful to use. Let's build 
-              something amazing together!
+              I’m driven by curiosity and a love for learning, whether it’s diving into new machine learning concepts or crafting user-friendly apps. For me, it’s all about creating solutions that are both impactful and meaningful.
             </p>
-          </div>
-          
-          {/* Enhanced animated stats */}
-          <div 
-            className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16"
-            style={{
-              transform: `translateY(${Math.max(0, (scrollY - 1200) * 0.05)}px)`
-            }}
-          >
-            <div 
-              className="text-center group cursor-pointer animate-fade-in hover:scale-105 transition-transform duration-300"
-              style={{ animationDelay: isVisible ? '1.2s' : '0s' }}
-            >
-              <div className="relative">
-                <div className="text-4xl font-bold text-[#E3B6B1] mb-2 group-hover:text-[#FFE3DC] transition-colors">
-                  {counters.projects}+
-                </div>
-                <div className="absolute inset-0 bg-[#E3B6B1] opacity-0 group-hover:opacity-20 rounded-lg blur-xl transition-opacity" />
-              </div>
-              <div className="text-gray-300 group-hover:text-white transition-colors">Projects Completed</div>
-            </div>
-            
-            <div 
-              className="text-center group cursor-pointer animate-fade-in hover:scale-105 transition-transform duration-300"
-              style={{ animationDelay: isVisible ? '1.4s' : '0s' }}
-            >
-              <div className="relative">
-                <div className="text-4xl font-bold text-[#E3B6B1] mb-2 group-hover:text-[#FFE3DC] transition-colors">
-                  {counters.years}+
-                </div>
-                <div className="absolute inset-0 bg-[#E3B6B1] opacity-0 group-hover:opacity-20 rounded-lg blur-xl transition-opacity" />
-              </div>
-              <div className="text-gray-300 group-hover:text-white transition-colors">Years Experience</div>
-            </div>
-            
-            <div 
-              className="text-center group cursor-pointer animate-fade-in hover:scale-105 transition-transform duration-300"
-              style={{ animationDelay: isVisible ? '1.6s' : '0s' }}
-            >
-              <div className="relative">
-                <div className="text-4xl font-bold text-[#E3B6B1] mb-2 group-hover:text-[#FFE3DC] transition-colors">
-                  {counters.clients}+
-                </div>
-                <div className="absolute inset-0 bg-[#E3B6B1] opacity-0 group-hover:opacity-20 rounded-lg blur-xl transition-opacity" />
-              </div>
-              <div className="text-gray-300 group-hover:text-white transition-colors">Happy Clients</div>
-            </div>
           </div>
         </div>
       </div>

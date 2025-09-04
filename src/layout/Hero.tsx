@@ -103,7 +103,7 @@ export function Hero() {
                 animationDelay: isVisible ? '0.4s' : '0s'
               }}
             >
-              Sarah Chen
+Monica Nguyen
             </h1>
             <h2 
               className="text-xl sm:text-2xl lg:text-3xl text-[#E3B6B1] font-medium animate-slide-up"
@@ -191,8 +191,8 @@ export function Hero() {
               className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-[#E3B6B1] shadow-2xl mx-auto transition-all duration-500 group-hover:scale-105 group-hover:shadow-[#E3B6B1]/50 animate-float"
             >
               <ImageWithFallback 
-                src="https://images.unsplash.com/photo-1712174766230-cb7304feaafe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjB3b21hbiUyMGRldmVsb3BlciUyMHBvcnRyYWl0fGVufDF8fHx8MTc1NTIxODA5NXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-                alt="Sarah Chen - Full Stack Developer"
+                src="/monica_avatar.png"
+                alt="Monica Nguyen - Full Stack Developer"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
             </div>
@@ -200,8 +200,6 @@ export function Hero() {
             {/* Enhanced gradient glow effect */}
             <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#E3B6B1] to-[#FFE3DC] opacity-20 blur-xl -z-10 group-hover:opacity-40 transition-opacity duration-500" />
             
-            {/* Animated ring effect */}
-            <div className="absolute inset-0 rounded-full border-2 border-[#E3B6B1] opacity-0 group-hover:opacity-60 animate-ping -z-5" />
           </div>
         </div>
       </div>

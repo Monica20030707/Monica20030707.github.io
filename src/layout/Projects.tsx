@@ -10,28 +10,36 @@ export function Projects() {
 
   const projects = [
     {
-      title: "Analytics Dashboard",
-      description: "A comprehensive analytics dashboard built with React and D3.js, featuring real-time data visualization and interactive charts.",
-      image: "https://images.unsplash.com/photo-1665470909939-959569b20021?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjB3ZWIlMjBkYXNoYm9hcmR8ZW58MXx8fHwxNzU1MjE4MTQ0fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      tags: ["React", "TypeScript", "D3.js", "Node.js", "PostgreSQL"],
-      liveUrl: "https://dashboard-demo.example.com",
-      githubUrl: "https://github.com/sarahchen/analytics-dashboard"
+      title: "Stock tracking Dashboard",
+      description: "Used JPMorgan Chase’s open-source library called Perspective to generate a live graph that displays a data feed in a clear and visually appealing way for traders to monitor.",
+      image: "/src/assets/image/project_stockDashboard.png",
+      tags: ["Python", "Typescript"],
+      liveUrl: "",
+      githubUrl: ""
     },
     {
-      title: "Mobile Banking App",
-      description: "A secure mobile banking application with biometric authentication, transaction tracking, and budget management features.",
-      image: "https://images.unsplash.com/photo-1658953229625-aad99d7603b4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2JpbGUlMjBhcHAlMjBpbnRlcmZhY2V8ZW58MXx8fHwxNzU1MTExOTcyfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      tags: ["React Native", "Node.js", "Express", "MongoDB", "JWT"],
-      liveUrl: "https://bankingapp-demo.example.com",
-      githubUrl: "https://github.com/sarahchen/mobile-banking"
+      title: "Traffic Violation Tracker",
+      description: "Developed a traffic violation detection system collecting cctv street camera using AWS S3 for storing license plate images with metadata, integrating California DMV data to identify vehicles, classify violations, and send automated email notices with ticket details.",
+      image: "/src/assets/image/project_licensePlateReader.jpg",
+      tags: ["AWS Services"],
+      liveUrl: "",
+      githubUrl: ""
     },
     {
-      title: "E-commerce Platform",
-      description: "A full-featured e-commerce platform with inventory management, payment processing, and order tracking capabilities.",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlY29tbWVyY2UlMjB3ZWJzaXRlfGVufDF8fHx8MTc1NTE0Mzg0MHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      tags: ["Next.js", "Stripe", "Prisma", "PostgreSQL", "Tailwind"],
-      liveUrl: "https://ecommerce-demo.example.com",
-      githubUrl: "https://github.com/sarahchen/ecommerce-platform"
+      title: "Read Handwritten Dataset",
+      description: "Built an Artificial Neural Network (ANN) from scratch using Backpropagation to classify handwritten digits (0-9).",
+      image: "/src/assets/image/project_MLdata.png",
+      tags: ["Python", "Machine Learning"],
+      liveUrl: "",
+      githubUrl: ""
+    },
+    {
+      title: "Docx Converter (Ongoing)",
+      description: "A converter that automatically transforms DOCX files into PDF and update the README files upon upload to GitHub.",
+      image: "/src/assets/image/project_doc2pdf.png",
+      tags: ["Python"],
+      liveUrl: "",
+      githubUrl: ""
     }
   ];
 

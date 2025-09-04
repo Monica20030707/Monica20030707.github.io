@@ -1,3 +1,4 @@
+import { Code, Coffee } from "lucide-react";
 import { ImageWithFallback } from "../components/ImageWithFallback";
 import { useScrollAnimation } from "../utils/useScrollAnimation";
 import { useEffect, useState } from "react";
@@ -21,42 +22,42 @@ export function Skills() {
 
   // Technology data with names and brand colors
   const frontendTechs = [
-    { name: "React", color: "#61DAFB", symbol: "⚛" },
-    { name: "TypeScript", color: "#3178C6", symbol: "TS" },
-    { name: "Next.js", color: "#FFFFFF", symbol: "▲" },
-    { name: "Vue.js", color: "#4FC08D", symbol: "V" },
-    { name: "Tailwind", color: "#06B6D4", symbol: "T" },
-    { name: "SCSS", color: "#CF649A", symbol: "S" },
-    { name: "JavaScript", color: "#F7DF1E", symbol: "JS" },
-    { name: "HTML5", color: "#E34F26", symbol: "<>" },
-    { name: "CSS3", color: "#1572B6", symbol: "#" },
-    { name: "Motion", color: "#FF0055", symbol: "M" }
+    { name: "React", color: "#61DAFB", symbol: <Code /> },
+    { name: "TypeScript", color: "#3178C6", symbol: <Code /> },
+    { name: "Next.js", color: "#FFFFFF", symbol: <Code /> },
+    { name: "Vue.js", color: "#4FC08D", symbol: <Code /> },
+    { name: "Tailwind", color: "#06B6D4", symbol: <Code /> },
+    { name: "SCSS", color: "#CF649A", symbol: <Code /> },
+    { name: "JavaScript", color: "#F7DF1E", symbol: <Code /> },
+    { name: "HTML5", color: "#E34F26", symbol: <Code /> },
+    { name: "CSS3", color: "#1572B6", symbol: <Code /> },
+    { name: "Motion", color: "#FF0055", symbol: <Code /> }
   ];
   
   const backendTechs = [
-    { name: "Node.js", color: "#68A063", symbol: "⬢" },
-    { name: "Express", color: "#FFFFFF", symbol: "E" },
-    { name: "Python", color: "#306998", symbol: "🐍" },
-    { name: "Django", color: "#092E20", symbol: "D" },
-    { name: "PostgreSQL", color: "#336791", symbol: "🐘" },
-    { name: "MongoDB", color: "#47A248", symbol: "🍃" },
-    { name: "Redis", color: "#D82C20", symbol: "◆" },
-    { name: "GraphQL", color: "#E10098", symbol: "◇" },
-    { name: "REST API", color: "#FF6B35", symbol: "R" },
-    { name: "Prisma", color: "#FFFFFF", symbol: "P" }
+    { name: "Node.js", color: "#68A063", symbol: <Code /> },
+    { name: "Express", color: "#FFFFFF", symbol: <Code /> },
+    { name: "Python", color: "#306998", symbol: <Code /> },
+    { name: "Django", color: "#092E20", symbol: <Code /> },
+    { name: "PostgreSQL", color: "#336791", symbol: <Code /> },
+    { name: "MongoDB", color: "#47A248", symbol: <Code /> },
+    { name: "Redis", color: "#D82C20", symbol: <Code /> },
+    { name: "GraphQL", color: "#E10098", symbol: <Code /> },
+    { name: "REST API", color: "#FF6B35", symbol: <Code /> },
+    { name: "Prisma", color: "#FFFFFF", symbol: <Code /> }
   ];
   
   const toolsTechs = [
-    { name: "Git", color: "#F05032", symbol: "⌘" },
-    { name: "Docker", color: "#2496ED", symbol: "🐳" },
-    { name: "AWS", color: "#FF9900", symbol: "☁" },
-    { name: "Vercel", color: "#FFFFFF", symbol: "▲" },
-    { name: "Figma", color: "#F24E1E", symbol: "F" },
-    { name: "VS Code", color: "#007ACC", symbol: "</>" },
-    { name: "Postman", color: "#FF6C37", symbol: "📮" },
-    { name: "Jest", color: "#C21325", symbol: "🃏" },
-    { name: "Cypress", color: "#04C38E", symbol: "⚡" },
-    { name: "Webpack", color: "#8DD6F9", symbol: "📦" }
+    { name: "Git", color: "#F05032", symbol: <Code /> },
+    { name: "Docker", color: "#2496ED", symbol: <Code /> },
+    { name: "AWS", color: "#FF9900", symbol: <Code /> },
+    { name: "Vercel", color: "#FFFFFF", symbol: <Code /> },
+    { name: "Figma", color: "#F24E1E", symbol: <Code /> },
+    { name: "VS Code", color: "#007ACC", symbol: <Code /> },
+    { name: "Postman", color: "#FF6C37", symbol: <Code /> },
+    { name: "Jest", color: "#C21325", symbol: <Code /> },
+    { name: "Cypress", color: "#04C38E", symbol: <Code /> },
+    { name: "Webpack", color: "#8DD6F9", symbol: <Code /> }
   ];
 
   // Duplicate arrays for seamless scrolling
@@ -64,8 +65,8 @@ export function Skills() {
   const duplicatedBackend = [...backendTechs, ...backendTechs];
   const duplicatedTools = [...toolsTechs, ...toolsTechs];
 
-  const TechIcon = ({ tech, index, delay = 0 }: { 
-    tech: { name: string; color: string; symbol: string }, 
+  const TechIcon = ({ tech, index, delay = 0 }: {
+    tech: { name: string; color: string; symbol: React.ReactNode },
     index: number,
     delay?: number 
   }) => (
@@ -89,7 +90,7 @@ export function Skills() {
           }}
         >
           {/* Tech icon/symbol */}
-          <span 
+          <div 
             className="text-sm sm:text-xl lg:text-2xl font-bold transition-all duration-300 group-hover:scale-110"
             style={{ 
               color: tech.name === "Next.js" || tech.name === "Express" || tech.name === "Prisma" || tech.name === "Vercel" 
@@ -98,7 +99,7 @@ export function Skills() {
             }}
           >
             {tech.symbol}
-          </span>
+          </div>
         </div>
         
         {/* Tech name label on hover */}
@@ -192,7 +193,8 @@ export function Skills() {
                   className="flex animate-scroll-right"
                   style={{
                     animationDuration: `${30 / animationSpeed}s`,
-                    animationPlayState: isVisible ? 'running' : 'paused'
+                    animationPlayState: 'running',
+                    width: "fit-content"
                   }}
                 >
                   {duplicatedFrontend.map((tech, index) => (
@@ -218,7 +220,7 @@ export function Skills() {
                   className="flex animate-scroll-left"
                   style={{
                     animationDuration: `${25 / animationSpeed}s`,
-                    animationPlayState: isVisible ? 'running' : 'paused'
+                    animationPlayState: 'running'
                   }}
                 >
                   {duplicatedBackend.map((tech, index) => (
@@ -244,7 +246,7 @@ export function Skills() {
                   className="flex animate-scroll-right-slow"
                   style={{
                     animationDuration: `${40 / animationSpeed}s`,
-                    animationPlayState: isVisible ? 'running' : 'paused'
+                    animationPlayState: 'running'
                   }}
                 >
                   {duplicatedTools.map((tech, index) => (

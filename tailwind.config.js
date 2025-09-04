@@ -13,6 +13,8 @@ export default {
         plum: "#522C5D",
         deepPurple: "#29104A",
         darkMaroon: "#150016",
+        border: 'var(--border)',
+        ring: 'var(--ring)',
       },
 
       fontFamily: {
