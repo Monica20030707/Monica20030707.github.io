@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Tinos:wght@400;700&display=swap');
 
 @tailwind base;
@@ -200,11 +201,11 @@ html {
 
 /* Enhanced tech carousel animations */
 @keyframes scroll-right {
-  0% {
-    transform: translateX(-50%);
+  from {
+    transform: translateX(0);
   }
-  100% {
-    transform: translateX(0%);
+  to {
+    transform: translateX(-50%);
   }
 }
 
@@ -219,6 +220,9 @@ html {
 
 .animate-scroll-right {
   animation: scroll-right 30s linear infinite;
+  display: flex;
+  width: fit-content;
+  will-change: transform;
 }
 
 .animate-scroll-left {
@@ -229,8 +233,14 @@ html {
   animation: scroll-right 40s linear infinite;
 }
 
+/* Add smooth transition for hover pause */
+.animate-scroll-right:hover {
+  animation-play-state: paused;
+  transform: scale(1.02);
+  transition: transform 0.3s ease;
+}
+
 /* Pause animation on hover */
-.animate-scroll-right:hover,
 .animate-scroll-left:hover,
 .animate-scroll-right-slow:hover {
   animation-play-state: paused;
@@ -371,4 +381,49 @@ html {
 /* Smooth scroll-based interactions */
 body {
   overflow-x: hidden;
+}
+
+/* Card hover animations */
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(227, 182, 177, 0.2);
+}
+
+/* Content reveal animations */
+.content-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease;
+}
+
+.content-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Add these keyframes to your existing animations */
+ @keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease-out;
+}
+
+.reveal-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
 }

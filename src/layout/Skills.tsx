@@ -193,12 +193,11 @@ export function Skills() {
                   className="flex animate-scroll-right"
                   style={{
                     animationDuration: `${30 / animationSpeed}s`,
-                    animationPlayState: 'running',
                     width: "fit-content"
                   }}
                 >
                   {duplicatedFrontend.map((tech, index) => (
-                    <TechIcon key={`frontend-${index}`} tech={tech} index={index} delay={1 + index * 0.05} />
+                    <TechIcon key={`frontend-${tech.name}-${index}`} tech={tech} index={index} delay={1 + index * 0.05} />
                   ))}
                 </div>
               </div>

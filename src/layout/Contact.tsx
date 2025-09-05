@@ -1,5 +1,8 @@
 import { Button } from "../components/button";
 import { Card, CardContent } from "../components/card";
+import { Label } from "../components/label";
+import { Input } from "../components/input";
+import { Alert } from "../components/alert";
 import { Github, Linkedin, Mail, MapPin, Phone } from "lucide-react";
 
 export function Contact() {
