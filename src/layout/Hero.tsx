@@ -55,7 +55,7 @@ export function Hero() {
     >
       {/* Subtle overlay for hero section */}
       <div 
-        className="absolute inset-0 bg-gradient-to-br from-black/20 via-transparent to-deep-purple/30"
+        className="absolute inset-0 bg-gradient-to-br from-black/20 via-transparent to-deepPurple/30"
         style={{
           transform: `translateY(${scrollY * 0.3}px)`,
         }}
@@ -123,7 +123,7 @@ export function Hero() {
                 animationDelay: isVisible ? '0.6s' : '0s'
               }}
             >
-              Software Engineering Student
+              Associate Full Stack Engineer
             </h2>
             <div 
               className="flex items-center justify-center lg:justify-start gap-2 text-beige/70 animate-fade-in font-montserrat"
@@ -180,7 +180,7 @@ export function Hero() {
             {[
               { href: "https://github.com/Monica20030707", icon: Github, label: "GitHub Profile" },
               { href: "https://www.linkedin.com/in/thuy-nguyen-46505121b/", icon: Linkedin, label: "LinkedIn Profile" },
-              { href: "mailto:monica.nguyen@email.com", icon: Mail, label: "Email Contact" }
+              { href: "mailto:thuybohr@gmail.com", icon: Mail, label: "Email Contact" }
             ].map((social, index) => (
               <a 
                 key={social.label}

@@ -88,7 +88,7 @@ export function Navbar() {
         
         {/* Mobile Navigation - Bigger */}
         {isMobileMenuOpen && (
-          <div className="md:hidden bg-dark-maroon/95 backdrop-blur-sm border-t border-wine">
+          <div className="md:hidden bg-darkMaroon/95 backdrop-blur-sm border-t border-wine">
             <div className="py-6 space-y-4">
               {navItems.map((item) => (
                 <button

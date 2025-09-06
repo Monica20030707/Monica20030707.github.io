@@ -44,15 +44,14 @@ export function Contact() {
   };
 
   return (
-    <section className="py-16 sm:py-20 bg-gradient-to-br from-plum via-dark-maroon to-black relative overflow-hidden">
+    <section className="py-16 sm:py-20 bg-gradient-to-br from-plum via-darkMaroon to-black relative overflow-hidden">
       {/* Creative Background Elements */}
       <div className="absolute inset-0">
         {/* Animated gradient orbs */}
         <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-r from-blush/20 to-beige/20 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-l from-wine/30 to-plum/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-gradient-to-tr from-beige/10 to-blush/15 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '4s' }} />
-        
-        {/* Floating geometric shapes */}
+                {/* Floating geometric shapes */}
         <div className="absolute top-32 right-1/4 w-16 h-16 border-2 border-blush/30 rotate-45 animate-float" />
         <div className="absolute bottom-40 left-1/4 w-12 h-12 bg-wine/20 rounded-full animate-float" style={{ animationDelay: '1s' }} />
         <div className="absolute top-1/2 right-32 w-8 h-8 bg-beige/30 transform rotate-45 animate-float" style={{ animationDelay: '3s' }} />
@@ -167,7 +166,7 @@ export function Contact() {
                   onChange={handleInputChange}
                   required
                   rows={6}
-                  className="bg-gradient-to-r from-dark-maroon/70 to-plum/50 backdrop-blur-sm border-2 border-wine/40 text-beige placeholder:text-beige/50 focus:border-blush focus:ring-2 focus:ring-blush/20 resize-none rounded-xl font-montserrat transition-all duration-300"
+                  className="bg-gradient-to-r from-darkMaroon/70 to-plum/50 backdrop-blur-sm border-2 border-wine/40 text-beige placeholder:text-beige/50 focus:border-blush focus:ring-2 focus:ring-blush/20 resize-none rounded-xl font-montserrat transition-all duration-300"
                 />
               </div>
 

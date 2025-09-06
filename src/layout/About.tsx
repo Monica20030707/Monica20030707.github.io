@@ -5,8 +5,6 @@ import { useScrollAnimation } from "../utils/useScrollAnimation";
  * 
  * Features:
  * - Gradient background transitioning from Hero section
- * - Custom content about Monica's background in Software Engineering and ML
- * - Removed stats counters (projects completed, years experience, happy clients)
  * - Scroll-based animations for content reveal
  * - Uses custom color palette (wine to dark-maroon gradient)
  * - Montserrat font for consistency
@@ -17,7 +15,7 @@ export function About() {
   return (
     <section 
       ref={elementRef as React.RefObject<HTMLElement>}
-      className="py-20 bg-gradient-to-b from-wine to-deep-purple relative overflow-hidden"
+      className="py-20 bg-gradient-to-b from-wine to-deepPurple relative overflow-hidden"
     >
       {/* Background decoration elements with parallax */}
       <div 
