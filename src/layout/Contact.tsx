@@ -84,14 +84,14 @@ export function Contact() {
                   className="group w-16 h-16 bg-gradient-to-r from-beige to-blush rounded-2xl flex items-center justify-center hover:scale-110 transition-all duration-300 hover:shadow-lg hover:shadow-beige/25"
                   aria-label="GitHub Profile"
                 >
-                  <Github size={24} className="text-[#150016] group-hover:scale-110 transition-transform" />
+                  <Github size={24} className="text-darkMaroon group-hover:scale-110 transition-transform" />
                 </button>
                 <button 
                   onClick={() => handleSocialClick('LinkedIn', 'https://www.linkedin.com/in/thuy-nguyen-46505121b/')}
                   className="group w-16 h-16 bg-gradient-to-r from-beige to-blush rounded-2xl flex items-center justify-center hover:scale-110 transition-all duration-300 hover:shadow-lg hover:shadow-beige/25"
                   aria-label="LinkedIn Profile"
                 >
-                  <Linkedin size={24} className="text-[#150016] group-hover:scale-110 transition-transform" />
+                  <Linkedin size={24} className="text-darkMaroon group-hover:scale-110 transition-transform" />
                 </button>
                 <button 
                   onClick={() => handleSocialClick('Handshake', 'https://app.joinhandshake.com/profiles/36910406')}
@@ -109,7 +109,7 @@ export function Contact() {
                   className="className=group w-16 h-16 bg-gradient-to-r from-beige to-blush rounded-2xl flex items-center justify-center hover:scale-110 transition-all duration-300 hover:shadow-lg hover:shadow-beige/25"
                   aria-label="Email Contact"
                 >
-                  <Mail size={24} className="text-[#150016] group-hover:scale-110 transition-transform" />
+                  <Mail size={24} className="text-darkMaroon group-hover:scale-110 transition-transform" />
                 </button>
               </div>
             </div>
@@ -152,7 +152,7 @@ export function Contact() {
                   value={formData.email}
                   onChange={handleInputChange}
                   required
-                  className="bg-gradient-to-r from-dark-maroon/70 to-plum/50 backdrop-blur-sm border-2 border-wine/40 text-beige placeholder:text-beige/50 focus:border-blush focus:ring-2 focus:ring-blush/20 rounded-xl h-12 font-montserrat transition-all duration-300"
+                  className="bg-gradient-to-r from-darkMaroon/70 to-plum/50 backdrop-blur-sm border-2 border-wine/40 text-beige placeholder:text-beige/50 focus:border-blush focus:ring-2 focus:ring-blush/20 rounded-xl h-12 font-montserrat transition-all duration-300"
                 />
               </div>
               
@@ -173,7 +173,7 @@ export function Contact() {
 
               <Button 
                 type="submit"
-                className="w-full h-14 bg-gradient-to-r from-blush to-beige text-dark-maroon hover:from-beige hover:to-blush font-montserrat font-semibold text-lg rounded-xl hover:scale-105 transition-all duration-300 hover:shadow-xl hover:shadow-blush/30"
+                className="w-full h-14 bg-gradient-to-r from-blush to-beige text-darkMaroon hover:from-beige hover:to-blush font-montserrat font-semibold text-lg rounded-xl hover:scale-105 transition-all duration-300 hover:shadow-xl hover:shadow-blush/30"
               >
                 <Mail className="mr-2" size={20} />
                 Send Message
