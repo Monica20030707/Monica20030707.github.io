@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const Navbar = () => {
+export const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
 
     useEffect(() => {

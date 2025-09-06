@@ -1,10 +1,9 @@
-import Navbar from "./layout/Navbar";
+import { Navbar } from "./layout/Navbar";
 import { Hero } from "./layout/Hero";
 import { About } from "./layout/About";
 import { Skills } from "./layout/Skills";
 import { Projects } from "./layout/Projects";
 import { Contact } from "./layout/Contact";
-import Footer from './layout/Footer';
 
 import './assets/styles/App.css';
 
@@ -29,9 +28,6 @@ export default function App() {
           <Contact />
         </section>
       </main>
-      
-      {/* Footer */}
-      <Footer />
     </div>
   );
 }

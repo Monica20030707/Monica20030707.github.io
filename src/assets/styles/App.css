@@ -5,51 +5,59 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-    scroll-behavior: smooth ;
-}
-
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  /* Monica's Custom Color Palette */
+  --beige: #F5F5DC;
+  --blush: #D9AFA6;
+  --wine: #845162;
+  --plum: #522C5D;
+  --deep-purple: #29104A;
+  --dark-maroon: #150016;
+  
+  /* Font Configuration */
+  --font-montserrat: 'Montserrat', sans-serif;
+  --font-tinos: 'Tinos', serif;
+  
   --font-size: 14px;
-  --background: #ffffff;
-  --foreground: oklch(0.145 0 0);
-  --card: #ffffff;
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: #030213;
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.95 0.0058 264.53);
-  --secondary-foreground: #030213;
-  --muted: #ececf0;
-  --muted-foreground: #717182;
-  --accent: #e9ebef;
-  --accent-foreground: #030213;
+  --background: var(--dark-maroon);
+  --foreground: var(--beige);
+  --card: var(--plum);
+  --card-foreground: var(--beige);
+  --popover: var(--deep-purple);
+  --popover-foreground: var(--beige);
+  --primary: var(--blush);
+  --primary-foreground: var(--dark-maroon);
+  --secondary: var(--wine);
+  --secondary-foreground: var(--beige);
+  --muted: var(--plum);
+  --muted-foreground: var(--blush);
+  --accent: var(--wine);
+  --accent-foreground: var(--beige);
   --destructive: #d4183d;
   --destructive-foreground: #ffffff;
-  --border: rgba(0, 0, 0, 0.1);
+  --border: var(--wine);
   --input: transparent;
-  --input-background: #f3f3f5;
-  --switch-background: #cbced4;
+  --input-background: var(--plum);
+  --switch-background: var(--wine);
   --font-weight-medium: 500;
   --font-weight-normal: 400;
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
+  --ring: var(--blush);
+  --chart-1: var(--blush);
+  --chart-2: var(--wine);
+  --chart-3: var(--plum);
+  --chart-4: var(--deep-purple);
+  --chart-5: var(--beige);
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: #030213;
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar: var(--deep-purple);
+  --sidebar-foreground: var(--beige);
+  --sidebar-primary: var(--blush);
+  --sidebar-primary-foreground: var(--dark-maroon);
+  --sidebar-accent: var(--wine);
+  --sidebar-accent-foreground: var(--beige);
+  --sidebar-border: var(--wine);
+  --sidebar-ring: var(--blush);
 }
 
 .dark {
@@ -90,6 +98,18 @@ html {
 }
 
 @theme inline {
+  /* Custom Colors */
+  --color-beige: var(--beige);
+  --color-blush: var(--blush);
+  --color-wine: var(--wine);
+  --color-plum: var(--plum);
+  --color-deep-purple: var(--deep-purple);
+  --color-dark-maroon: var(--dark-maroon);
+  
+  /* Custom Gradients */
+  --gradient-radial: radial-gradient(circle, var(--tw-gradient-stops));
+  
+  /* Theme Colors */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -132,15 +152,28 @@ html {
 
 @layer base {
   * {
-    /* Remove the @apply directive since border-border isn't defined yet */
     border-color: var(--border);
-    outline-color: rgb(var(--ring) / 0.5);
+    outline-color: rgba(217, 175, 166, 0.5);
   }
 
   body {
-    /* Use CSS variables instead of @apply */
     background-color: var(--background);
     color: var(--foreground);
+    font-family: var(--font-montserrat);
+  }
+  
+  /* Font family utilities */
+  .font-montserrat {
+    font-family: var(--font-montserrat);
+  }
+  
+  .font-tinos {
+    font-family: var(--font-tinos);
+  }
+  
+  /* Custom gradient utilities */
+  .bg-gradient-radial {
+    background-image: radial-gradient(circle, var(--tw-gradient-stops));
   }
 }
 
@@ -201,11 +234,11 @@ html {
 
 /* Enhanced tech carousel animations */
 @keyframes scroll-right {
-  from {
-    transform: translateX(0);
-  }
-  to {
+  0% {
     transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
   }
 }
 
@@ -220,9 +253,6 @@ html {
 
 .animate-scroll-right {
   animation: scroll-right 30s linear infinite;
-  display: flex;
-  width: fit-content;
-  will-change: transform;
 }
 
 .animate-scroll-left {
@@ -233,14 +263,8 @@ html {
   animation: scroll-right 40s linear infinite;
 }
 
-/* Add smooth transition for hover pause */
-.animate-scroll-right:hover {
-  animation-play-state: paused;
-  transform: scale(1.02);
-  transition: transform 0.3s ease;
-}
-
 /* Pause animation on hover */
+.animate-scroll-right:hover,
 .animate-scroll-left:hover,
 .animate-scroll-right-slow:hover {
   animation-play-state: paused;
@@ -381,49 +405,4 @@ html {
 /* Smooth scroll-based interactions */
 body {
   overflow-x: hidden;
-}
-
-/* Card hover animations */
-.card-hover {
-  transition: all 0.3s ease;
-}
-
-.card-hover:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(227, 182, 177, 0.2);
-}
-
-/* Content reveal animations */
-.content-reveal {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.5s ease;
-}
-
-.content-reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Add these keyframes to your existing animations */
- @keyframes reveal-up {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.reveal-on-scroll {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.6s ease-out;
-}
-
-.reveal-on-scroll.visible {
-  opacity: 1;
-  transform: translateY(0);
 }
