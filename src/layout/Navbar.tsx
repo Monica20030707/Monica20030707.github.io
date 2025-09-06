@@ -1,47 +1,108 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { Button } from "../components/button";
+import { Menu, X } from "lucide-react";
 
-export const Navbar = () => {
-    const [scrolled, setScrolled] = useState(false);
+/**
+ * Navigation Component
+ * 
+**/
 
-    useEffect(() => {
-        const handleScroll = () => {
-            const isScrolled = window.scrollY > 10;
-            if (isScrolled !== scrolled) {
-                setScrolled(isScrolled);
-            }
-        };
+export function Navbar() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-        window.addEventListener("scroll", handleScroll);
-
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        };
-    }, [scrolled]);
-
-    const scrollToSection = (sectionId: string) => {
-        const section = document.querySelector(sectionId);
-        if (section) {
-            section.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
+  // Handle scroll-based blur effect
+  useEffect(() => {
+    let ticking = false;
+    
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setIsScrolled(window.scrollY > 50);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
-    return (
-        <nav className={`w-full fixed px-8 md:px-16 lg:px-24 transition-all duration-300 ${scrolled ? 'bg-black/10 backdrop-blur-sm' : 'bg-transparent'} z-50`}>
-            <div className="container py-6 flex justify-center md:justify-between items-center text-white">
-                <div className="font-tinos font-bold text-2xl md:inline">
-                    <a onClick={() => scrollToSection('#home')} className="cursor-pointer">Monica Nguyen</a>
-                </div>
-                <div className="flex space-x-6 text-lg">
-                    <a onClick={() => scrollToSection('#projects')} className="font-montserrat hover:text-gray-400 cursor-pointer">Works</a>
-                    <a onClick={() => scrollToSection('#about')} className="font-montserrat hover:text-gray-400 cursor-pointer">About Me</a>
-                    <a onClick={() => scrollToSection('#contact')} className="font-montserrat hover:text-gray-400 cursor-pointer">Contact</a>
-                </div>
-            </div>
-        </nav>
-    );
-};
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
-export default Navbar;
+  // Navigation items for the right side - only Works, About Me, Contact
+  const navItems = [
+    { label: "Works", href: "#projects" },
+    { label: "About Me", href: "#about" },
+    { label: "Contact", href: "#contact" }
+  ];
+
+  // Smooth scroll functionality
+  const handleNavClick = (href: string) => {
+    setIsMobileMenuOpen(false);
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      isScrolled 
+        ? 'bg-black/10 backdrop-blur-sm border-b border-wine' 
+        : 'bg-transparent'
+    }`}>
+      <div className="container mx-auto px-6">
+        <div className="flex items-center justify-between h-20">
+          {/* Logo/Name - Monica Nguyen in Tinos font - Bigger */}
+          <div className="text-2xl lg:text-3xl font-tinos">
+            <span className="text-beige hover:text-blush transition-colors cursor-pointer">
+              Monica Nguyen
+            </span>
+          </div>
+          
+          {/* Desktop Navigation - Montserrat font - Bigger */}
+          <div className="hidden md:flex items-center space-x-10">
+            {navItems.map((item) => (
+              <button
+                key={item.label}
+                onClick={() => handleNavClick(item.href)}
+                className="text-lg text-beige hover:text-blush transition-colors font-montserrat"
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
+          
+          {/* Mobile Menu Button - Bigger */}
+          <button
+            className="md:hidden text-beige hover:text-blush transition-colors"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle mobile menu"
+          >
+            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
+        </div>
+        
+        {/* Mobile Navigation - Bigger */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden bg-dark-maroon/95 backdrop-blur-sm border-t border-wine">
+            <div className="py-6 space-y-4">
+              {navItems.map((item) => (
+                <button
+                  key={item.label}
+                  onClick={() => handleNavClick(item.href)}
+                  className="block w-full text-left text-lg text-beige hover:text-blush transition-colors font-montserrat px-6 py-3"
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </nav>
+  );
+}
