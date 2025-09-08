@@ -48,7 +48,7 @@ export function Skills() {
     { name: "AWS", color: "#FF9900", logo: "aws" },
     { name: "Vercel", color: "#FFFFFF", logo: "vercel" },
     { name: "Figma", color: "#F24E1E", logo: "figma" },
-    { name: "VS Code", color: "#007ACC", logo: "vscode" },
+    { name: "VS Code", color: "#007ACC", logo: "/src/assets/image/vsCode_icon.png", isLocal: true },
     { name: "Postman", color: "#FF6C37", logo: "postman" },
     { name: "Jest", color: "#C21325", logo: "jest" },
     { name: "Cypress", color: "#04C38E", logo: "cypress" },
@@ -61,7 +61,7 @@ export function Skills() {
   const duplicatedTools = [...toolsTechs, ...toolsTechs];
 
   const TechIcon = ({ tech, index, delay = 0 }: { 
-    tech: { name: string; color: string; logo: string }, 
+    tech: { name: string; color: string; logo: string; isLocal?: boolean }, 
     index: number,
     delay?: number 
   }) => (
@@ -83,7 +83,7 @@ export function Skills() {
           }}
         >
           {/* Tech icon/symbol */}
-          <img src={`https://raw.githubusercontent.com/gilbarbara/logos/main/logos/${tech.logo}.svg`} alt={tech.name} className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12" />
+          <img src={tech.isLocal ? tech.logo : `https://raw.githubusercontent.com/gilbarbara/logos/main/logos/${tech.logo}.svg`} alt={tech.name} className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12" />
         </div>
         
         {/* Tech name label on hover */}
@@ -170,21 +170,8 @@ export function Skills() {
                 Frontend
               </h3>
               <div className="relative overflow-hidden py-2 sm:py-4">
-                {/* Transparent blur overlays */}
-                <div 
-                  className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 lg:w-32 backdrop-blur-sm bg-black/10 pointer-events-none z-30 transition-all duration-500"
-                  style={{
-                    opacity: isVisible ? 0.6 : 0.9,
-                    backdropFilter: `blur(${isVisible ? '4px' : '8px'})`
-                  }}
-                />
-                <div 
-                  className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 lg:w-32 backdrop-blur-sm bg-black/10 pointer-events-none z-30 transition-all duration-500"
-                  style={{
-                    opacity: isVisible ? 0.6 : 0.9,
-                    backdropFilter: `blur(${isVisible ? '4px' : '8px'})`
-                  }}
-                />
+                <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 lg:w-32 bg-gradient-to-r from-[#150016] to-transparent pointer-events-none z-30" />
+                <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 lg:w-32 bg-gradient-to-l from-[#150016] to-transparent pointer-events-none z-30" />
                 <div 
                   className="flex animate-scroll-right transition-all duration-500"
                   style={{
@@ -210,21 +197,8 @@ export function Skills() {
                 Backend
               </h3>
               <div className="relative overflow-hidden py-2 sm:py-4">
-                {/* Transparent blur overlays */}
-                <div 
-                  className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 lg:w-32 backdrop-blur-sm bg-black/10 pointer-events-none z-30 transition-all duration-500"
-                  style={{
-                    opacity: isVisible ? 0.6 : 0.9,
-                    backdropFilter: `blur(${isVisible ? '4px' : '8px'})`
-                  }}
-                />
-                <div 
-                  className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 lg:w-32 backdrop-blur-sm bg-black/10 pointer-events-none z-30 transition-all duration-500"
-                  style={{
-                    opacity: isVisible ? 0.6 : 0.9,
-                    backdropFilter: `blur(${isVisible ? '4px' : '8px'})`
-                  }}
-                />
+                <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 lg:w-32 bg-gradient-to-r from-[#150016] to-transparent pointer-events-none z-30" />
+                <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 lg:w-32 bg-gradient-to-l from-[#150016] to-transparent pointer-events-none z-30" />
                 <div 
                   className="flex animate-scroll-left transition-all duration-500"
                   style={{
@@ -250,21 +224,8 @@ export function Skills() {
                 Tools & Other
               </h3>
               <div className="relative overflow-hidden py-2 sm:py-4">
-                {/* Transparent blur overlays */}
-                <div 
-                  className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 lg:w-32 backdrop-blur-sm bg-black/10 pointer-events-none z-30 transition-all duration-500"
-                  style={{
-                    opacity: isVisible ? 0.6 : 0.9,
-                    backdropFilter: `blur(${isVisible ? '4px' : '8px'})`
-                  }}
-                />
-                <div 
-                  className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 lg:w-32 backdrop-blur-sm bg-black/10 pointer-events-none z-30 transition-all duration-500"
-                  style={{
-                    opacity: isVisible ? 0.6 : 0.9,
-                    backdropFilter: `blur(${isVisible ? '4px' : '8px'})`
-                  }}
-                />
+                <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 lg:w-32 bg-gradient-to-r from-[#150016] to-transparent pointer-events-none z-30" />
+                <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 lg:w-32 bg-gradient-to-l from-[#150016] to-transparent pointer-events-none z-30" />
                 <div 
                   className="flex animate-scroll-right-slow transition-all duration-500"
                   style={{
