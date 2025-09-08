@@ -2,7 +2,7 @@ import { Navbar } from "./layout/Navbar";
 import { Hero } from "./layout/Hero";
 import { About } from "./layout/About";
 import { Skills } from "./layout/Skills";
-import { Projects } from "./layout/Projects";
+import { Work } from "./layout/Work";
 import { Contact } from "./layout/Contact";
 
 import './assets/styles/App.css';
@@ -52,8 +52,8 @@ export default function App() {
         </section>
         
         {/* Projects Section */}
-        <section id="projects">
-          <Projects />
+        <section id="work">
+          <Work />
         </section>
         
         {/* Contact Section */}
