@@ -4,7 +4,6 @@ import { Badge } from "../components/badge";
 import { ExternalLink, Github } from "lucide-react";
 import { ImageWithFallback } from "../components/ImageWithFallback";
 import { useScrollAnimation } from "../utils/useScrollAnimation";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "../components/hover-card";
 
 export function Projects() {
   const { scrollY, isVisible, elementRef } = useScrollAnimation();
@@ -12,43 +11,43 @@ export function Projects() {
   const projects = [
     {
       title: "Stock tracking Dashboard",
-      description: "Used JPMorgan Chase’s open-source library called Perspective to generate a live graph that displays a data feed in a clear and visually appealing way for traders to monitor.",
+      description: "Used JPMorgan Chase open-source library called Perspective to generate a live graph that displays a data feed in a clear and visually appealing way for traders to monitor.",
       image: "/src/assets/image/project_stockDashboard.jpg",
       tags: ["Python", "Typescript"],
-      liveUrl: "",
-      githubUrl: ""
+      liveUrl: "https://dashboard-demo.example.com",
+      githubUrl: "https://github.com/monicanguyen/analytics-dashboard"
     },
     {
       title: "Traffic Violation Tracker",
       description: "Developed a traffic violation detection system collecting cctv street camera using AWS S3 for storing license plate images with metadata, integrating California DMV data to identify vehicles, classify violations, and send automated email notices with ticket details.",
       image: "/src/assets/image/project_licenseReader.jpg",
       tags: ["AWS Services"],
-      liveUrl: "",
-      githubUrl: ""
+      liveUrl: "https://bankingapp-demo.example.com",
+      githubUrl: "https://github.com/monicanguyen/mobile-banking"
     },
     {
       title: "Read Handwritten Dataset",
       description: "Built an Artificial Neural Network (ANN) from scratch using Backpropagation to classify handwritten digits (0-9).",
       image: "/src/assets/image/project_MLdata.jpg",
       tags: ["Python", "Machine Learning"],
-      liveUrl: "",
-      githubUrl: ""
+      liveUrl: "https://ecommerce-demo.example.com",
+      githubUrl: "https://github.com/monicanguyen/ecommerce-platform"
     },
     {
       title: "OrangeLeaf",
       description: "A converter that automatically transforms DOCX files into PDF and update the README files upon upload to GitHub.",
       image: "src/assets/image/project_orangeLeaf.jpg",
       tags: ["Python"],
-      liveUrl: "",
-      githubUrl: ""
+      liveUrl: "https://ml-model-demo.example.com",
+      githubUrl: "https://github.com/monicanguyen/ml-housing-prediction"
     },
     {
       title: "Reverse Polish Calculator",
-      description: "A converter that automatically transforms DOCX files into PDF and update the README files upon upload to GitHub.",
+      description: "A social media analytics tool that tracks engagement metrics, sentiment analysis, and provides insights through interactive data visualizations.",
       image: "src/assets/image/project_reversePcalculator.jpg",
       tags: ["Java"],
-      liveUrl: "",
-      githubUrl: ""
+      liveUrl: "https://social-analytics-demo.example.com",
+      githubUrl: "https://github.com/monicanguyen/social-media-analytics"
     }
   ];
 
@@ -66,7 +65,7 @@ export function Projects() {
   return (
     <section 
       ref={elementRef as React.RefObject<HTMLElement>}
-      className="py-16 sm:py-20 bg-gradient-to-b from-[#29104A] to-[#522C5D] relative overflow-hidden"
+      className="py-16 sm:py-20 bg-gradient-to-b from-deepPurple to-plum relative overflow-hidden"
     >
       {/* Enhanced background with scroll-based parallax */}
       <div 
@@ -82,130 +81,128 @@ export function Projects() {
 
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <div className="max-w-6xl mx-auto">
-          {/* Enhanced header with scroll animation */}
+          {/* Enhanced header with scroll animation - Fixed spacing */}
           <div
+            className="mb-20 sm:mb-24"
             style={{
               transform: `translateY(${Math.max(0, (scrollY - 1500) * 0.1)}px)`,
               opacity: Math.max(0.3, 1 - Math.max(0, scrollY - 1500) * 0.002)
             }}
           >
             <h2 
-              className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white text-center mb-6 sm:mb-8 animate-fade-in"
+              className="text-3xl sm:text-4xl lg:text-5xl font-bold text-beige text-center mb-6 sm:mb-8 animate-fade-in font-montserrat"
               style={{ animationDelay: isVisible ? '0.2s' : '0s' }}
             >
               Featured Projects
             </h2>
             <div 
-              className="w-16 sm:w-24 h-1 bg-gradient-to-r from-[#E3B6B1] to-[#FFE3DC] mx-auto mb-12 sm:mb-16 animate-scale-in"
+              className="w-16 sm:w-24 h-1 bg-gradient-to-r from-blush to-beige mx-auto animate-scale-in"
               style={{ animationDelay: isVisible ? '0.4s' : '0s' }}
             />
           </div>
           
-          {/* Enhanced project grid with staggered animations */}
+          {/* Enhanced project grid with staggered animations - Fixed spacing to match header */}
           <div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-20 sm:mb-24"
             style={{
               transform: `translateY(${Math.max(0, (scrollY - 2000) * 0.05)}px)`
             }}
           >
             {projects.map((project, index) => (
-            <HoverCard key={project.title}>
-              <HoverCardTrigger className="group">
-                <Card 
-                  className="h-full bg-gradient-to-b from-[#150016] to-[#29104A] border-[#845162] hover:border-[#E3B6B1] transition-all duration-500 group-hover:scale-105 hover:shadow-2xl hover:shadow-[#E3B6B1]/20 animate-fade-in"
-                  style={{ animationDelay: isVisible ? `${0.6 + index * 0.2}s` : '0s' }}
-                >
-                  <CardHeader className="p-0">
-                    <div className="overflow-hidden rounded-t-lg relative">
-                      <ImageWithFallback
-                        src={project.image}
-                        alt={`${project.title} preview`}
-                        className="w-full h-40 sm:h-48 object-cover group-hover:scale-110 transition-transform duration-700"
-                      />
-                      {/* Overlay effect on hover */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#150016]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      
-                      {/* Floating action buttons on hover */}
-                      <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                        <div className="flex gap-2">
-                          <button
-                            onClick={() => handleProjectAction(project.liveUrl, 'demo')}
-                            className="p-2 bg-[#E3B6B1]/90 rounded-full hover:bg-[#E3B6B1] transition-colors backdrop-blur-sm"
-                            aria-label="View demo"
-                          >
-                            <ExternalLink size={14} className="text-[#150016]" />
-                          </button>
-                          <button
-                            onClick={() => handleProjectAction(project.githubUrl, 'github')}
-                            className="p-2 bg-[#E3B6B1]/90 rounded-full hover:bg-[#E3B6B1] transition-colors backdrop-blur-sm"
-                            aria-label="View code"
-                          >
-                            <Github size={14} className="text-[#150016]" />
-                          </button>
-                        </div>
+              <Card 
+                key={`project-${index}`} 
+                className="bg-gradient-to-b from-[#150016] to-[#29104A] border-[#845162] hover:border-[#E3B6B1] transition-all duration-500 group hover:scale-105 hover:shadow-2xl hover:shadow-[#E3B6B1]/20 animate-fade-in flex flex-col h-full"
+                style={{ animationDelay: isVisible ? `${0.6 + index * 0.2}s` : '0s' }}
+              >
+                <CardHeader className="p-0">
+                  <div className="overflow-hidden rounded-t-lg relative">
+                    <ImageWithFallback
+                      src={project.image}
+                      alt={`${project.title} preview`}
+                      className="w-full h-40 sm:h-48 object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                    {/* Overlay effect on hover */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#150016]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    
+                    {/* Floating action buttons on hover */}
+                    <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => handleProjectAction(project.liveUrl, 'demo')}
+                          className="p-2 bg-[#E3B6B1]/90 rounded-full hover:bg-[#E3B6B1] transition-colors backdrop-blur-sm"
+                          aria-label="View demo"
+                        >
+                          <ExternalLink size={14} className="text-[#150016]" />
+                        </button>
+                        <button
+                          onClick={() => handleProjectAction(project.githubUrl, 'github')}
+                          className="p-2 bg-[#E3B6B1]/90 rounded-full hover:bg-[#E3B6B1] transition-colors backdrop-blur-sm"
+                          aria-label="View code"
+                        >
+                          <Github size={14} className="text-[#150016]" />
+                        </button>
                       </div>
                     </div>
-                  </CardHeader>
-                  
-                  <CardContent className="p-4 sm:p-6">
-                    <CardTitle className="text-lg sm:text-xl text-white mb-2 sm:mb-3 group-hover:text-[#E3B6B1] transition-colors">
-                      {project.title}
-                    </CardTitle>
-                    <CardDescription className="text-gray-300 mb-3 sm:mb-4 leading-relaxed text-sm sm:text-base group-hover:text-gray-200 transition-colors">
-                      {project.description}
-                    </CardDescription>
-                    <div className="flex flex-wrap gap-2 mb-3 sm:mb-4">
-                      {project.tags.map((tag, tagIndex) => (
-                        <Badge 
-                          key={`${project.title}-tag-${tagIndex}`}
-                          variant="outline"
-                          className="bg-[#522C5D] border-[#845162] text-[#E3B6B1] text-xs hover:bg-[#E3B6B1] hover:text-[#150016] transition-all duration-300 cursor-default"
-                        >
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-                  </CardContent>
-                  
-                  <CardFooter className="p-4 sm:p-6 pt-0">
-                    <div className="flex gap-3 w-full">
-                      <Button 
-                        size="sm"
-                        className="flex-1 bg-gradient-to-r from-[#E3B6B1] to-[#FFE3DC] text-[#150016] hover:opacity-90 text-xs sm:text-sm hover:scale-105 transition-all duration-300 hover:shadow-lg"
-                        onClick={() => handleProjectAction(project.liveUrl, 'demo')}
+                  </div>
+                </CardHeader>
+                
+                <CardContent className="p-4 sm:p-6 flex-grow">
+                  <CardTitle className="text-lg sm:text-xl text-white mb-2 sm:mb-3 group-hover:text-[#E3B6B1] transition-colors">
+                    {project.title}
+                  </CardTitle>
+                  <CardDescription className="text-gray-300 mb-3 sm:mb-4 leading-relaxed text-sm sm:text-base group-hover:text-gray-200 transition-colors">
+                    {project.description}
+                  </CardDescription>
+                  <div className="flex flex-wrap gap-2">
+                    {project.tags.map((tag, tagIndex) => (
+                      <Badge 
+                        key={`${project.title}-tag-${tagIndex}`}
+                        variant="outline"
+                        className="bg-[#522C5D] border-[#845162] text-[#E3B6B1] text-xs hover:bg-[#E3B6B1] hover:text-[#150016] transition-all duration-300 cursor-default"
                       >
-                        <ExternalLink size={14} className="mr-1 sm:mr-2" />
-                        Live Demo
-                      </Button>
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        className="border-[#E3B6B1] text-[#E3B6B1] hover:bg-[#E3B6B1] hover:text-[#150016] px-3 hover:scale-105 transition-all duration-300"
-                        onClick={() => handleProjectAction(project.githubUrl, 'github')}
-                        aria-label={`View ${project.title} on GitHub`}
-                      >
-                        <Github size={14} />
-                      </Button>
-                    </div>
-                  </CardFooter>
-                </Card>
-              </HoverCardTrigger>
-              <HoverCardContent>
-                <p>{project.description}</p>
-              </HoverCardContent>
-            </HoverCard>
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                </CardContent>
+                
+                <CardFooter className="p-4 sm:p-6 mt-auto">
+                  <div className="flex gap-3 w-full">
+                    <Button 
+                      size="sm"
+                      className="flex-1 bg-gradient-to-r from-[#E3B6B1] to-[#FFE3DC] text-[#150016] hover:opacity-90 text-xs sm:text-sm hover:scale-105 transition-all duration-300 hover:shadow-lg"
+                      onClick={() => handleProjectAction(project.liveUrl, 'demo')}
+                    >
+                      <ExternalLink size={14} className="mr-1 sm:mr-2" />
+                      Live Demo
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      className="border-[#E3B6B1] text-[#E3B6B1] hover:bg-[#E3B6B1] hover:text-[#150016] px-3 hover:scale-105 transition-all duration-300"
+                      onClick={() => handleProjectAction(project.githubUrl, 'github')}
+                      aria-label={`View ${project.title} on GitHub`}
+                    >
+                      <Github size={14} />
+                    </Button>
+                  </div>
+                </CardFooter>
+              </Card>
             ))}
           </div>
           
-          {/* Enhanced CTA button */}
+          {/* Enhanced CTA button - Fixed spacing to move with grid */}
           <div 
-            className="text-center mt-10 sm:mt-12 animate-fade-in"
-            style={{ animationDelay: isVisible ? '1.4s' : '0s' }}
+            className="text-center animate-fade-in"
+            style={{ 
+              animationDelay: isVisible ? '1.4s' : '0s',
+              transform: `translateY(${Math.max(0, (scrollY - 2000) * 0.05)}px)`
+            }}
           >
             <Button 
               variant="outline" 
               size="lg"
-              className="border-[#E3B6B1] text-[#E3B6B1] hover:bg-[#E3B6B1] hover:text-[#150016] hover:scale-105 transition-all duration-300 hover:shadow-lg hover:shadow-[#E3B6B1]/25"
+              className="border-blush text-blush hover:bg-blush hover:text-darkMaroon hover:scale-105 transition-all duration-300 hover:shadow-lg hover:shadow-blush/25 font-montserrat"
               onClick={() => console.log('View all projects')}
             >
               View All Projects

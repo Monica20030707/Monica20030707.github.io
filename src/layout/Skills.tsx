@@ -1,4 +1,3 @@
-import { Code, Coffee } from "lucide-react";
 import { ImageWithFallback } from "../components/ImageWithFallback";
 import { useScrollAnimation } from "../utils/useScrollAnimation";
 import { useEffect, useState } from "react";
@@ -22,42 +21,38 @@ export function Skills() {
 
   // Technology data with names and brand colors
   const frontendTechs = [
-    { name: "React", color: "#61DAFB", symbol: <Code /> },
-    { name: "TypeScript", color: "#3178C6", symbol: <Code /> },
-    { name: "Next.js", color: "#FFFFFF", symbol: <Code /> },
-    { name: "Vue.js", color: "#4FC08D", symbol: <Code /> },
-    { name: "Tailwind", color: "#06B6D4", symbol: <Code /> },
-    { name: "SCSS", color: "#CF649A", symbol: <Code /> },
-    { name: "JavaScript", color: "#F7DF1E", symbol: <Code /> },
-    { name: "HTML5", color: "#E34F26", symbol: <Code /> },
-    { name: "CSS3", color: "#1572B6", symbol: <Code /> },
-    { name: "Motion", color: "#FF0055", symbol: <Code /> }
+    { name: "React", color: "#61DAFB", logo: "react" },
+    { name: "TypeScript", color: "#3178C6", logo: "typescript" },
+    { name: "Next.js", color: "#FFFFFF", logo: "nextjs" },
+    { name: "Vue.js", color: "#4FC08D", logo: "vue" },
+    { name: "Tailwind", color: "#06B6D4", logo: "tailwindcss" },
+    { name: "JavaScript", color: "#F7DF1E", logo: "javascript" },
+    { name: "Motion", color: "#FF0055", logo: "framer" }
   ];
   
   const backendTechs = [
-    { name: "Node.js", color: "#68A063", symbol: <Code /> },
-    { name: "Express", color: "#FFFFFF", symbol: <Code /> },
-    { name: "Python", color: "#306998", symbol: <Code /> },
-    { name: "Django", color: "#092E20", symbol: <Code /> },
-    { name: "PostgreSQL", color: "#336791", symbol: <Code /> },
-    { name: "MongoDB", color: "#47A248", symbol: <Code /> },
-    { name: "Redis", color: "#D82C20", symbol: <Code /> },
-    { name: "GraphQL", color: "#E10098", symbol: <Code /> },
-    { name: "REST API", color: "#FF6B35", symbol: <Code /> },
-    { name: "Prisma", color: "#FFFFFF", symbol: <Code /> }
+    { name: "Node.js", color: "#68A063", logo: "nodejs" },
+    { name: "Express", color: "#FFFFFF", logo: "express" },
+    { name: "Python", color: "#306998", logo: "python" },
+    { name: "Django", color: "#092E20", logo: "django" },
+    { name: "PostgreSQL", color: "#336791", logo: "postgresql" },
+    { name: "MongoDB", color: "#47A248", logo: "mongodb" },
+    { name: "Redis", color: "#D82C20", logo: "redis" },
+    { name: "GraphQL", color: "#E10098", logo: "graphql" },
+    { name: "Prisma", color: "#FFFFFF", logo: "prisma" }
   ];
   
   const toolsTechs = [
-    { name: "Git", color: "#F05032", symbol: <Code /> },
-    { name: "Docker", color: "#2496ED", symbol: <Code /> },
-    { name: "AWS", color: "#FF9900", symbol: <Code /> },
-    { name: "Vercel", color: "#FFFFFF", symbol: <Code /> },
-    { name: "Figma", color: "#F24E1E", symbol: <Code /> },
-    { name: "VS Code", color: "#007ACC", symbol: <Code /> },
-    { name: "Postman", color: "#FF6C37", symbol: <Code /> },
-    { name: "Jest", color: "#C21325", symbol: <Code /> },
-    { name: "Cypress", color: "#04C38E", symbol: <Code /> },
-    { name: "Webpack", color: "#8DD6F9", symbol: <Code /> }
+    { name: "Git", color: "#F05032", logo: "git" },
+    { name: "Docker", color: "#2496ED", logo: "docker" },
+    { name: "AWS", color: "#FF9900", logo: "aws" },
+    { name: "Vercel", color: "#FFFFFF", logo: "vercel" },
+    { name: "Figma", color: "#F24E1E", logo: "figma" },
+    { name: "VS Code", color: "#007ACC", logo: "vscode" },
+    { name: "Postman", color: "#FF6C37", logo: "postman" },
+    { name: "Jest", color: "#C21325", logo: "jest" },
+    { name: "Cypress", color: "#04C38E", logo: "cypress" },
+    { name: "Webpack", color: "#8DD6F9", logo: "webpack" }
   ];
 
   // Duplicate arrays for seamless scrolling
@@ -65,8 +60,8 @@ export function Skills() {
   const duplicatedBackend = [...backendTechs, ...backendTechs];
   const duplicatedTools = [...toolsTechs, ...toolsTechs];
 
-  const TechIcon = ({ tech, index, delay = 0 }: {
-    tech: { name: string; color: string; symbol: React.ReactNode },
+  const TechIcon = ({ tech, index, delay = 0 }: { 
+    tech: { name: string; color: string; logo: string }, 
     index: number,
     delay?: number 
   }) => (
@@ -80,26 +75,15 @@ export function Skills() {
       <div className="relative">
         {/* Icon container with enhanced hover effects */}
         <div 
-          className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-xl sm:rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 shadow-lg group-hover:shadow-xl backdrop-blur-sm hover:-translate-y-2"
+          className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-xl sm:rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 shadow-lg group-hover:shadow-xl backdrop-blur-md hover:-translate-y-2"
           style={{ 
-            backgroundColor: tech.name === "Next.js" || tech.name === "Express" || tech.name === "Prisma" || tech.name === "Vercel" 
-              ? `${tech.color}10` 
-              : `${tech.color}20`,
+            backgroundColor: 'rgba(255, 255, 255, 0.1)',
             border: `2px solid ${tech.color}60`,
             boxShadow: `0 0 20px ${tech.color}20`
           }}
         >
           {/* Tech icon/symbol */}
-          <div 
-            className="text-sm sm:text-xl lg:text-2xl font-bold transition-all duration-300 group-hover:scale-110"
-            style={{ 
-              color: tech.name === "Next.js" || tech.name === "Express" || tech.name === "Prisma" || tech.name === "Vercel" 
-                ? "#E3B6B1" 
-                : tech.color 
-            }}
-          >
-            {tech.symbol}
-          </div>
+          <img src={`https://raw.githubusercontent.com/gilbarbara/logos/main/logos/${tech.logo}.svg`} alt={tech.name} className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12" />
         </div>
         
         {/* Tech name label on hover */}
@@ -161,17 +145,17 @@ export function Skills() {
               animationDelay: isVisible ? '0.2s' : '0s'
             }}
           >
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-beige mb-4 font-montserrat">
               Skills & Technologies
             </h2>
             <p 
-              className="text-center text-gray-300 mb-6 sm:mb-8 text-sm sm:text-base animate-fade-in"
+              className="text-center text-beige/80 mb-6 sm:mb-8 text-sm sm:text-base animate-fade-in font-montserrat"
               style={{ animationDelay: isVisible ? '0.4s' : '0s' }}
             >
               Hover over any technology to pause the carousel • Scroll speed affects animation
             </p>
             <div 
-              className="w-16 sm:w-24 h-1 bg-gradient-to-r from-[#E3B6B1] to-[#FFE3DC] mx-auto animate-scale-in"
+              className="w-16 sm:w-24 h-1 bg-gradient-to-r from-blush to-beige mx-auto animate-scale-in"
               style={{ animationDelay: isVisible ? '0.6s' : '0s' }}
             />
           </div>
@@ -180,24 +164,38 @@ export function Skills() {
             {/* Frontend Row - Rolling Right with dynamic speed */}
             <div className="relative">
               <h3 
-                className="text-lg sm:text-xl font-semibold text-[#E3B6B1] mb-6 sm:mb-8 text-center animate-slide-in-left"
+                className="text-lg sm:text-xl font-semibold text-blush mb-6 sm:mb-8 text-center animate-slide-in-left font-montserrat"
                 style={{ animationDelay: isVisible ? '0.8s' : '0s' }}
               >
                 Frontend
               </h3>
               <div className="relative overflow-hidden py-2 sm:py-4">
-                {/* Enhanced gradient overlays */}
-                <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 lg:w-32 bg-gradient-to-r from-[#150016] via-[#150016] to-transparent pointer-events-none z-30" />
-                <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 lg:w-32 bg-gradient-to-l from-[#29104A] via-[#29104A] to-transparent pointer-events-none z-30" />
+                {/* Transparent blur overlays */}
                 <div 
-                  className="flex animate-scroll-right"
+                  className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 lg:w-32 backdrop-blur-sm bg-black/10 pointer-events-none z-30 transition-all duration-500"
+                  style={{
+                    opacity: isVisible ? 0.6 : 0.9,
+                    backdropFilter: `blur(${isVisible ? '4px' : '8px'})`
+                  }}
+                />
+                <div 
+                  className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 lg:w-32 backdrop-blur-sm bg-black/10 pointer-events-none z-30 transition-all duration-500"
+                  style={{
+                    opacity: isVisible ? 0.6 : 0.9,
+                    backdropFilter: `blur(${isVisible ? '4px' : '8px'})`
+                  }}
+                />
+                <div 
+                  className="flex animate-scroll-right transition-all duration-500"
                   style={{
                     animationDuration: `${30 / animationSpeed}s`,
-                    width: "fit-content"
+                    animationPlayState: isVisible ? 'running' : 'paused',
+                    filter: `blur(${isVisible ? '0px' : '2px'})`,
+                    opacity: isVisible ? 1 : 0.7
                   }}
                 >
                   {duplicatedFrontend.map((tech, index) => (
-                    <TechIcon key={`frontend-${tech.name}-${index}`} tech={tech} index={index} delay={1 + index * 0.05} />
+                    <TechIcon key={`frontend-${index}`} tech={tech} index={index} delay={1 + index * 0.05} />
                   ))}
                 </div>
               </div>
@@ -206,20 +204,34 @@ export function Skills() {
             {/* Backend Row - Rolling Left with dynamic speed */}
             <div className="relative">
               <h3 
-                className="text-lg sm:text-xl font-semibold text-[#E3B6B1] mb-6 sm:mb-8 text-center animate-slide-in-right"
+                className="text-lg sm:text-xl font-semibold text-blush mb-6 sm:mb-8 text-center animate-slide-in-right font-montserrat"
                 style={{ animationDelay: isVisible ? '1.2s' : '0s' }}
               >
                 Backend
               </h3>
               <div className="relative overflow-hidden py-2 sm:py-4">
-                {/* Enhanced gradient overlays */}
-                <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 lg:w-32 bg-gradient-to-r from-[#150016] via-[#150016] to-transparent pointer-events-none z-30" />
-                <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 lg:w-32 bg-gradient-to-l from-[#29104A] via-[#29104A] to-transparent pointer-events-none z-30" />
+                {/* Transparent blur overlays */}
                 <div 
-                  className="flex animate-scroll-left"
+                  className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 lg:w-32 backdrop-blur-sm bg-black/10 pointer-events-none z-30 transition-all duration-500"
+                  style={{
+                    opacity: isVisible ? 0.6 : 0.9,
+                    backdropFilter: `blur(${isVisible ? '4px' : '8px'})`
+                  }}
+                />
+                <div 
+                  className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 lg:w-32 backdrop-blur-sm bg-black/10 pointer-events-none z-30 transition-all duration-500"
+                  style={{
+                    opacity: isVisible ? 0.6 : 0.9,
+                    backdropFilter: `blur(${isVisible ? '4px' : '8px'})`
+                  }}
+                />
+                <div 
+                  className="flex animate-scroll-left transition-all duration-500"
                   style={{
                     animationDuration: `${25 / animationSpeed}s`,
-                    animationPlayState: 'running'
+                    animationPlayState: isVisible ? 'running' : 'paused',
+                    filter: `blur(${isVisible ? '0px' : '2px'})`,
+                    opacity: isVisible ? 1 : 0.7
                   }}
                 >
                   {duplicatedBackend.map((tech, index) => (
@@ -232,20 +244,34 @@ export function Skills() {
             {/* Tools Row - Rolling Right (Slower) with dynamic speed */}
             <div className="relative">
               <h3 
-                className="text-lg sm:text-xl font-semibold text-[#E3B6B1] mb-6 sm:mb-8 text-center animate-slide-in-left"
+                className="text-lg sm:text-xl font-semibold text-blush mb-6 sm:mb-8 text-center animate-slide-in-left font-montserrat"
                 style={{ animationDelay: isVisible ? '1.6s' : '0s' }}
               >
                 Tools & Other
               </h3>
               <div className="relative overflow-hidden py-2 sm:py-4">
-                {/* Enhanced gradient overlays */}
-                <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 lg:w-32 bg-gradient-to-r from-[#150016] via-[#150016] to-transparent pointer-events-none z-30" />
-                <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 lg:w-32 bg-gradient-to-l from-[#29104A] via-[#29104A] to-transparent pointer-events-none z-30" />
+                {/* Transparent blur overlays */}
                 <div 
-                  className="flex animate-scroll-right-slow"
+                  className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 lg:w-32 backdrop-blur-sm bg-black/10 pointer-events-none z-30 transition-all duration-500"
+                  style={{
+                    opacity: isVisible ? 0.6 : 0.9,
+                    backdropFilter: `blur(${isVisible ? '4px' : '8px'})`
+                  }}
+                />
+                <div 
+                  className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 lg:w-32 backdrop-blur-sm bg-black/10 pointer-events-none z-30 transition-all duration-500"
+                  style={{
+                    opacity: isVisible ? 0.6 : 0.9,
+                    backdropFilter: `blur(${isVisible ? '4px' : '8px'})`
+                  }}
+                />
+                <div 
+                  className="flex animate-scroll-right-slow transition-all duration-500"
                   style={{
                     animationDuration: `${40 / animationSpeed}s`,
-                    animationPlayState: 'running'
+                    animationPlayState: isVisible ? 'running' : 'paused',
+                    filter: `blur(${isVisible ? '0px' : '2px'})`,
+                    opacity: isVisible ? 1 : 0.7
                   }}
                 >
                   {duplicatedTools.map((tech, index) => (
