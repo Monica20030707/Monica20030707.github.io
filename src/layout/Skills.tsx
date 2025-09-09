@@ -27,7 +27,6 @@ export function Skills() {
     { name: "Vue.js", color: "#4FC08D", logo: "vue" },
     { name: "Tailwind", color: "#06B6D4", logo: "tailwindcss" },
     { name: "JavaScript", color: "#F7DF1E", logo: "javascript" },
-    { name: "Motion", color: "#FF0055", logo: "framer" }
   ];
   
   const backendTechs = [
@@ -152,7 +151,7 @@ export function Skills() {
               className="text-center text-beige/80 mb-6 sm:mb-8 text-sm sm:text-base animate-fade-in font-montserrat"
               style={{ animationDelay: isVisible ? '0.4s' : '0s' }}
             >
-              Hover over any technology to pause the carousel • Scroll speed affects animation
+              Here are some of the technologies I've worked with:
             </p>
             <div 
               className="w-16 sm:w-24 h-1 bg-gradient-to-r from-blush to-beige mx-auto animate-scale-in"

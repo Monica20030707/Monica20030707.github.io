@@ -2,7 +2,6 @@ import { Button } from "../components/button";
 import { Input } from "../components/input";
 import { Textarea } from "../components/textarea";
 import { Github, Linkedin, Mail } from "lucide-react";
-import handshakeIcon from "../assets/image/handshake_icon.png";
 import { useState } from "react";
 
 /**
@@ -98,7 +97,7 @@ export function Contact() {
                   aria-label="Handshake Profile"
                 >
                 <img 
-                  src={handshakeIcon} 
+                  src="/src/assets/image/handshake_icon.png"
                   alt="Handshake" 
                   className="w-6 h-7 group-hover:scale-110 transition-transform"
                 />

@@ -55,25 +55,28 @@ export function About() {
               className="animate-fade-in hover:text-beige transition-colors duration-300"
               style={{ animationDelay: isVisible ? '0.6s' : '0s' }}
             >
-              I'm a Software Engineering student deeply passionate about Machine Learning and Data Analytics. 
-              I love the challenge of turning raw data into meaningful insights that people can understand and use. 
-              One of my favorite projects was creating real-time stock graphs for a fintech app, making complex 
-              financial data simple and interactive.
+              Hey, I'm Thuy! I'm a recent Computer Science grad who's excited about building things 
+              that people actually enjoy using. Most of my work has been in full-stack web and mobile 
+              development, where I get to take an idea and turn it into something real, whether it's a 
+              polished app, a clean dashboard, or just a small feature that makes someone's day easier.
             </p>
             <p 
               className="animate-fade-in hover:text-beige transition-colors duration-300"
               style={{ animationDelay: isVisible ? '0.8s' : '0s' }}
             >
-              While my studies have built a strong foundation in software development, I'm currently exploring 
-              full-stack web and mobile development because I enjoy building tools that save time and make life easier. 
-              I believe technology should empower people to focus on what truly matters.
+              During my internships, I wore a lot of hats: jumping between front-end, backend, and even data work. 
+              That experience taught me to adapt quickly and stay curious, which I think is one of my biggest 
+              strengths. I like the challenge of picking up new tools or frameworks on the fly and figuring 
+              out how everything fits together.
             </p>
             <p 
               className="animate-fade-in hover:text-beige transition-colors duration-300"
               style={{ animationDelay: isVisible ? '1s' : '0s' }}
             >
-              I'm driven by curiosity and a love for learning, whether it's diving into new machine learning concepts 
-              or crafting user-friendly apps. For me, it's all about creating solutions that are both impactful and meaningful.
+              Outside of work, I love experimenting with game development. It's where I get to be playful
+               with my coding, try wild ideas, and push myself to learn without worrying too much about 
+               the “rules.” For me, building tech isn't just about solving problems, it's about creating experiences, 
+               whether that's a tool that helps someone save time or a little game that brings a smile.
             </p>
           </div>
         </div>

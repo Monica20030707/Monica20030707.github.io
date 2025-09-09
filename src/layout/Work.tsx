@@ -5,60 +5,70 @@ import { ExternalLink, Github } from "lucide-react";
 import { ImageWithFallback } from "../components/ImageWithFallback";
 import { useScrollAnimation } from "../utils/useScrollAnimation";
 
+interface Project {
+  title: string;
+  description: string;
+  image: string;
+  tags: string[];
+  liveUrl?: string;
+  githubUrl?: string;
+}
+
 export function Work() {
   const { scrollY, isVisible, elementRef } = useScrollAnimation();
 
-  const projects = [
+  const projects: Project[] = [
     {
-      title: "Stock tracking Dashboard",
-      description: "Used JPMorgan Chase open-source library called Perspective to generate a live graph that displays a data feed in a clear and visually appealing way for traders to monitor.",
-      image: "/src/assets/image/project_stockDashboard.jpg",
-      tags: ["Python", "Typescript"],
-      liveUrl: "https://dashboard-demo.example.com",
-      githubUrl: "https://github.com/monicanguyen/analytics-dashboard"
-    },
-    {
-      title: "Traffic Violation Tracker",
-      description: "Developed a traffic violation detection system collecting cctv street camera using AWS S3 for storing license plate images with metadata, integrating California DMV data to identify vehicles, classify violations, and send automated email notices with ticket details.",
-      image: "/src/assets/image/project_licenseReader.jpg",
+      title: "Frailty Tester",
+      description: "An AI-powered health assessment tool built from scratch to help seniors evaluate balance and mobility at home. Using real-time pose detection, the app guides users through structured balance tests and delivers immediate, actionable feedback on their stability and wellness.",
+      image: "src/assets/image/project_frailtyTester.jpg",
       tags: ["AWS Services"],
-      liveUrl: "https://bankingapp-demo.example.com",
-      githubUrl: "https://github.com/monicanguyen/mobile-banking"
-    },
-    {
-      title: "Read Handwritten Dataset",
-      description: "Built an Artificial Neural Network (ANN) from scratch using Backpropagation to classify handwritten digits (0-9).",
-      image: "/src/assets/image/project_MLdata.jpg",
-      tags: ["Python", "Machine Learning"],
-      liveUrl: "https://ecommerce-demo.example.com",
-      githubUrl: "https://github.com/monicanguyen/ecommerce-platform"
+      liveUrl: "https://main.d22cx9qmwqrer1.amplifyapp.com/",
     },
     {
       title: "OrangeLeaf",
-      description: "A converter that automatically transforms DOCX files into PDF and update the README files upon upload to GitHub.",
+      description: "A smart LaTeX-to-PDF converter with automated GitHub integration. On every upload, the system not only compiles LaTeX files into clean PDFs but also updates README files seamlessly, streamlining document workflows for developers and researchers.",
       image: "src/assets/image/project_orangeLeaf.jpg",
       tags: ["Python"],
-      liveUrl: "https://ml-model-demo.example.com",
-      githubUrl: "https://github.com/monicanguyen/ml-housing-prediction"
+      githubUrl: "https://github.com/Monica20030707/OrangeLeaf"
+    },
+    {
+      title: "Stock Tracking Dashboard",
+      description: "Built an interactive stock monitoring dashboard using JPMorgan Chase's open-source library, Perspective. The system visualizes live financial data streams with clear, responsive charts, enabling traders to track market fluctuations in real time with intuitive insights.",
+      image: "/src/assets/image/project_stockDashboard.jpg",
+      tags: ["Python", "Typescript"],
+      githubUrl: "https://github.com/Monica20030707/tradingDashboard-UI"
+    },
+    {
+      title: "Traffic Violation Tracker",
+      description: "Developed an automated violation detection platform powered by AWS. Street camera feeds were processed via S3 for image storage, then matched against California DMV data to classify offenses and issue email ticket notices—all fully automated through regex-driven plate parsing and AWS EventBridge orchestration.",
+      image: "/src/assets/image/project_licenseReader.jpg",
+      tags: ["AWS Services"],
+      githubUrl: "https://github.com/Monica20030707/AWS_rekonigition-N-read-database"
+    },
+    {
+      title: "Read Handwritten Dataset",
+      description: "Built an Artificial Neural Network (ANN) completely from scratch to recognize digits (0-9) from the MNIST dataset. Implemented backpropagation manually, achieving over 90% accuracy while gaining a deep understanding of core machine learning principles.",
+      image: "/src/assets/image/project_MLdata.jpg",
+      tags: ["Python", "Machine Learning"],
+      githubUrl: "https://github.com/Monica20030707/Artificial-Neutral-Network_ML"
     },
     {
       title: "Reverse Polish Calculator",
-      description: "A social media analytics tool that tracks engagement metrics, sentiment analysis, and provides insights through interactive data visualizations.",
+      description: "A Java-based calculator built with ANTLR that interprets and evaluates Reverse Polish Notation expressions. Designed from the ground up to handle Unicode symbols, the program translates inputs from reverse order to standard notation before computing results with precision.",
       image: "src/assets/image/project_reversePcalculator.jpg",
-      tags: ["Java"],
-      liveUrl: "https://social-analytics-demo.example.com",
-      githubUrl: "https://github.com/monicanguyen/social-media-analytics"
+      tags: ["Java","ANTLR"],
+      githubUrl: "https://github.com/Monica20030707/reverse-Polish_calculator"
     }
   ];
 
   const handleProjectAction = (url: string, action: string) => {
     if (action === 'demo') {
-      // In a real app, these would be actual URLs
       console.log('Opening demo:', url);
-      // window.open(url, '_blank', 'noopener,noreferrer');
+      window.open(url, '_blank', 'noopener,noreferrer');
     } else if (action === 'github') {
       console.log('Opening GitHub:', url);
-      // window.open(url, '_blank', 'noopener,noreferrer');
+      window.open(url, '_blank', 'noopener,noreferrer');
     }
   };
 
@@ -131,20 +141,24 @@ export function Work() {
                       {/* Floating action buttons on hover */}
                       <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
                         <div className="flex gap-2">
-                          <button
-                            onClick={() => handleProjectAction(project.liveUrl, 'demo')}
-                            className="p-2 bg-[#E3B6B1]/90 rounded-full hover:bg-[#E3B6B1] transition-colors backdrop-blur-sm"
-                            aria-label="View demo"
-                          >
-                            <ExternalLink size={14} className="text-[#150016]" />
-                          </button>
-                          <button
-                            onClick={() => handleProjectAction(project.githubUrl, 'github')}
-                            className="p-2 bg-[#E3B6B1]/90 rounded-full hover:bg-[#E3B6B1] transition-colors backdrop-blur-sm"
-                            aria-label="View code"
-                          >
-                            <Github size={14} className="text-[#150016]" />
-                          </button>
+                          {project.liveUrl && (
+                            <button
+                              onClick={() => handleProjectAction(project.liveUrl, 'demo')}
+                              className="p-2 bg-[#E3B6B1]/90 rounded-full hover:bg-[#E3B6B1] transition-colors backdrop-blur-sm"
+                              aria-label="View demo"
+                            >
+                              <ExternalLink size={14} className="text-[#150016]" />
+                            </button>
+                          )}
+                          {project.githubUrl && (
+                            <button
+                              onClick={() => handleProjectAction(project.githubUrl, 'github')}
+                              className="p-2 bg-[#E3B6B1]/90 rounded-full hover:bg-[#E3B6B1] transition-colors backdrop-blur-sm"
+                              aria-label="View code"
+                            >
+                              <Github size={14} className="text-[#150016]" />
+                            </button>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -172,23 +186,52 @@ export function Work() {
                   
                   <CardFooter className="p-4 sm:p-6 mt-auto">
                     <div className="flex gap-3 w-full">
-                      <Button 
-                        size="sm"
-                        className="flex-1 bg-gradient-to-r from-[#E3B6B1] to-[#FFE3DC] text-[#150016] hover:opacity-90 text-xs sm:text-sm hover:scale-105 transition-all duration-300 hover:shadow-lg"
-                        onClick={() => handleProjectAction(project.liveUrl, 'demo')}
-                      >
-                        <ExternalLink size={14} className="mr-1 sm:mr-2" />
-                        Live Demo
-                      </Button>
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        className="border-[#E3B6B1] text-[#E3B6B1] hover:bg-[#E3B6B1] hover:text-[#150016] px-3 hover:scale-105 transition-all duration-300"
-                        onClick={() => handleProjectAction(project.githubUrl, 'github')}
-                        aria-label={`View ${project.title} on GitHub`}
-                      >
-                        <Github size={14} />
-                      </Button>
+                      {/* Case 1: Both links exist */}
+                      {project.githubUrl && project.liveUrl && (
+                        <>
+                          <Button 
+                            size="sm"
+                            className="flex-1 bg-gradient-to-r from-[#E3B6B1] to-[#FFE3DC] text-[#150016] hover:opacity-90 text-xs sm:text-sm hover:scale-105 transition-all duration-300 hover:shadow-lg"
+                            onClick={() => handleProjectAction(project.githubUrl, 'github')}
+                          >
+                            <Github size={14} className="mr-1 sm:mr-2" />
+                            GitHub
+                          </Button>
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            className="border-[#E3B6B1] text-[#E3B6B1] hover:bg-[#E3B6B1] hover:text-[#150016] px-3 hover:scale-105 transition-all duration-300"
+                            onClick={() => handleProjectAction(project.liveUrl, 'demo')}
+                            aria-label={`View ${project.title} live demo`}
+                          >
+                            <ExternalLink size={14} />
+                          </Button>
+                        </>
+                      )}
+
+                      {/* Case 2: Only GitHub link exists */}
+                      {project.githubUrl && !project.liveUrl && (
+                        <Button 
+                          size="sm"
+                          className="flex-1 bg-gradient-to-r from-[#E3B6B1] to-[#FFE3DC] text-[#150016] hover:opacity-90 text-xs sm:text-sm hover:scale-105 transition-all duration-300 hover:shadow-lg"
+                          onClick={() => handleProjectAction(project.githubUrl, 'github')}
+                        >
+                          <Github size={14} className="mr-1 sm:mr-2" />
+                          GitHub
+                        </Button>
+                      )}
+
+                      {/* Case 3: Only Live Demo link exists */}
+                      {!project.githubUrl && project.liveUrl && (
+                        <Button 
+                          size="sm"
+                          className="flex-1 bg-gradient-to-r from-[#E3B6B1] to-[#FFE3DC] text-[#150016] hover:opacity-90 text-xs sm:text-sm hover:scale-105 transition-all duration-300 hover:shadow-lg"
+                          onClick={() => handleProjectAction(project.liveUrl, 'demo')}
+                        >
+                          <ExternalLink size={14} className="mr-1 sm:mr-2" />
+                          Live Demo
+                        </Button>
+                      )}
                     </div>
                   </CardFooter>
                 </Card>
@@ -204,14 +247,22 @@ export function Work() {
               transform: `translateY(${Math.max(0, (scrollY - 2000) * 0.05)}px)`
             }}
           >
-            <Button 
-              variant="outline" 
-              size="lg"
-              className="border-blush text-blush hover:bg-blush hover:text-darkMaroon hover:scale-105 transition-all duration-300 hover:shadow-lg hover:shadow-blush/25 font-montserrat"
-              onClick={() => console.log('View all projects')}
-            >
-              View All Projects
-            </Button>
+  {/* <Button                                                                                       
+     variant="outline"                                                                                          
+    size="lg"                                                                                                  
+    className="border-blush text-blush hover:bg-blush hover:text-darkMaroon hover:scale-105 transition-all     
+                    /* <Button 
+            variant="outline" 
+            size="lg"
+            className="border-blush text-blush hover:bg-blush hover:text-darkMaroon hover:scale-105 transition-all duration-300 hover:shadow-lg hover:shadow-blush/25 font-montserrat"
+            onClick={() => console.log('View all projects')}
+          >
+            View All Projects
+          </Button> duration-300 hover:shadow-lg hover:shadow-blush/25 font-montserrat"                                          
+    onClick={() => console.log('View all projects')}                                                           
+   >                                                                                                            
+   View All Projects                                          
+  </Button> */}      
           </div>
         </div>
       </div>

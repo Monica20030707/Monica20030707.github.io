@@ -36,7 +36,7 @@ export function Hero() {
   // Handle CTA button clicks with smooth scrolling
   const handleCTAClick = (action: string) => {
     if (action === 'work') {
-      const projectsSection = document.querySelector('#projects');
+      const projectsSection = document.querySelector('#work');
       if (projectsSection) {
         projectsSection.scrollIntoView({ behavior: 'smooth' });
       }
