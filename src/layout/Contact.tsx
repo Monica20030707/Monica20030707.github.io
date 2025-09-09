@@ -97,7 +97,7 @@ export function Contact() {
                   aria-label="Handshake Profile"
                 >
                 <img 
-                  src="/src/assets/image/handshake_icon.png"
+                  src="/image/handshake_icon.png"
                   alt="Handshake" 
                   className="w-6 h-7 group-hover:scale-110 transition-transform"
                 />

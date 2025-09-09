@@ -47,7 +47,7 @@ export function Skills() {
     { name: "AWS", color: "#FF9900", logo: "aws" },
     { name: "Vercel", color: "#FFFFFF", logo: "vercel" },
     { name: "Figma", color: "#F24E1E", logo: "figma" },
-    { name: "VS Code", color: "#007ACC", logo: "/src/assets/image/vsCode_icon.png", isLocal: true },
+    { name: "VS Code", color: "#007ACC", logo: "/image/vsCode_icon.png", isLocal: true },
     { name: "Postman", color: "#FF6C37", logo: "postman" },
     { name: "Jest", color: "#C21325", logo: "jest" },
     { name: "Cypress", color: "#04C38E", logo: "cypress" },

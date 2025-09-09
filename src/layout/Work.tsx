@@ -21,42 +21,42 @@ export function Work() {
     {
       title: "Frailty Tester",
       description: "An AI-powered health assessment tool built from scratch to help seniors evaluate balance and mobility at home. Using real-time pose detection, the app guides users through structured balance tests and delivers immediate, actionable feedback on their stability and wellness.",
-      image: "src/assets/image/project_frailtyTester.jpg",
+      image: "/image/project_frailtyTester.jpg",
       tags: ["AWS Services"],
       liveUrl: "https://main.d22cx9qmwqrer1.amplifyapp.com/",
     },
     {
       title: "OrangeLeaf",
       description: "A smart LaTeX-to-PDF converter with automated GitHub integration. On every upload, the system not only compiles LaTeX files into clean PDFs but also updates README files seamlessly, streamlining document workflows for developers and researchers.",
-      image: "src/assets/image/project_orangeLeaf.jpg",
+      image: "/image/project_orangeLeaf.jpg",
       tags: ["Python"],
       githubUrl: "https://github.com/Monica20030707/OrangeLeaf"
     },
     {
       title: "Stock Tracking Dashboard",
       description: "Built an interactive stock monitoring dashboard using JPMorgan Chase's open-source library, Perspective. The system visualizes live financial data streams with clear, responsive charts, enabling traders to track market fluctuations in real time with intuitive insights.",
-      image: "/src/assets/image/project_stockDashboard.jpg",
+      image: "/image/project_stockDashboard.jpg",
       tags: ["Python", "Typescript"],
       githubUrl: "https://github.com/Monica20030707/tradingDashboard-UI"
     },
     {
       title: "Traffic Violation Tracker",
       description: "Developed an automated violation detection platform powered by AWS. Street camera feeds were processed via S3 for image storage, then matched against California DMV data to classify offenses and issue email ticket notices—all fully automated through regex-driven plate parsing and AWS EventBridge orchestration.",
-      image: "/src/assets/image/project_licenseReader.jpg",
+      image: "/image/project_licenseReader.jpg",
       tags: ["AWS Services"],
       githubUrl: "https://github.com/Monica20030707/AWS_rekonigition-N-read-database"
     },
     {
       title: "Read Handwritten Dataset",
       description: "Built an Artificial Neural Network (ANN) completely from scratch to recognize digits (0-9) from the MNIST dataset. Implemented backpropagation manually, achieving over 90% accuracy while gaining a deep understanding of core machine learning principles.",
-      image: "/src/assets/image/project_MLdata.jpg",
+      image: "/image/project_MLdata.jpg",
       tags: ["Python", "Machine Learning"],
       githubUrl: "https://github.com/Monica20030707/Artificial-Neutral-Network_ML"
     },
     {
       title: "Reverse Polish Calculator",
       description: "A Java-based calculator built with ANTLR that interprets and evaluates Reverse Polish Notation expressions. Designed from the ground up to handle Unicode symbols, the program translates inputs from reverse order to standard notation before computing results with precision.",
-      image: "src/assets/image/project_reversePcalculator.jpg",
+      image: "/image/project_reversePcalculator.jpg",
       tags: ["Java","ANTLR"],
       githubUrl: "https://github.com/Monica20030707/reverse-Polish_calculator"
     }
@@ -260,7 +260,7 @@ export function Work() {
             View All Projects
           </Button> duration-300 hover:shadow-lg hover:shadow-blush/25 font-montserrat"                                          
     onClick={() => console.log('View all projects')}                                                           
-   >                                                                                                            
+   >
    View All Projects                                          
   </Button> */}      
           </div>
