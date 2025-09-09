@@ -115,7 +115,7 @@ export function Contact() {
             {/* Direct contact info */}
             <div className="bg-gradient-to-r from-wine/20 to-plum/20 backdrop-blur-sm rounded-2xl p-6 border border-wine/30 animate-slide-in-left" style={{ animationDelay: '0.9s' }}>
               <h3 className="text-xl text-beige mb-3 font-montserrat">
-                📧 Direct Contact
+                <span role="img" aria-label="email emoji">📧</span> Direct Contact
               </h3>
               <a 
                 href="mailto:thuybohr@gmail.com" 
@@ -184,7 +184,7 @@ export function Contact() {
         <div className="mt-20 pt-8 border-t border-gradient-to-r from-wine/50 to-plum/30 text-center">
           <div className="space-y-4 animate-fade-in" style={{ animationDelay: '1.2s' }}>
             <p className="text-beige/80 font-montserrat">
-              Built with ❤️ using React & Tailwind CSS
+              Built with <span role="img" aria-label="heart emoji">❤️</span> using React & Tailwind CSS
             </p>
             <p className="text-beige/60 text-sm font-montserrat">
               © 2025 Monica Nguyen. All rights reserved.

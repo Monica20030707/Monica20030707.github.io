@@ -27,6 +27,11 @@ export function Skills() {
     { name: "Vue.js", color: "#4FC08D", logo: "vue" },
     { name: "Tailwind", color: "#06B6D4", logo: "tailwindcss" },
     { name: "JavaScript", color: "#F7DF1E", logo: "javascript" },
+    { name: "Node.js", color: "#68A063", logo: "nodejs" },
+    { name: "Redux", color: "#764ABC", logo: "redux" },
+    { name: "Amplify", color: "#FF9900", logo: "aws-amplify" },
+    { name: "HTML5", color: "#E34F26", logo: "/image/HTML_icon.png", isLocal: true },
+    { name: "CSS3", color: "#1572B6", logo: "/image/CSS_icon.png", isLocal: true }
   ];
   
   const backendTechs = [
@@ -34,24 +39,29 @@ export function Skills() {
     { name: "Express", color: "#FFFFFF", logo: "express" },
     { name: "Python", color: "#306998", logo: "python" },
     { name: "Django", color: "#092E20", logo: "django" },
+    { name: "Go", color: "#00ADD8", logo: "go" },
+    { name: "MySQL", color: "#4479A1", logo: "mysql" },
     { name: "PostgreSQL", color: "#336791", logo: "postgresql" },
     { name: "MongoDB", color: "#47A248", logo: "mongodb" },
     { name: "Redis", color: "#D82C20", logo: "redis" },
     { name: "GraphQL", color: "#E10098", logo: "graphql" },
-    { name: "Prisma", color: "#FFFFFF", logo: "prisma" }
+    //{ name: "Prisma", color: "#FFFFFF", logo: "prisma" }
   ];
   
   const toolsTechs = [
     { name: "Git", color: "#F05032", logo: "git" },
     { name: "Docker", color: "#2496ED", logo: "docker" },
     { name: "AWS", color: "#FF9900", logo: "aws" },
-    { name: "Vercel", color: "#FFFFFF", logo: "vercel" },
+    { name: "Electron", color: "#47848F", logo: "electron" },
+    { name: "Kotlin", color: "#7F52FF", logo: "kotlin" },
+    { name: "Unreal Engine", color: "#FFFFFF", logo: "unrealengine" },
+    //{ name: "Vercel", color: "#FFFFFF", logo: "vercel" },
     { name: "Figma", color: "#F24E1E", logo: "figma" },
     { name: "VS Code", color: "#007ACC", logo: "/image/vsCode_icon.png", isLocal: true },
     { name: "Postman", color: "#FF6C37", logo: "postman" },
     { name: "Jest", color: "#C21325", logo: "jest" },
-    { name: "Cypress", color: "#04C38E", logo: "cypress" },
-    { name: "Webpack", color: "#8DD6F9", logo: "webpack" }
+    //{ name: "Cypress", color: "#04C38E", logo: "cypress" },
+    //{ name: "Webpack", color: "#8DD6F9", logo: "webpack" }
   ];
 
   // Duplicate arrays for seamless scrolling
