@@ -106,7 +106,7 @@ export function Hero() {
               }}
             >
               <span className="bg-gradient-to-r from-blush to-beige bg-clip-text text-transparent font-medium text-lg sm:text-xl font-montserrat">
-                Hello <span role="img" aria-label="waving hand">👋</span>, I'm
+                Hello <span role="img" aria-label="waving hand">&#x1F44B;</span>, I'm
               </span>
             </div>
             <h1 
@@ -131,7 +131,7 @@ export function Hero() {
                 animationDelay: isVisible ? '0.7s' : '0s'
               }}
             >
-              <span role="img" aria-label="location pin">📍</span>
+              <span role="img" aria-label="location pin">&#x1F4CD;</span>
               <span className="text-base sm:text-lg">Seattle, Washington</span>
             </div>
           </div>
