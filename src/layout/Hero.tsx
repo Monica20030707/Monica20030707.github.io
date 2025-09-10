@@ -106,7 +106,7 @@ export function Hero() {
               }}
             >
               <span className="bg-gradient-to-r from-blush to-beige bg-clip-text text-transparent font-medium text-lg sm:text-xl font-montserrat">
-                Hello <span role="img" aria-label="waving hand">&#x1F44B;</span>, I'm
+                Hello, I'm
               </span>
             </div>
             <h1 

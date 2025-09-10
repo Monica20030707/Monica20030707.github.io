@@ -1,23 +1,9 @@
 import { ImageWithFallback } from "../components/ImageWithFallback";
 import { useScrollAnimation } from "../utils/useScrollAnimation";
-import { useEffect, useState } from "react";
 
 export function Skills() {
-  const { scrollY, isVisible, elementRef } = useScrollAnimation();
-  const [animationSpeed, setAnimationSpeed] = useState(1);
-
-  // Dynamic animation speed based on scroll position
-  useEffect(() => {
-    if (elementRef.current) {
-      const rect = elementRef.current.getBoundingClientRect();
-      const inView = rect.top < window.innerHeight && rect.bottom > 0;
-      
-      if (inView) {
-        const scrollProgress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / window.innerHeight));
-        setAnimationSpeed(0.3 + scrollProgress * 0.7); // Vary speed from 0.3x to 1x based on visibility
-      }
-    }
-  }, [scrollY, elementRef]);
+  const { isVisible, elementRef } = useScrollAnimation();
+  const animationSpeed = 1;
 
   // Technology data with names and brand colors
   const frontendTechs = [
@@ -135,9 +121,6 @@ export function Skills() {
       {/* Enhanced background decoration with scroll-based movement */}
       <div 
         className="absolute inset-0 opacity-5"
-        style={{
-          transform: `translateY(${scrollY * 0.1}px)`
-        }}
       >
         <div className="absolute top-20 left-10 w-64 h-64 bg-[#E3B6B1] rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-20 right-10 w-80 h-80 bg-[#845162] rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
@@ -150,7 +133,6 @@ export function Skills() {
           <div 
             className="text-center mb-12 sm:mb-16 animate-fade-in"
             style={{
-              transform: `translateY(${Math.max(0, (scrollY - 500) * 0.1)}px)`,
               animationDelay: isVisible ? '0.2s' : '0s'
             }}
           >
