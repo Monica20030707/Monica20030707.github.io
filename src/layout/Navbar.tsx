@@ -34,8 +34,8 @@ export function Navbar() {
 
   // Navigation items for the right side - only Works, About Me, Contact
   const navItems = [
-    { label: "Works", href: "#work" },
     { label: "About Me", href: "#about" },
+    { label: "Works", href: "#work" },
     { label: "Contact", href: "#contact" }
   ];
 
