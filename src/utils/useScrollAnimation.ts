@@ -2,7 +2,20 @@ import { useEffect, useState, useRef } from 'react';
 
 export function useScrollAnimation() {
   const [isVisible, setIsVisible] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
   const elementRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
@@ -29,7 +42,7 @@ export function useScrollAnimation() {
     };
   }, []);
 
-  return { isVisible, elementRef };
+  return { isVisible, elementRef, scrollY };
 }
 
 export function useParallax(speed: number = 0.5) {

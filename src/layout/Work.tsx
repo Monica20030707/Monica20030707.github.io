@@ -143,7 +143,7 @@ export function Work() {
                         <div className="flex gap-2">
                           {project.liveUrl && (
                             <button
-                              onClick={() => handleProjectAction(project.liveUrl, 'demo')}
+                              onClick={() => project.liveUrl && handleProjectAction(project.liveUrl, 'demo')}
                               className="p-2 bg-[#E3B6B1]/90 rounded-full hover:bg-[#E3B6B1] transition-colors backdrop-blur-sm"
                               aria-label="View demo"
                             >
@@ -152,7 +152,7 @@ export function Work() {
                           )}
                           {project.githubUrl && (
                             <button
-                              onClick={() => handleProjectAction(project.githubUrl, 'github')}
+                              onClick={() => project.githubUrl && handleProjectAction(project.githubUrl, 'github')}
                               className="p-2 bg-[#E3B6B1]/90 rounded-full hover:bg-[#E3B6B1] transition-colors backdrop-blur-sm"
                               aria-label="View code"
                             >
@@ -192,7 +192,7 @@ export function Work() {
                           <Button 
                             size="sm"
                             className="flex-1 bg-gradient-to-r from-[#E3B6B1] to-[#FFE3DC] text-[#150016] hover:opacity-90 text-xs sm:text-sm hover:scale-105 transition-all duration-300 hover:shadow-lg"
-                            onClick={() => handleProjectAction(project.githubUrl, 'github')}
+                            onClick={() => project.githubUrl && handleProjectAction(project.githubUrl, 'github')}
                           >
                             <Github size={14} className="mr-1 sm:mr-2" />
                             GitHub
@@ -201,7 +201,7 @@ export function Work() {
                             variant="outline" 
                             size="sm"
                             className="border-[#E3B6B1] text-[#E3B6B1] hover:bg-[#E3B6B1] hover:text-[#150016] px-3 hover:scale-105 transition-all duration-300"
-                            onClick={() => handleProjectAction(project.liveUrl, 'demo')}
+                            onClick={() => project.liveUrl && handleProjectAction(project.liveUrl, 'demo')}
                             aria-label={`View ${project.title} live demo`}
                           >
                             <ExternalLink size={14} />
@@ -214,7 +214,7 @@ export function Work() {
                         <Button 
                           size="sm"
                           className="flex-1 bg-gradient-to-r from-[#E3B6B1] to-[#FFE3DC] text-[#150016] hover:opacity-90 text-xs sm:text-sm hover:scale-105 transition-all duration-300 hover:shadow-lg"
-                          onClick={() => handleProjectAction(project.githubUrl, 'github')}
+                          onClick={() => project.githubUrl && handleProjectAction(project.githubUrl, 'github')}
                         >
                           <Github size={14} className="mr-1 sm:mr-2" />
                           GitHub
@@ -226,7 +226,7 @@ export function Work() {
                         <Button 
                           size="sm"
                           className="flex-1 bg-gradient-to-r from-[#E3B6B1] to-[#FFE3DC] text-[#150016] hover:opacity-90 text-xs sm:text-sm hover:scale-105 transition-all duration-300 hover:shadow-lg"
-                          onClick={() => handleProjectAction(project.liveUrl, 'demo')}
+                          onClick={() => project.liveUrl && handleProjectAction(project.liveUrl, 'demo')}
                         >
                           <ExternalLink size={14} className="mr-1 sm:mr-2" />
                           Live Demo
