@@ -1,11 +1,13 @@
 import { useEffect, useState, useRef } from 'react';
 
-export function useScrollAnimation() {
+export function useScrollAnimation(trackScroll = false) {
   const [isVisible, setIsVisible] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const elementRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    if (!trackScroll) return;
+
     const handleScroll = () => {
       setScrollY(window.scrollY);
     };
@@ -15,7 +17,7 @@ export function useScrollAnimation() {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [trackScroll]);
 
   useEffect(() => {
     const observerCallback = (entries: IntersectionObserverEntry[]) => {

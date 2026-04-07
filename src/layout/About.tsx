@@ -10,7 +10,7 @@ import { useScrollAnimation } from "../utils/useScrollAnimation";
  * - Montserrat font for consistency
  */
 export function About() {
-  const { scrollY, isVisible, elementRef } = useScrollAnimation();
+  const { scrollY, isVisible, elementRef } = useScrollAnimation(true);
 
   return (
     <section 
@@ -38,22 +38,22 @@ export function About() {
             }}
           >
             <h2 
-              className="text-4xl lg:text-5xl font-bold text-beige mb-8 animate-fade-in font-montserrat"
-              style={{ animationDelay: isVisible ? '0.2s' : '0s' }}
+              className={`text-4xl lg:text-5xl font-bold text-beige mb-8 font-montserrat ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
+              style={{ animationDelay: '0.2s' }}
             >
               About Me
             </h2>
             <div 
-              className="w-24 h-1 bg-gradient-to-r from-blush to-beige mx-auto mb-12 animate-scale-in"
-              style={{ animationDelay: isVisible ? '0.4s' : '0s' }}
+              className={`w-24 h-1 bg-gradient-to-r from-blush to-beige mx-auto mb-12 ${isVisible ? 'animate-scale-in' : 'opacity-0'}`}
+              style={{ animationDelay: '0.4s' }}
             />
           </div>
           
           {/* Content - Monica's story */}
           <div className="space-y-6 text-lg text-beige/80 leading-relaxed font-montserrat">
             <p 
-              className="animate-fade-in hover:text-beige transition-colors duration-300"
-              style={{ animationDelay: isVisible ? '0.6s' : '0s' }}
+              className={`hover:text-beige transition-colors duration-300 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
+              style={{ animationDelay: '0.6s' }}
             >
               Hey, I'm Thuy! I'm a recent Computer Science grad who's excited about building things 
               that people actually enjoy using. Most of my work has been in full-stack web and mobile 
@@ -61,8 +61,8 @@ export function About() {
               polished app, a clean dashboard, or just a small feature that makes someone's day easier.
             </p>
             <p 
-              className="animate-fade-in hover:text-beige transition-colors duration-300"
-              style={{ animationDelay: isVisible ? '0.8s' : '0s' }}
+              className={`hover:text-beige transition-colors duration-300 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
+              style={{ animationDelay: '0.8s' }}
             >
               During my internships, I wore a lot of hats: jumping between front-end, backend, and even data work. 
               That experience taught me to adapt quickly and stay curious, which I think is one of my biggest 
@@ -70,8 +70,8 @@ export function About() {
               out how everything fits together.
             </p>
             <p 
-              className="animate-fade-in hover:text-beige transition-colors duration-300"
-              style={{ animationDelay: isVisible ? '1s' : '0s' }}
+              className={`hover:text-beige transition-colors duration-300 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
+              style={{ animationDelay: '1s' }}
             >
               Outside of work, I love experimenting with game development. It's where I get to be playful
                with my coding, try wild ideas, and push myself to learn without worrying too much about 

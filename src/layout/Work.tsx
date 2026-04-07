@@ -15,7 +15,7 @@ interface Project {
 }
 
 export function Work() {
-  const { scrollY, isVisible, elementRef } = useScrollAnimation();
+  const { scrollY, isVisible, elementRef } = useScrollAnimation(true);
 
   const projects: Project[] = [
     {
@@ -100,14 +100,14 @@ export function Work() {
             }}
           >
             <h2 
-              className="text-3xl sm:text-4xl lg:text-5xl font-bold text-beige text-center mb-6 sm:mb-8 animate-fade-in font-montserrat"
-              style={{ animationDelay: isVisible ? '0.2s' : '0s' }}
+              className={`text-3xl sm:text-4xl lg:text-5xl font-bold text-beige text-center mb-6 sm:mb-8 font-montserrat ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
+              style={{ animationDelay: '0.2s' }}
             >
               Featured Projects
             </h2>
             <div 
-              className="w-16 sm:w-24 h-1 bg-gradient-to-r from-blush to-beige mx-auto animate-scale-in"
-              style={{ animationDelay: isVisible ? '0.4s' : '0s' }}
+              className={`w-16 sm:w-24 h-1 bg-gradient-to-r from-blush to-beige mx-auto ${isVisible ? 'animate-scale-in' : 'opacity-0'}`}
+              style={{ animationDelay: '0.4s' }}
             />
           </div>
           
@@ -121,8 +121,8 @@ export function Work() {
             {projects.map((project, index) => (
               <div 
                 key={`project-wrapper-${index}`} 
-                className="group/card h-full flex flex-col animate-fade-in"
-                style={{ animationDelay: isVisible ? `${0.6 + index * 0.2}s` : '0s' }}
+                className={`group/card h-full flex flex-col ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
+                style={{ animationDelay: `${0.6 + index * 0.2}s` }}
               >
                 <Card 
                   key={`project-${index}`} 

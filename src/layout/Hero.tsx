@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
  * - Social media links with hover animations
  */
 export function Hero() {
-  const { scrollY, isVisible, elementRef } = useScrollAnimation();
+  const { scrollY, isVisible, elementRef } = useScrollAnimation(true);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   // Track mouse movement for interactive background elements
@@ -100,9 +100,9 @@ export function Hero() {
         >
           <div className="space-y-3 sm:space-y-4">
             <div 
-              className="inline-block animate-fade-in"
+              className={`inline-block ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
               style={{
-                animationDelay: isVisible ? '0.2s' : '0s'
+                animationDelay: '0.2s'
               }}
             >
               <span className="bg-gradient-to-r from-blush to-beige bg-clip-text text-transparent font-medium text-lg sm:text-xl font-montserrat">
@@ -110,25 +110,25 @@ export function Hero() {
               </span>
             </div>
             <h1 
-              className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight animate-slide-up font-tinos"
+              className={`text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight font-tinos ${isVisible ? 'animate-slide-up' : 'opacity-0'}`}
               style={{
-                animationDelay: isVisible ? '0.4s' : '0s'
+                animationDelay: '0.4s'
               }}
             >
               Monica Nguyen
             </h1>
             <h2 
-              className="text-xl sm:text-2xl lg:text-3xl text-blush font-medium animate-slide-up font-montserrat"
+              className={`text-xl sm:text-2xl lg:text-3xl text-blush font-medium font-montserrat ${isVisible ? 'animate-slide-up' : 'opacity-0'}`}
               style={{
-                animationDelay: isVisible ? '0.6s' : '0s'
+                animationDelay: '0.6s'
               }}
             >
               Associate Full Stack Engineer
             </h2>
             <div 
-              className="flex items-center justify-center lg:justify-start gap-2 text-beige/70 animate-fade-in font-montserrat"
+              className={`flex items-center justify-center lg:justify-start gap-2 text-beige/70 font-montserrat ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
               style={{
-                animationDelay: isVisible ? '0.7s' : '0s'
+                animationDelay: '0.7s'
               }}
             >
               <span role="img" aria-label="location pin">&#x1F4CD;</span>
@@ -137,9 +137,9 @@ export function Hero() {
           </div>
           
           <p 
-            className="text-lg sm:text-xl text-beige/80 max-w-2xl leading-relaxed mx-auto lg:mx-0 animate-fade-in font-montserrat"
+            className={`text-lg sm:text-xl text-beige/80 max-w-2xl leading-relaxed mx-auto lg:mx-0 font-montserrat ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
             style={{
-              animationDelay: isVisible ? '0.8s' : '0s'
+              animationDelay: '0.8s'
             }}
           >
             I create beautiful, functional web applications using modern technologies. 
@@ -148,9 +148,9 @@ export function Hero() {
           
           {/* CTA Buttons */}
           <div 
-            className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-in"
+            className={`flex flex-col sm:flex-row gap-4 justify-center lg:justify-start ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
             style={{
-              animationDelay: isVisible ? '1s' : '0s'
+              animationDelay: '1s'
             }}
           >
             <Button 
@@ -172,9 +172,9 @@ export function Hero() {
           
           {/* Social Links */}
           <div 
-            className="flex space-x-6 pt-6 sm:pt-8 justify-center lg:justify-start animate-fade-in"
+            className={`flex space-x-6 pt-6 sm:pt-8 justify-center lg:justify-start ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
             style={{
-              animationDelay: isVisible ? '1.2s' : '0s'
+              animationDelay: '1.2s'
             }}
           >
             {[
