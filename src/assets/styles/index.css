@@ -1,3 +1,4 @@
+/* Entry stylesheet — design tokens and utilities live in App.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

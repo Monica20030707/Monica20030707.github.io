@@ -1,269 +1,153 @@
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../components/card";
 import { Button } from "../components/button";
-import { Badge } from "../components/badge";
 import { ExternalLink, Github } from "lucide-react";
-import { ImageWithFallback } from "../components/ImageWithFallback";
-import { useScrollAnimation } from "../utils/useScrollAnimation";
 
 interface Project {
   title: string;
   description: string;
-  image: string;
   tags: string[];
   liveUrl?: string;
   githubUrl?: string;
+  featured?: boolean;
 }
 
+const projects: Project[] = [
+  {
+    title: "Frailty Tester",
+    description:
+      "An AI-powered health assessment tool that helps seniors evaluate balance and mobility at home with real-time pose detection and actionable feedback.",
+    tags: ["AWS Services"],
+    liveUrl: "https://main.d22cx9qmwqrer1.amplifyapp.com/",
+    featured: true,
+  },
+  {
+    title: "OrangeLeaf",
+    description:
+      "A smart LaTeX-to-PDF converter with automated GitHub integration that compiles documents and updates README files on every upload.",
+    tags: ["Python"],
+    githubUrl: "https://github.com/Monica20030707/OrangeLeaf",
+  },
+  {
+    title: "Stock Tracking Dashboard",
+    description:
+      "Interactive stock monitoring dashboard using Perspective to visualize live financial data streams with clear, responsive charts.",
+    tags: ["Python", "TypeScript"],
+    githubUrl: "https://github.com/Monica20030707/tradingDashboard-UI",
+  },
+  {
+    title: "Traffic Violation Tracker",
+    description:
+      "Automated violation detection on AWS: street camera feeds via S3, matched against DMV data, with EventBridge orchestration.",
+    tags: ["AWS Services"],
+    githubUrl:
+      "https://github.com/Monica20030707/AWS_rekonigition-N-read-database",
+  },
+  {
+    title: "Read Handwritten Dataset",
+    description:
+      "ANN built from scratch for MNIST digit recognition with manual backpropagation, reaching over 90% accuracy.",
+    tags: ["Python", "Machine Learning"],
+    githubUrl: "https://github.com/Monica20030707/Artificial-Neutral-Network_ML",
+  },
+  {
+    title: "Reverse Polish Calculator",
+    description:
+      "Java calculator with ANTLR that evaluates Reverse Polish Notation, including Unicode symbol handling.",
+    tags: ["Java", "ANTLR"],
+    githubUrl: "https://github.com/Monica20030707/reverse-Polish_calculator",
+  },
+];
+
 export function Work() {
-  const { scrollY, isVisible, elementRef } = useScrollAnimation(true);
-
-  const projects: Project[] = [
-    {
-      title: "Frailty Tester",
-      description: "An AI-powered health assessment tool built from scratch to help seniors evaluate balance and mobility at home. Using real-time pose detection, the app guides users through structured balance tests and delivers immediate, actionable feedback on their stability and wellness.",
-      image: "/image/project_frailtyTester.jpg",
-      tags: ["AWS Services"],
-      liveUrl: "https://main.d22cx9qmwqrer1.amplifyapp.com/",
-    },
-    {
-      title: "OrangeLeaf",
-      description: "A smart LaTeX-to-PDF converter with automated GitHub integration. On every upload, the system not only compiles LaTeX files into clean PDFs but also updates README files seamlessly, streamlining document workflows for developers and researchers.",
-      image: "/image/project_orangeLeaf.jpg",
-      tags: ["Python"],
-      githubUrl: "https://github.com/Monica20030707/OrangeLeaf"
-    },
-    {
-      title: "Stock Tracking Dashboard",
-      description: "Built an interactive stock monitoring dashboard using JPMorgan Chase's open-source library, Perspective. The system visualizes live financial data streams with clear, responsive charts, enabling traders to track market fluctuations in real time with intuitive insights.",
-      image: "/image/project_stockDashboard.jpg",
-      tags: ["Python", "Typescript"],
-      githubUrl: "https://github.com/Monica20030707/tradingDashboard-UI"
-    },
-    {
-      title: "Traffic Violation Tracker",
-      description: "Developed an automated violation detection platform powered by AWS. Street camera feeds were processed via S3 for image storage, then matched against California DMV data to classify offenses and issue email ticket notices—all fully automated through regex-driven plate parsing and AWS EventBridge orchestration.",
-      image: "/image/project_licenseReader.jpg",
-      tags: ["AWS Services"],
-      githubUrl: "https://github.com/Monica20030707/AWS_rekonigition-N-read-database"
-    },
-    {
-      title: "Read Handwritten Dataset",
-      description: "Built an Artificial Neural Network (ANN) completely from scratch to recognize digits (0-9) from the MNIST dataset. Implemented backpropagation manually, achieving over 90% accuracy while gaining a deep understanding of core machine learning principles.",
-      image: "/image/project_MLdata.jpg",
-      tags: ["Python", "Machine Learning"],
-      githubUrl: "https://github.com/Monica20030707/Artificial-Neutral-Network_ML"
-    },
-    {
-      title: "Reverse Polish Calculator",
-      description: "A Java-based calculator built with ANTLR that interprets and evaluates Reverse Polish Notation expressions. Designed from the ground up to handle Unicode symbols, the program translates inputs from reverse order to standard notation before computing results with precision.",
-      image: "/image/project_reversePcalculator.jpg",
-      tags: ["Java","ANTLR"],
-      githubUrl: "https://github.com/Monica20030707/reverse-Polish_calculator"
-    }
-  ];
-
-  const handleProjectAction = (url: string, action: string) => {
-    if (action === 'demo') {
-      console.log('Opening demo:', url);
-      window.open(url, '_blank', 'noopener,noreferrer');
-    } else if (action === 'github') {
-      console.log('Opening GitHub:', url);
-      window.open(url, '_blank', 'noopener,noreferrer');
-    }
-  };
-
   return (
-    <section 
-      ref={elementRef as React.RefObject<HTMLElement>}
-      className="py-16 sm:py-20 bg-gradient-to-b from-deepPurple to-plum relative overflow-hidden"
-    >
-      {/* Enhanced background with scroll-based parallax */}
-      <div 
-        className="absolute inset-0 opacity-5"
-        style={{
-          transform: `translateY(${scrollY * 0.08}px)`
-        }}
-      >
-        <div className="absolute top-32 left-16 w-64 h-64 bg-[#E3B6B1] rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-32 right-16 w-80 h-80 bg-[#FFE3DC] rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#845162] rounded-full blur-3xl animate-pulse" style={{ animationDelay: '4s' }} />
-      </div>
+    <section className="section-pad">
+      <div className="page-column-wide">
+        <h2 className="heading-lg text-ink text-center mb-3">
+          Featured projects
+        </h2>
+        <p className="text-body-sm text-body text-center mb-10 max-w-content mx-auto">
+          A few builds that show how I ship full-stack product.
+        </p>
 
-      <div className="container mx-auto px-4 sm:px-6 relative z-10">
-        <div className="max-w-6xl mx-auto">
-          {/* Enhanced header with scroll animation - Fixed spacing */}
-          <div
-            className="mb-20 sm:mb-24"
-            style={{
-              transform: `translateY(${Math.max(0, (scrollY - 1500) * 0.1)}px)`,
-              opacity: Math.max(0.3, 1 - Math.max(0, scrollY - 1500) * 0.002)
-            }}
-          >
-            <h2 
-              className={`text-3xl sm:text-4xl lg:text-5xl font-bold text-beige text-center mb-6 sm:mb-8 font-montserrat ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
-              style={{ animationDelay: '0.2s' }}
-            >
-              Featured Projects
-            </h2>
-            <div 
-              className={`w-16 sm:w-24 h-1 bg-gradient-to-r from-blush to-beige mx-auto ${isVisible ? 'animate-scale-in' : 'opacity-0'}`}
-              style={{ animationDelay: '0.4s' }}
-            />
-          </div>
-          
-          {/* Enhanced project grid with staggered animations - Fixed spacing to match header */}
-          <div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-20 sm:mb-24"
-            style={{
-              transform: `translateY(${Math.max(0, (scrollY - 2000) * 0.05)}px)`
-            }}
-          >
-            {projects.map((project, index) => (
-              <div 
-                key={`project-wrapper-${index}`} 
-                className={`group/card h-full flex flex-col ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
-                style={{ animationDelay: `${0.6 + index * 0.2}s` }}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {projects.map((project) => {
+            const isDark = project.featured;
+            return (
+              <article
+                key={project.title}
+                className={`flex flex-col rounded-lg border p-8 ${
+                  isDark
+                    ? "bg-surface-dark border-surface-dark text-on-dark"
+                    : "bg-canvas border-hairline text-ink"
+                }`}
               >
-                <Card 
-                  key={`project-${index}`} 
-                  className="bg-gradient-to-b from-[#150016] to-[#29104A] border-[#845162] group-hover/card:border-[#E3B6B1] transition-all duration-500 group group-hover/card:scale-105 group-hover/card:shadow-2xl group-hover/card:shadow-[#E3B6B1]/20 flex flex-col h-full"
+                <h3
+                  className={`heading-md mb-2 ${
+                    isDark ? "text-on-dark" : "text-ink"
+                  }`}
                 >
-                  <CardHeader className="p-0">
-                    <div className="overflow-hidden rounded-t-lg relative">
-                      <ImageWithFallback
-                        src={project.image}
-                        alt={`${project.title} preview`}
-                        className="w-full h-40 sm:h-48 object-cover group-hover:scale-110 transition-transform duration-700"
-                      />
-                      {/* Overlay effect on hover */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#150016]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      
-                      {/* Floating action buttons on hover */}
-                      <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                        <div className="flex gap-2">
-                          {project.liveUrl && (
-                            <button
-                              onClick={() => project.liveUrl && handleProjectAction(project.liveUrl, 'demo')}
-                              className="p-2 bg-[#E3B6B1]/90 rounded-full hover:bg-[#E3B6B1] transition-colors backdrop-blur-sm"
-                              aria-label="View demo"
-                            >
-                              <ExternalLink size={14} className="text-[#150016]" />
-                            </button>
-                          )}
-                          {project.githubUrl && (
-                            <button
-                              onClick={() => project.githubUrl && handleProjectAction(project.githubUrl, 'github')}
-                              className="p-2 bg-[#E3B6B1]/90 rounded-full hover:bg-[#E3B6B1] transition-colors backdrop-blur-sm"
-                              aria-label="View code"
-                            >
-                              <Github size={14} className="text-[#150016]" />
-                            </button>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  
-                  <CardContent className="p-4 sm:p-6 flex-grow">
-                    <CardTitle className="text-lg sm:text-xl text-white mb-2 sm:mb-3 group-hover:text-[#E3B6B1] transition-colors">
-                      {project.title}
-                    </CardTitle>
-                    <CardDescription className="text-gray-300 mb-3 sm:mb-4 leading-relaxed text-sm sm:text-base group-hover:text-gray-200 transition-colors">
-                      {project.description}
-                    </CardDescription>
-                    <div className="flex flex-wrap gap-2">
-                      {project.tags.map((tag, tagIndex) => (
-                        <Badge 
-                          key={`${project.title}-tag-${tagIndex}`}
-                          variant="outline"
-                          className="bg-[#522C5D] border-[#845162] text-[#E3B6B1] text-xs hover:bg-[#E3B6B1] hover:text-[#150016] transition-all duration-300 cursor-default"
-                        >
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-                  </CardContent>
-                  
-                  <CardFooter className="p-4 sm:p-6 mt-auto">
-                    <div className="flex gap-3 w-full">
-                      {/* Case 1: Both links exist */}
-                      {project.githubUrl && project.liveUrl && (
-                        <>
-                          <Button 
-                            size="sm"
-                            className="flex-1 bg-gradient-to-r from-[#E3B6B1] to-[#FFE3DC] text-[#150016] hover:opacity-90 text-xs sm:text-sm hover:scale-105 transition-all duration-300 hover:shadow-lg"
-                            onClick={() => project.githubUrl && handleProjectAction(project.githubUrl, 'github')}
-                          >
-                            <Github size={14} className="mr-1 sm:mr-2" />
-                            GitHub
-                          </Button>
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            className="border-[#E3B6B1] text-[#E3B6B1] hover:bg-[#E3B6B1] hover:text-[#150016] px-3 hover:scale-105 transition-all duration-300"
-                            onClick={() => project.liveUrl && handleProjectAction(project.liveUrl, 'demo')}
-                            aria-label={`View ${project.title} live demo`}
-                          >
-                            <ExternalLink size={14} />
-                          </Button>
-                        </>
-                      )}
+                  {project.title}
+                </h3>
+                <p
+                  className={`text-body-sm mb-4 flex-grow ${
+                    isDark ? "text-white/70" : "text-body"
+                  }`}
+                >
+                  {project.description}
+                </p>
 
-                      {/* Case 2: Only GitHub link exists */}
-                      {project.githubUrl && !project.liveUrl && (
-                        <Button 
-                          size="sm"
-                          className="flex-1 bg-gradient-to-r from-[#E3B6B1] to-[#FFE3DC] text-[#150016] hover:opacity-90 text-xs sm:text-sm hover:scale-105 transition-all duration-300 hover:shadow-lg"
-                          onClick={() => project.githubUrl && handleProjectAction(project.githubUrl, 'github')}
-                        >
-                          <Github size={14} className="mr-1 sm:mr-2" />
-                          GitHub
-                        </Button>
-                      )}
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {project.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className={`command-tag ${
+                        isDark ? "bg-white/10 text-on-dark" : ""
+                      }`}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
 
-                      {/* Case 3: Only Live Demo link exists */}
-                      {!project.githubUrl && project.liveUrl && (
-                        <Button 
-                          size="sm"
-                          className="flex-1 bg-gradient-to-r from-[#E3B6B1] to-[#FFE3DC] text-[#150016] hover:opacity-90 text-xs sm:text-sm hover:scale-105 transition-all duration-300 hover:shadow-lg"
-                          onClick={() => project.liveUrl && handleProjectAction(project.liveUrl, 'demo')}
-                        >
-                          <ExternalLink size={14} className="mr-1 sm:mr-2" />
-                          Live Demo
-                        </Button>
-                      )}
-                    </div>
-                  </CardFooter>
-                </Card>
-              </div>
-            ))}
-          </div>
-          
-          {/* Enhanced CTA button - Fixed spacing to move with grid */}
-          <div 
-            className="text-center animate-fade-in"
-            style={{ 
-              animationDelay: isVisible ? '1.4s' : '0s',
-              transform: `translateY(${Math.max(0, (scrollY - 2000) * 0.05)}px)`
-            }}
-          >
-  {/* <Button                                                                                       
-     variant="outline"                                                                                          
-    size="lg"                                                                                                  
-    className="border-blush text-blush hover:bg-blush hover:text-darkMaroon hover:scale-105 transition-all     
-                    /* <Button 
-            variant="outline" 
-            size="lg"
-            className="border-blush text-blush hover:bg-blush hover:text-darkMaroon hover:scale-105 transition-all duration-300 hover:shadow-lg hover:shadow-blush/25 font-montserrat"
-            onClick={() => console.log('View all projects')}
-          >
-            View All Projects
-          </Button> duration-300 hover:shadow-lg hover:shadow-blush/25 font-montserrat"                                          
-    onClick={() => console.log('View all projects')}                                                           
-   >
-   View All Projects                                          
-  </Button> */}      
-          </div>
+                <div className="flex gap-2 mt-auto">
+                  {project.githubUrl && (
+                    <Button
+                      variant={isDark ? "dark" : "default"}
+                      size="sm"
+                      className="flex-1"
+                      onClick={() =>
+                        window.open(
+                          project.githubUrl,
+                          "_blank",
+                          "noopener,noreferrer",
+                        )
+                      }
+                    >
+                      <Github size={14} />
+                      GitHub
+                    </Button>
+                  )}
+                  {project.liveUrl && (
+                    <Button
+                      variant={isDark ? "dark" : project.githubUrl ? "secondary" : "default"}
+                      size="sm"
+                      className={project.githubUrl ? "" : "flex-1"}
+                      onClick={() =>
+                        window.open(
+                          project.liveUrl,
+                          "_blank",
+                          "noopener,noreferrer",
+                        )
+                      }
+                      aria-label={`Open ${project.title} demo`}
+                    >
+                      <ExternalLink size={14} />
+                      {!project.githubUrl && "Live demo"}
+                    </Button>
+                  )}
+                </div>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>
