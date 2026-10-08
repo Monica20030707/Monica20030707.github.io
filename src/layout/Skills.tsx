@@ -49,6 +49,7 @@ export function Skills() {
   return (
     <section className="section-pad">
       <div className="page-column">
+        <p className="mb-3 text-center font-mono text-caption-sm text-mute">02</p>
         <h2 className="heading-lg text-ink text-center mb-3">
           Skills & technologies
         </h2>

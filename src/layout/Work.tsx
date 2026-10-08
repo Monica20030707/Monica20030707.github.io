@@ -61,6 +61,7 @@ export function Work() {
   return (
     <section className="section-pad">
       <div className="page-column-wide">
+        <p className="mb-3 text-center font-mono text-caption-sm text-mute">03</p>
         <h2 className="heading-lg text-ink text-center mb-3">
           Featured projects
         </h2>

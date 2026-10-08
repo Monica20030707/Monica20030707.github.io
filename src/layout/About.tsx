@@ -2,6 +2,7 @@ export function About() {
   return (
     <section className="section-pad">
       <div className="page-column">
+        <p className="mb-3 text-center font-mono text-caption-sm text-mute">01</p>
         <h2 className="heading-lg text-ink text-center mb-6">About me</h2>
 
         <div className="space-y-4 text-body-md text-body text-center">

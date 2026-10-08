@@ -121,30 +121,6 @@ export function Contact() {
           </form>
         </div>
 
-        <footer className="mt-section-sm md:mt-section pt-8 border-t border-hairline">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-caption-sm text-body">
-            <div className="flex flex-wrap gap-x-4 gap-y-2">
-              <a href="#work" className="underline">
-                Work
-              </a>
-              <a href="#about" className="underline">
-                About
-              </a>
-              <a
-                href="https://github.com/Monica20030707"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline"
-              >
-                GitHub
-              </a>
-              <a href="mailto:thuybohr@gmail.com" className="underline">
-                Contact
-              </a>
-            </div>
-            <p>© 2026 Monica Nguyen</p>
-          </div>
-        </footer>
       </div>
     </section>
   );
