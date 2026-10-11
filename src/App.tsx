@@ -1,66 +1,121 @@
+import { useEffect, type ReactNode } from "react";
+import { BrowserRouter, Link, Route, Routes, useLocation } from "react-router-dom";
 import { Navbar } from "./layout/Navbar";
 import { Hero } from "./layout/Hero";
 import { About } from "./layout/About";
 import { Skills } from "./layout/Skills";
 import { Work } from "./layout/Work";
 import { Contact } from "./layout/Contact";
+import { SiteFooter } from "./layout/Footer";
+import { ConnectFooter } from "./layout/ConnectFooter";
 
-import './assets/styles/App.css';
+import "./assets/styles/App.css";
+
+const titles: Record<string, string> = {
+  "/": "Monica Nguyen",
+  "/about": "About · Monica Nguyen",
+  "/skills": "Skills · Monica Nguyen",
+  "/work": "Work · Monica Nguyen",
+  "/contact": "Contact · Monica Nguyen",
+};
+
+function RouteEffects() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    document.title = titles[pathname] ?? "Monica Nguyen";
+  }, [pathname]);
+
+  return null;
+}
+
+function Page({ children }: { children: ReactNode }) {
+  return (
+    <div className="page-enter flex min-h-[calc(100dvh-72px)] flex-col">
+      <div className="flex-1">{children}</div>
+      <SiteFooter />
+    </div>
+  );
+}
+
+function ShowcasePage({ children }: { children: ReactNode }) {
+  return (
+    <div className="page-enter flex min-h-[calc(100dvh-72px)] flex-col bg-black">
+      <div className="relative z-10 flex-1 overflow-hidden rounded-b-[2.5rem] bg-canvas sm:rounded-b-[3rem]">
+        {children}
+      </div>
+      <ConnectFooter />
+    </div>
+  );
+}
+
+function NotFound() {
+  return (
+    <section className="section-pad">
+      <div className="page-column text-center">
+        <h1 className="heading-lg text-ink">This page isn&apos;t here</h1>
+        <p className="mt-3 text-body-sm text-body">
+          The link may be out of date.
+        </p>
+        <Link to="/" className="mt-6 inline-block text-body-sm text-ink underline">
+          Back home
+        </Link>
+      </div>
+    </section>
+  );
+}
 
 export default function App() {
   return (
-    <div className="min-h-screen font-montserrat relative overflow-hidden">
-      {/* Dynamic Background with Multiple Gradient Layers */}
-      <div className="fixed inset-0 z-0">
-        {/* Base gradient layer */}
-        <div className="absolute inset-0 bg-gradient-to-br from-black via-darkMaroon via-deepPurple via-plum to-wine opacity-90" />
-        
-        {/* Animated gradient waves */}
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-black/80 via-transparent to-deep-purple/60 transform -skew-y-12 origin-top-left animate-pulse" />
-          <div className="absolute bottom-0 right-0 w-full h-full bg-gradient-to-l from-black/70 via-transparent to-wine/40 transform skew-y-12 origin-bottom-right animate-pulse" style={{ animationDelay: '2s' }} />
-        </div>
-        
-        {/* Radial gradient in center */}
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[200%] h-[200%] bg-gradient-radial from-beige/5 via-transparent to-transparent animate-pulse" style={{ animationDelay: '4s' }} />
-        
-        {/* Floating gradient orbs */}
-        <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-r from-blush/10 to-beige/5 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-l from-wine/15 to-plum/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '3s' }} />
-        <div className="absolute top-1/3 right-1/4 w-64 h-64 bg-gradient-to-br from-deepPurple/20 to-darkMaroon/10 rounded-full blur-2xl animate-float" style={{ animationDelay: '1.5s' }} />
-      </div>
-      
-      {/* Fixed Navigation */}
-      <div className="relative z-50">
+    <BrowserRouter>
+      <RouteEffects />
+      <div className="min-h-screen bg-canvas text-ink font-sans">
         <Navbar />
+        <Routes>
+          <Route path="/" element={<Hero />} />
+          <Route
+            path="/about"
+            element={
+              <ShowcasePage>
+                <About />
+              </ShowcasePage>
+            }
+          />
+          <Route
+            path="/skills"
+            element={
+              <Page>
+                <Skills />
+              </Page>
+            }
+          />
+          <Route
+            path="/work"
+            element={
+              <ShowcasePage>
+                <Work />
+              </ShowcasePage>
+            }
+          />
+          <Route
+            path="/contact"
+            element={
+              <Page>
+                <Contact />
+              </Page>
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <Page>
+                <NotFound />
+              </Page>
+            }
+          />
+        </Routes>
       </div>
-      
-      <main className="relative z-10">
-        {/* Hero Section */}
-        <section id="home">
-          <Hero />
-        </section>
-        
-        {/* About Section */}
-        <section id="about">
-          <About />
-        </section>
-        
-        {/* Skills Section */}
-        <section id="skills">
-          <Skills />
-        </section>
-        
-        {/* Projects Section */}
-        <section id="work">
-          <Work />
-        </section>
-        
-        {/* Contact Section */}
-        <section id="contact">
-          <Contact />
-        </section>
-      </main>
-    </div>
+    </BrowserRouter>
   );
 }

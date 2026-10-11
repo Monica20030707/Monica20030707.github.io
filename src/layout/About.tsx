@@ -1,85 +1,47 @@
-import { useScrollAnimation } from "../utils/useScrollAnimation";
+import { PhotoPile } from "./PhotoPile";
 
-/**
- * About Section Component
- * 
- * Features:
- * - Gradient background transitioning from Hero section
- * - Scroll-based animations for content reveal
- * - Uses custom color palette (wine to dark-maroon gradient)
- * - Montserrat font for consistency
- */
 export function About() {
-  const { scrollY, isVisible, elementRef } = useScrollAnimation(true);
-
   return (
-    <section 
-      ref={elementRef as React.RefObject<HTMLElement>}
-      className="py-20 bg-gradient-to-b from-wine to-deepPurple relative overflow-hidden"
-    >
-      {/* Background decoration elements with parallax */}
-      <div 
-        className="absolute inset-0 opacity-10"
-        style={{
-          transform: `translateY(${scrollY * 0.05}px)`
-        }}
-      >
-        <div className="absolute top-10 right-10 w-72 h-72 bg-blush rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 left-10 w-96 h-96 bg-beige rounded-full blur-3xl animate-pulse" style={{ animationDelay: '3s' }} />
+    <section className="pb-section-sm pt-10 md:pb-section-md md:pt-14 lg:pb-section">
+      <div className="mx-auto w-full max-w-2xl px-6 text-center">
+        <h1 className="display-hero text-ink">
+          My real name is Thuy.
+          <br />
+          But I go by <em className="italic">Monica</em>.
+        </h1>
+        <p className="mx-auto mt-4 max-w-md text-body-md text-body">
+          Looks harder than it actually is — CS grad, full-stack builder, and
+          occasional game tinkerer.
+        </p>
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Section header */}
-          <div
-            style={{
-              transform: `translateY(${Math.max(0, (scrollY - 800) * 0.1)}px)`,
-              opacity: Math.max(0.3, 1 - Math.max(0, scrollY - 800) * 0.002)
-            }}
-          >
-            <h2 
-              className={`text-4xl lg:text-5xl font-bold text-beige mb-8 font-montserrat ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
-              style={{ animationDelay: '0.2s' }}
-            >
-              About Me
-            </h2>
-            <div 
-              className={`w-24 h-1 bg-gradient-to-r from-blush to-beige mx-auto mb-12 ${isVisible ? 'animate-scale-in' : 'opacity-0'}`}
-              style={{ animationDelay: '0.4s' }}
-            />
-          </div>
-          
-          {/* Content - Monica's story */}
-          <div className="space-y-6 text-lg text-beige/80 leading-relaxed font-montserrat">
-            <p 
-              className={`hover:text-beige transition-colors duration-300 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
-              style={{ animationDelay: '0.6s' }}
-            >
-              Hey, I'm Thuy! I'm a recent Computer Science grad who's excited about building things 
-              that people actually enjoy using. Most of my work has been in full-stack web and mobile 
-              development, where I get to take an idea and turn it into something real, whether it's a 
-              polished app, a clean dashboard, or just a small feature that makes someone's day easier.
-            </p>
-            <p 
-              className={`hover:text-beige transition-colors duration-300 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
-              style={{ animationDelay: '0.8s' }}
-            >
-              During my internships, I wore a lot of hats: jumping between front-end, backend, and even data work. 
-              That experience taught me to adapt quickly and stay curious, which I think is one of my biggest 
-              strengths. I like the challenge of picking up new tools or frameworks on the fly and figuring 
-              out how everything fits together.
-            </p>
-            <p 
-              className={`hover:text-beige transition-colors duration-300 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
-              style={{ animationDelay: '1s' }}
-            >
-              Outside of work, I love experimenting with game development. It's where I get to be playful
-               with my coding, try wild ideas, and push myself to learn without worrying too much about 
-               the “rules.” For me, building tech isn't just about solving problems, it's about creating experiences, 
-               whether that's a tool that helps someone save time or a little game that brings a smile.
-            </p>
-          </div>
-        </div>
+      <div className="mx-auto mt-10 w-full max-w-4xl px-4 sm:mt-12">
+        <PhotoPile />
+      </div>
+
+      <div className="mx-auto mt-10 max-w-xl space-y-4 px-6 text-center text-body-md text-body md:mt-12">
+        <p>
+          I&apos;m a recent{" "}
+          <strong className="font-medium text-ink">Computer Science</strong>{" "}
+          grad who&apos;s excited about building things people actually enjoy
+          using. Most of my work has been in{" "}
+          <strong className="font-medium text-ink">full-stack web</strong> and
+          mobile development, where I get to take an idea and turn it into
+          something real.
+        </p>
+        <p>
+          During internships I wore a lot of hats — jumping between{" "}
+          <strong className="font-medium text-ink">front-end</strong>,{" "}
+          <strong className="font-medium text-ink">backend</strong>, and even
+          data work. That taught me to adapt quickly and stay curious, which I
+          think is one of my biggest strengths.
+        </p>
+        <p>
+          Outside of work, I love experimenting with{" "}
+          <strong className="font-medium text-ink">game development</strong>.
+          It&apos;s where I get to be playful with coding, try wild ideas, and
+          push myself to learn without worrying too much about the rules.
+        </p>
       </div>
     </section>
   );
