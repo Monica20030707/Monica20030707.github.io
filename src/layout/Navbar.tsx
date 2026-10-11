@@ -24,11 +24,11 @@ export function Navbar() {
   return (
     <nav className="sticky top-0 z-50 pt-4">
       <div className="page-column-wide">
-        <div className="relative flex items-center justify-between gap-3">
+        <div className="flex items-center justify-center gap-2.5 sm:gap-3">
           <Link
             to="/"
             onClick={closeMenu}
-            className="nav-circle overflow-hidden p-0"
+            className="nav-avatar"
             aria-label="Home"
           >
             <ImageWithFallback
@@ -38,7 +38,7 @@ export function Navbar() {
             />
           </Link>
 
-          <div className="nav-pill absolute left-1/2 hidden -translate-x-1/2 md:inline-flex">
+          <div className="nav-pill hidden md:inline-flex">
             {navItems.map((item) => (
               <NavLink
                 key={item.to}
@@ -53,24 +53,23 @@ export function Navbar() {
             ))}
           </div>
 
-          <div className="flex items-center gap-2">
-            <Link
-              to="/contact"
-              className="nav-mail"
-              aria-label="Contact"
-              onClick={closeMenu}
-            >
-              <Mail size={16} strokeWidth={2} />
-            </Link>
-            <button
-              type="button"
-              className="nav-circle md:hidden"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label="Toggle menu"
-            >
-              {isMobileMenuOpen ? <X size={16} /> : <Menu size={16} />}
-            </button>
-          </div>
+          <Link
+            to="/contact"
+            className="nav-mail"
+            aria-label="Contact"
+            onClick={closeMenu}
+          >
+            <Mail size={18} strokeWidth={2} />
+          </Link>
+
+          <button
+            type="button"
+            className="nav-circle md:hidden"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? <X size={16} /> : <Menu size={16} />}
+          </button>
         </div>
 
         {isMobileMenuOpen && (

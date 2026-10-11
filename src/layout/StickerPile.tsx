@@ -42,7 +42,7 @@ const BLUEPRINTS: Blueprint[] = [
     color: "var(--tag-pink)",
     icon: Globe2,
     spawnX: 0.12,
-    spawnY: 0.1,
+    spawnY: 0.06,
   },
   {
     id: "rectangles",
@@ -51,7 +51,7 @@ const BLUEPRINTS: Blueprint[] = [
     color: "var(--tag-blue)",
     icon: Move,
     spawnX: 0.32,
-    spawnY: 0.05,
+    spawnY: 0.02,
   },
   {
     id: "pipelines",
@@ -60,7 +60,7 @@ const BLUEPRINTS: Blueprint[] = [
     color: "var(--tag-white)",
     icon: GitBranch,
     spawnX: 0.52,
-    spawnY: 0.12,
+    spawnY: 0.08,
   },
   {
     id: "corners",
@@ -69,7 +69,7 @@ const BLUEPRINTS: Blueprint[] = [
     color: "var(--tag-green)",
     icon: CornerDownRight,
     spawnX: 0.72,
-    spawnY: 0.06,
+    spawnY: 0.04,
   },
   {
     id: "ux",
@@ -77,8 +77,8 @@ const BLUEPRINTS: Blueprint[] = [
     label: "Improving UX",
     color: "var(--tag-yellow)",
     icon: Smile,
-    spawnX: 0.18,
-    spawnY: 0.28,
+    spawnX: 0.2,
+    spawnY: 0.12,
   },
   {
     id: "testing",
@@ -87,7 +87,7 @@ const BLUEPRINTS: Blueprint[] = [
     color: "var(--tag-purple)",
     icon: Pencil,
     spawnX: 0.42,
-    spawnY: 0.22,
+    spawnY: 0.1,
   },
   {
     id: "reframing",
@@ -96,7 +96,7 @@ const BLUEPRINTS: Blueprint[] = [
     color: "var(--tag-teal)",
     icon: Hash,
     spawnX: 0.62,
-    spawnY: 0.3,
+    spawnY: 0.14,
   },
   {
     id: "pop",
@@ -105,15 +105,15 @@ const BLUEPRINTS: Blueprint[] = [
     color: "var(--tag-orange)",
     icon: PaintBucket,
     spawnX: 0.82,
-    spawnY: 0.2,
+    spawnY: 0.09,
   },
   {
     id: "spark",
     kind: "dot",
     color: "var(--tag-yellow)",
     icon: Sparkles,
-    spawnX: 0.24,
-    spawnY: 0.4,
+    spawnX: 0.26,
+    spawnY: 0.05,
   },
   {
     id: "link",
@@ -121,7 +121,7 @@ const BLUEPRINTS: Blueprint[] = [
     color: "var(--tag-orange)",
     icon: Link2,
     spawnX: 0.5,
-    spawnY: 0.38,
+    spawnY: 0.03,
   },
   {
     id: "lock",
@@ -129,7 +129,7 @@ const BLUEPRINTS: Blueprint[] = [
     color: "var(--tag-purple)",
     icon: Lock,
     spawnX: 0.7,
-    spawnY: 0.42,
+    spawnY: 0.11,
   },
   {
     id: "clock",
@@ -137,7 +137,7 @@ const BLUEPRINTS: Blueprint[] = [
     color: "var(--tag-blue)",
     icon: Clock,
     spawnX: 0.88,
-    spawnY: 0.34,
+    spawnY: 0.06,
   },
   {
     id: "cursor",
@@ -145,7 +145,7 @@ const BLUEPRINTS: Blueprint[] = [
     color: "var(--tag-white)",
     icon: MousePointer2,
     spawnX: 0.38,
-    spawnY: 0.44,
+    spawnY: 0.13,
   },
 ];
 
@@ -158,16 +158,16 @@ function prefersReducedMotion() {
 }
 
 function estimateSize(kind: Kind, label?: string) {
-  if (kind === "dot") return { w: 44, h: 44 };
-  const w = Math.min(260, 68 + (label?.length ?? 8) * 8.2);
-  return { w, h: 44 };
+  if (kind === "dot") return { w: 52, h: 52 };
+  const w = Math.min(300, 80 + (label?.length ?? 8) * 9.4);
+  return { w, h: 52 };
 }
 
 function clamp(n: number, min: number, max: number) {
   return Math.max(min, Math.min(max, n));
 }
 
-export function StickerPile() {
+export function StickerPile({ className = "" }: { className?: string }) {
   const canvasRef = useRef<HTMLDivElement>(null);
   const engineRef = useRef<Matter.Engine | null>(null);
   const runnerRef = useRef<Matter.Runner | null>(null);
@@ -295,9 +295,10 @@ export function StickerPile() {
         }
 
         const x = clamp(bp.spawnX * width, w / 2 + 8, width - w / 2 - 8);
+        // Drop from the top band of the playground (around the headline)
         const y = reducedRef.current
           ? height - h / 2 - 10
-          : clamp(bp.spawnY * height, h / 2 + 8, height * 0.55);
+          : clamp(bp.spawnY * height, h / 2 + 4, height * 0.16);
         const angle = reducedRef.current
           ? 0
           : ((Math.random() - 0.5) * 40 * Math.PI) / 180;
@@ -499,7 +500,7 @@ export function StickerPile() {
   return (
     <div
       ref={canvasRef}
-      className="sticker-canvas relative h-60 w-full touch-none overflow-hidden sm:h-72 md:h-80"
+      className={`sticker-canvas relative w-full touch-none overflow-hidden ${className || "h-72 sm:h-80 md:h-96"}`}
       role="application"
       aria-label="Draggable sticker canvas with physics. Grab stickers and throw them into each other."
     >
@@ -529,7 +530,7 @@ export function StickerPile() {
             onPointerUp={onPointerUp}
             onPointerCancel={onPointerUp}
           >
-            <Icon size={bp.kind === "dot" ? 16 : 15} strokeWidth={2} />
+            <Icon size={bp.kind === "dot" ? 18 : 17} strokeWidth={2} />
             {bp.label}
           </button>
         );

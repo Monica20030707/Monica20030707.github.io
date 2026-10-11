@@ -4,8 +4,9 @@ import { StickerPile } from "./StickerPile";
 export function Hero() {
   return (
     <section className="relative flex min-h-[calc(100dvh-72px)] flex-col overflow-hidden">
-      <div className="page-enter relative z-10 flex flex-1 flex-col">
-        <div className="flex flex-1 items-center justify-center px-6">
+      {/* Copy sits under the sticker layer */}
+      <div className="page-enter relative z-0 flex flex-1 flex-col">
+        <div className="flex flex-1 items-center justify-center px-6 pb-[22vh] pt-6">
           <div className="mx-auto w-full max-w-hero text-center">
             <p className="mb-6 flex items-center justify-center gap-2.5 text-body-md text-body">
               <span>Hello</span>
@@ -36,10 +37,11 @@ export function Hero() {
             </p>
           </div>
         </div>
+      </div>
 
-        <div className="w-full shrink-0 pb-1 pt-2">
-          <StickerPile />
-        </div>
+      {/* Stickers float above the copy */}
+      <div className="absolute inset-x-0 bottom-0 top-[18%] z-20 sm:top-[16%] md:top-[14%]">
+        <StickerPile className="h-full" />
       </div>
     </section>
   );

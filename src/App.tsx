@@ -7,6 +7,7 @@ import { Skills } from "./layout/Skills";
 import { Work } from "./layout/Work";
 import { Contact } from "./layout/Contact";
 import { SiteFooter } from "./layout/Footer";
+import { ConnectFooter } from "./layout/ConnectFooter";
 
 import "./assets/styles/App.css";
 
@@ -38,6 +39,17 @@ function Page({ children }: { children: ReactNode }) {
   );
 }
 
+function ShowcasePage({ children }: { children: ReactNode }) {
+  return (
+    <div className="page-enter flex min-h-[calc(100dvh-72px)] flex-col bg-black">
+      <div className="relative z-10 flex-1 rounded-b-[2.5rem] bg-canvas sm:rounded-b-[3rem]">
+        {children}
+      </div>
+      <ConnectFooter />
+    </div>
+  );
+}
+
 function NotFound() {
   return (
     <section className="section-pad">
@@ -65,9 +77,9 @@ export default function App() {
           <Route
             path="/about"
             element={
-              <Page>
+              <ShowcasePage>
                 <About />
-              </Page>
+              </ShowcasePage>
             }
           />
           <Route
@@ -81,9 +93,9 @@ export default function App() {
           <Route
             path="/work"
             element={
-              <Page>
+              <ShowcasePage>
                 <Work />
-              </Page>
+              </ShowcasePage>
             }
           />
           <Route
