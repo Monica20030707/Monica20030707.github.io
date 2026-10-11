@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=Press+Start+2P&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -91,23 +91,10 @@
     letter-spacing: -0.01em;
   }
 
-  .display-xl {
-    font-family: var(--font-display);
-    font-size: 28px;
-    font-weight: 400;
-    line-height: 1.2;
-    letter-spacing: -0.01em;
-  }
-
   @media (min-width: 640px) {
     .display-hero {
       font-size: 52px;
       line-height: 1.12;
-    }
-
-    .display-xl {
-      font-size: 36px;
-      line-height: 1.15;
     }
   }
 
@@ -116,13 +103,6 @@
     font-size: 28px;
     font-weight: 400;
     line-height: 1.25;
-  }
-
-  .heading-md {
-    font-family: var(--font-sans);
-    font-size: 20px;
-    font-weight: 500;
-    line-height: 1.4;
   }
 
   .nav-pill {
@@ -241,33 +221,27 @@
     animation: pager-giggle 0.55s ease-in-out infinite;
   }
 
-  /* Flat charcoal device body — closer to the reference */
   .contact-pager-shell {
-    @apply rounded-[28px] px-5 pb-5 pt-5 sm:rounded-[32px] sm:px-6 sm:pb-6 sm:pt-6;
-    background: #2a2a2a;
+    @apply rounded-[26px] px-5 pb-5 pt-5 sm:rounded-[30px] sm:px-6 sm:pb-6 sm:pt-6;
+    background: #2b2b2b;
     box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.06) inset,
-      0 18px 40px rgba(0, 0, 0, 0.45),
-      0 2px 0 rgba(0, 0, 0, 0.35);
+      0 1px 0 rgba(255, 255, 255, 0.05) inset,
+      0 16px 36px rgba(0, 0, 0, 0.5);
   }
 
   .contact-pager-screen {
-    @apply relative flex min-h-[168px] flex-col overflow-hidden rounded-[16px] px-4 py-3.5 sm:min-h-[196px] sm:rounded-[18px] sm:px-5 sm:py-4;
-    background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.18), transparent 40%),
-      #c6f24d;
-    box-shadow:
-      inset 0 0 0 1px rgba(0, 0, 0, 0.1),
-      inset 0 10px 18px rgba(255, 255, 255, 0.12);
+    @apply relative flex min-h-[150px] flex-col overflow-hidden rounded-[14px] px-4 py-3.5 sm:min-h-[168px] sm:rounded-[16px] sm:px-5 sm:py-4;
+    background: #b8d15a;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
   }
 
   .contact-pager-screen::after {
     content: "";
-    @apply pointer-events-none absolute inset-0 opacity-[0.12];
+    @apply pointer-events-none absolute inset-0 opacity-[0.1];
     background-image: repeating-linear-gradient(
       0deg,
-      rgba(0, 0, 0, 0.35) 0,
-      rgba(0, 0, 0, 0.35) 1px,
+      rgba(0, 0, 0, 0.4) 0,
+      rgba(0, 0, 0, 0.4) 1px,
       transparent 1px,
       transparent 3px
     );
@@ -275,70 +249,218 @@
 
   .contact-pager-caption {
     font-family: var(--font-mono);
-    @apply text-[12px] text-black/70 sm:text-[13px];
+    @apply text-[12px] text-black/75 sm:text-[13px];
   }
 
   .contact-pager-email {
     font-family: var(--font-mono);
-    @apply text-[15px] font-bold tracking-tight text-black underline decoration-black/25 underline-offset-4 transition-opacity hover:opacity-75 sm:text-[18px];
+    @apply max-w-full break-all text-[16px] font-bold tracking-tight text-black transition-opacity hover:opacity-75 sm:text-[19px];
   }
-
-  .contact-pager-bars {
-    @apply flex h-3 items-end gap-[3px];
-  }
-
-  .contact-pager-bars span {
-    @apply w-[3px] rounded-sm bg-black/55;
-  }
-
-  .contact-pager-bars span:nth-child(1) { height: 35%; }
-  .contact-pager-bars span:nth-child(2) { height: 55%; }
-  .contact-pager-bars span:nth-child(3) { height: 75%; }
-  .contact-pager-bars span:nth-child(4) { height: 100%; }
 
   .contact-pager-speaker {
     @apply mr-1 flex h-8 flex-col justify-center gap-[5px];
   }
 
   .contact-pager-speaker span {
-    @apply block h-[2px] w-3.5 -rotate-[20deg] rounded-full bg-black/45;
+    @apply block h-[2px] w-3.5 -rotate-[20deg] rounded-full bg-black/50;
   }
 
   .contact-pager-btn {
-    @apply inline-flex h-10 items-center justify-center text-[12px] font-medium transition-all sm:h-11 sm:text-[13px];
-  }
-
-  .contact-pager-btn-mute {
-    @apply size-10 shrink-0 rounded-full text-white/80 sm:size-11;
-    background: #1f1f1f;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  }
-
-  .contact-pager-btn-mute:hover {
-    @apply text-white;
-    background: #252525;
+    @apply inline-flex h-10 items-center justify-center rounded-full text-[12px] font-medium transition-all sm:h-11 sm:text-[13px];
   }
 
   .contact-pager-btn-secondary {
-    @apply flex-1 rounded-full px-4 text-white/90;
-    background: #1f1f1f;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    @apply flex-1 px-4 text-white/85;
+    background: #1c1c1c;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
   }
 
   .contact-pager-btn-secondary:hover {
-    background: #252525;
+    @apply text-white;
+    background: #222;
   }
 
   .contact-pager-btn-primary {
-    @apply flex-[1.35] rounded-full px-4 font-semibold text-[#2a2a2a];
-    background: #f5c518;
+    @apply flex-[1.25] px-4 font-semibold text-[#2a2a2a];
+    background: linear-gradient(180deg, #ffcc33 0%, #f0b000 100%);
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.35),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4),
       0 1px 0 rgba(0, 0, 0, 0.2);
   }
 
   .contact-pager-btn-primary:hover {
     filter: brightness(1.05);
+  }
+
+  /* Rotate uses a CSS variable — keep out of Tailwind */
+  .skill-note {
+    @apply absolute flex cursor-grab flex-col justify-between rounded-[4px] border border-black/5 px-3.5 py-3 select-none;
+    transform: translate(-50%, -50%) rotate(var(--note-rotate, 0deg));
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.04),
+      0 8px 18px rgba(0, 0, 0, 0.06);
+    transition: box-shadow 200ms ease, filter 200ms ease;
+  }
+
+  .skill-note:hover {
+    z-index: 30;
+    filter: brightness(1.02);
+    box-shadow:
+      0 2px 4px rgba(0, 0, 0, 0.06),
+      0 12px 24px rgba(0, 0, 0, 0.1);
+  }
+
+  .skill-note-dragging {
+    @apply cursor-grabbing;
+    z-index: 40;
+    filter: brightness(1.03);
+    box-shadow:
+      0 4px 10px rgba(0, 0, 0, 0.08),
+      0 18px 32px rgba(0, 0, 0, 0.14);
+  }
+
+  .skill-note-sm {
+    @apply h-[88px] w-[88px] sm:h-[96px] sm:w-[96px];
+  }
+
+  .skill-note-md {
+    @apply h-[104px] w-[104px] sm:h-[114px] sm:w-[114px];
+  }
+
+  .skill-note-lg {
+    @apply h-[120px] w-[120px] sm:h-[132px] sm:w-[132px];
+  }
+
+  .skill-note-group {
+    @apply text-[9px] font-medium uppercase tracking-[0.14em] text-black/35;
+  }
+
+  .skill-note-label {
+    font-family: "Caveat", "Instrument Serif", cursive;
+    @apply text-[20px] font-semibold leading-none text-ink sm:text-[24px];
+  }
+
+  .floppy-carousel {
+    @apply w-full overflow-hidden pb-2;
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 6%,
+      black 94%,
+      transparent
+    );
+  }
+
+  .floppy-carousel-track {
+    @apply flex w-max items-stretch gap-6 py-4 sm:gap-8;
+    animation: floppy-marquee 42s linear infinite;
+  }
+
+  .floppy-carousel:hover .floppy-carousel-track {
+    animation-play-state: paused;
+  }
+
+  .floppy-carousel-item {
+    @apply w-[220px] shrink-0 sm:w-[250px] md:w-[270px];
+  }
+
+  .floppy-disk {
+    @apply relative block w-full aspect-[3/3.15] rounded-[18px] p-3 pt-0 no-underline sm:rounded-[20px] sm:p-3.5;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.35),
+      inset 0 -2px 0 rgba(0, 0, 0, 0.08),
+      0 14px 28px rgba(0, 0, 0, 0.28);
+    transform-origin: center center;
+    transition: transform 280ms ease, filter 280ms ease, box-shadow 280ms ease;
+  }
+
+  .floppy-disk:hover {
+    transform: rotate(-4deg) translateY(-4px) scale(1.02);
+    filter: brightness(1.03);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.35),
+      inset 0 -2px 0 rgba(0, 0, 0, 0.08),
+      0 22px 36px rgba(0, 0, 0, 0.32);
+  }
+
+  .floppy-carousel-item:nth-child(even) .floppy-disk:hover {
+    transform: rotate(4deg) translateY(-4px) scale(1.02);
+  }
+
+  .floppy-shutter {
+    @apply relative mx-auto mt-0 flex h-[18%] w-[72%] items-end justify-center;
+  }
+
+  .floppy-shutter-plate {
+    @apply relative flex h-full w-full items-center justify-center gap-3 rounded-b-[6px];
+    background: linear-gradient(180deg, #d8d8d8 0%, #bdbdbd 45%, #a8a8a8 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.65),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+      0 1px 2px rgba(0, 0, 0, 0.15);
+  }
+
+  .floppy-shutter-slot {
+    @apply block h-[42%] w-[28%] rounded-[3px] bg-[#8e8e8e];
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25);
+  }
+
+  .floppy-shutter-slot-sm {
+    @apply w-[14%];
+  }
+
+  .floppy-shutter-ridge {
+    @apply absolute -bottom-[3px] left-[8%] right-[8%] h-[3px] rounded-full bg-black/10;
+  }
+
+  .floppy-label {
+    @apply relative mx-auto mt-[6%] aspect-[1.35/1] w-[86%] overflow-hidden rounded-[4px] bg-white;
+    box-shadow:
+      inset 0 0 0 1px rgba(0, 0, 0, 0.08),
+      0 1px 0 rgba(255, 255, 255, 0.35);
+  }
+
+  .floppy-label-art {
+    @apply pointer-events-none size-full object-cover;
+  }
+
+  .floppy-label-overlay {
+    @apply absolute inset-0 flex flex-col items-center justify-center bg-black/25 px-3 text-center;
+    background-image: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.05),
+      rgba(0, 0, 0, 0.35)
+    );
+  }
+
+  .floppy-label-tag {
+    @apply absolute right-2 top-2 rounded-sm bg-white/90 px-1.5 py-0.5 font-mono text-[8px] font-medium uppercase tracking-wide text-ink;
+  }
+
+  .floppy-label-title {
+    font-family: "Press Start 2P", var(--font-mono), monospace;
+    @apply text-[11px] leading-relaxed text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.55)] sm:text-[12px];
+  }
+
+  .floppy-footer {
+    @apply absolute bottom-[7%] left-[7%] right-[7%] flex h-[14%] items-center gap-2 rounded-[3px] bg-[#f7f7f4] px-2.5;
+    box-shadow:
+      inset 0 0 0 1px rgba(0, 0, 0, 0.08),
+      0 1px 0 rgba(255, 255, 255, 0.4);
+  }
+
+  .floppy-footer-key {
+    @apply shrink-0 text-[8px] font-semibold uppercase tracking-[0.14em] text-black/45;
+  }
+
+  .floppy-footer-name {
+    font-family: "Caveat", "Instrument Serif", cursive;
+    @apply min-w-0 flex-1 truncate text-[18px] font-semibold leading-none text-ink sm:text-[20px];
+  }
+
+  .floppy-tab {
+    @apply ml-auto size-3 shrink-0 rounded-[2px] bg-[#1a1a1a];
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
   }
 }
 
@@ -359,6 +481,16 @@
 }
 
 @keyframes connect-marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes floppy-marquee {
   from {
     transform: translateX(0);
   }
@@ -398,7 +530,12 @@
 
   .page-enter,
   .connect-footer-marquee-track,
-  .contact-pager:hover {
+  .contact-pager:hover,
+  .floppy-carousel-track {
     animation: none;
+  }
+
+  .floppy-disk:hover {
+    transform: none;
   }
 }

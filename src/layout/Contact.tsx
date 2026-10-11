@@ -3,6 +3,7 @@ import { Input } from "../components/input";
 import { Textarea } from "../components/textarea";
 import { Github, Linkedin, Mail } from "lucide-react";
 import { useState } from "react";
+import { SITE } from "../data/site";
 
 export function Contact() {
   const [formData, setFormData] = useState({
@@ -26,7 +27,7 @@ export function Contact() {
     const body = encodeURIComponent(
       `From: ${formData.email}\n\n${formData.message}`,
     );
-    window.location.href = `mailto:thuybohr@gmail.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:${SITE.email}?subject=${subject}&body=${body}`;
     setFormData({ email: "", message: "" });
   };
 
@@ -45,17 +46,17 @@ export function Contact() {
             <p className="text-body-md text-body">
               Find me on social platforms, or email directly at{" "}
               <a
-                href="mailto:thuybohr@gmail.com"
+                href={`mailto:${SITE.email}`}
                 className="text-ink underline"
               >
-                thuybohr@gmail.com
+                {SITE.email}
               </a>
               .
             </p>
 
             <div className="flex gap-3">
               <a
-                href="https://github.com/Monica20030707"
+                href={SITE.github}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex h-pill items-center gap-2 rounded-full border border-hairline-strong px-4 text-button-md text-ink"
@@ -64,7 +65,7 @@ export function Contact() {
                 GitHub
               </a>
               <a
-                href="https://www.linkedin.com/in/thuy-nguyen-46505121b/"
+                href={SITE.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex h-pill items-center gap-2 rounded-full border border-hairline-strong px-4 text-button-md text-ink"

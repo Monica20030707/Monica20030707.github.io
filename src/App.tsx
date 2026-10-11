@@ -42,7 +42,7 @@ function Page({ children }: { children: ReactNode }) {
 function ShowcasePage({ children }: { children: ReactNode }) {
   return (
     <div className="page-enter flex min-h-[calc(100dvh-72px)] flex-col bg-black">
-      <div className="relative z-10 flex-1 rounded-b-[2.5rem] bg-canvas sm:rounded-b-[3rem]">
+      <div className="relative z-10 flex-1 overflow-hidden rounded-b-[2.5rem] bg-canvas sm:rounded-b-[3rem]">
         {children}
       </div>
       <ConnectFooter />
