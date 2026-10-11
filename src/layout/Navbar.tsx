@@ -1,13 +1,19 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Button } from "../components/button";
-import { Menu, X } from "lucide-react";
+import {
+  Folder,
+  Code2,
+  Smile,
+  Mail,
+  Menu,
+  X,
+} from "lucide-react";
 import { ImageWithFallback } from "../components/ImageWithFallback";
 
 const navItems = [
-  { label: "About", to: "/about" },
-  { label: "Skills", to: "/skills" },
-  { label: "Work", to: "/work" },
+  { label: "Work", to: "/work", icon: Folder },
+  { label: "Skills", to: "/skills", icon: Code2 },
+  { label: "About", to: "/about", icon: Smile },
 ];
 
 export function Navbar() {
@@ -16,76 +22,74 @@ export function Navbar() {
   const closeMenu = () => setIsMobileMenuOpen(false);
 
   return (
-    <nav className="sticky top-0 z-50 h-nav bg-canvas border-b border-hairline">
-      <div className="page-column-wide h-full">
-        <div className="flex h-full items-center justify-between gap-4">
+    <nav className="sticky top-0 z-50 pt-4">
+      <div className="page-column-wide">
+        <div className="relative flex items-center justify-between gap-3">
           <Link
             to="/"
             onClick={closeMenu}
-            className="flex items-center gap-2 text-body-sm font-medium text-ink"
+            className="nav-circle overflow-hidden p-0"
             aria-label="Home"
           >
             <ImageWithFallback
-              src="/dog_favicon.png"
-              alt=""
-              className="size-7 rounded-full object-cover"
+              src="/monica_avatar.png"
+              alt="Monica Nguyen"
+              className="size-full object-cover"
             />
-            <span className="hidden sm:inline">Monica Nguyen</span>
           </Link>
 
-          <div className="hidden md:flex items-center gap-8">
+          <div className="nav-pill absolute left-1/2 hidden -translate-x-1/2 md:inline-flex">
             {navItems.map((item) => (
               <NavLink
                 key={item.to}
                 to={item.to}
                 className={({ isActive }) =>
-                  `text-body-sm font-medium text-ink ${
-                    isActive ? "underline underline-offset-4" : ""
-                  }`
+                  `nav-pill-link ${isActive ? "nav-pill-link-active" : ""}`
                 }
               >
+                <item.icon size={14} strokeWidth={1.75} />
                 {item.label}
               </NavLink>
             ))}
           </div>
 
           <div className="flex items-center gap-2">
-            <Button asChild className="hidden sm:inline-flex">
-              <Link to="/contact">Contact</Link>
-            </Button>
+            <Link
+              to="/contact"
+              className="nav-mail"
+              aria-label="Contact"
+              onClick={closeMenu}
+            >
+              <Mail size={16} strokeWidth={2} />
+            </Link>
             <button
-              className="md:hidden text-ink p-2"
+              type="button"
+              className="nav-circle md:hidden"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label="Toggle menu"
             >
-              {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+              {isMobileMenuOpen ? <X size={16} /> : <Menu size={16} />}
             </button>
           </div>
         </div>
 
         {isMobileMenuOpen && (
-          <div className="md:hidden absolute left-0 right-0 top-[56px] bg-canvas border-b border-hairline">
-            <div className="page-column-wide py-4 space-y-4">
-              {navItems.map((item) => (
-                <NavLink
-                  key={item.to}
-                  to={item.to}
-                  onClick={closeMenu}
-                  className={({ isActive }) =>
-                    `block w-full text-left text-body-sm font-medium text-ink py-1 ${
-                      isActive ? "underline underline-offset-4" : ""
-                    }`
-                  }
-                >
-                  {item.label}
-                </NavLink>
-              ))}
-              <Button asChild className="w-full sm:hidden">
-                <Link to="/contact" onClick={closeMenu}>
-                  Contact
-                </Link>
-              </Button>
-            </div>
+          <div className="mt-3 rounded-2xl border border-hairline bg-canvas/95 p-2 shadow-sm backdrop-blur-md md:hidden">
+            {navItems.map((item) => (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                onClick={closeMenu}
+                className={({ isActive }) =>
+                  `nav-pill-link w-full justify-start ${
+                    isActive ? "nav-pill-link-active" : ""
+                  }`
+                }
+              >
+                <item.icon size={14} strokeWidth={1.75} />
+                {item.label}
+              </NavLink>
+            ))}
           </div>
         )}
       </div>

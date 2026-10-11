@@ -31,7 +31,7 @@ function RouteEffects() {
 
 function Page({ children }: { children: ReactNode }) {
   return (
-    <div className="page-enter flex min-h-[calc(100dvh-56px)] flex-col">
+    <div className="page-enter flex min-h-[calc(100dvh-72px)] flex-col">
       <div className="flex-1">{children}</div>
       <SiteFooter />
     </div>

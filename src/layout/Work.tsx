@@ -16,7 +16,7 @@ const projects: Project[] = [
     description:
       "An AI-powered health assessment tool that helps seniors evaluate balance and mobility at home with real-time pose detection and actionable feedback.",
     tags: ["AWS Services"],
-    liveUrl: "https://main.d22cx9qmwqrer1.amplifyapp.com/",
+    liveUrl: "https://balance-tester-my-youth-span.vercel.app",
     featured: true,
   },
   {
