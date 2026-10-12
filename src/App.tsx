@@ -82,14 +82,7 @@ export default function App() {
               </ShowcasePage>
             }
           />
-          <Route
-            path="/skills"
-            element={
-              <Page>
-                <Skills />
-              </Page>
-            }
-          />
+          <Route path="/skills" element={<Skills />} />
           <Route
             path="/work"
             element={

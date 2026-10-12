@@ -294,29 +294,11 @@
 
   /* Rotate uses a CSS variable — keep out of Tailwind */
   .skill-note {
-    @apply absolute flex cursor-grab flex-col justify-between rounded-[4px] border border-black/5 px-3.5 py-3 select-none;
+    @apply absolute flex flex-col justify-between rounded-[4px] border border-black/5 px-3.5 py-3 select-none;
     transform: translate(-50%, -50%) rotate(var(--note-rotate, 0deg));
     box-shadow:
       0 1px 2px rgba(0, 0, 0, 0.04),
       0 8px 18px rgba(0, 0, 0, 0.06);
-    transition: box-shadow 200ms ease, filter 200ms ease;
-  }
-
-  .skill-note:hover {
-    z-index: 30;
-    filter: brightness(1.02);
-    box-shadow:
-      0 2px 4px rgba(0, 0, 0, 0.06),
-      0 12px 24px rgba(0, 0, 0, 0.1);
-  }
-
-  .skill-note-dragging {
-    @apply cursor-grabbing;
-    z-index: 40;
-    filter: brightness(1.03);
-    box-shadow:
-      0 4px 10px rgba(0, 0, 0, 0.08),
-      0 18px 32px rgba(0, 0, 0, 0.14);
   }
 
   .skill-note-sm {
@@ -340,20 +322,31 @@
     @apply text-[20px] font-semibold leading-none text-ink sm:text-[24px];
   }
 
+  .floppy-shelf {
+    @apply relative mt-2 w-full pb-8 pt-6 sm:pb-10 sm:pt-8;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(244, 245, 247, 0.9) 32%,
+        rgba(236, 238, 241, 1) 100%
+      );
+  }
+
   .floppy-carousel {
-    @apply w-full overflow-hidden pb-2;
+    @apply w-full overflow-hidden;
     mask-image: linear-gradient(
       to right,
       transparent,
-      black 6%,
-      black 94%,
+      black 4%,
+      black 96%,
       transparent
     );
   }
 
   .floppy-carousel-track {
-    @apply flex w-max items-stretch gap-6 py-4 sm:gap-8;
-    animation: floppy-marquee 42s linear infinite;
+    @apply flex w-max items-stretch gap-8 py-8 sm:gap-10 md:gap-12;
+    animation: floppy-marquee 48s linear infinite;
   }
 
   .floppy-carousel:hover .floppy-carousel-track {
@@ -361,30 +354,31 @@
   }
 
   .floppy-carousel-item {
-    @apply w-[220px] shrink-0 sm:w-[250px] md:w-[270px];
+    @apply w-[230px] shrink-0 sm:w-[260px] md:w-[290px];
+    perspective: 700px;
   }
 
   .floppy-disk {
+    --tilt-x: 0deg;
+    --tilt-y: 0deg;
     @apply relative block w-full aspect-[3/3.15] rounded-[18px] p-3 pt-0 no-underline sm:rounded-[20px] sm:p-3.5;
+    transform: rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateZ(0);
+    transform-style: preserve-3d;
+    will-change: transform;
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.35),
       inset 0 -2px 0 rgba(0, 0, 0, 0.08),
-      0 14px 28px rgba(0, 0, 0, 0.28);
-    transform-origin: center center;
-    transition: transform 280ms ease, filter 280ms ease, box-shadow 280ms ease;
+      0 8px 18px rgba(0, 0, 0, 0.12);
+    transition:
+      transform 220ms ease-out,
+      filter 200ms ease;
   }
 
-  .floppy-disk:hover {
-    transform: rotate(-4deg) translateY(-4px) scale(1.02);
-    filter: brightness(1.03);
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.35),
-      inset 0 -2px 0 rgba(0, 0, 0, 0.08),
-      0 22px 36px rgba(0, 0, 0, 0.32);
-  }
-
-  .floppy-carousel-item:nth-child(even) .floppy-disk:hover {
-    transform: rotate(4deg) translateY(-4px) scale(1.02);
+  .floppy-disk-tilting {
+    transition:
+      transform 180ms ease-out,
+      filter 200ms ease;
+    filter: brightness(1.02);
   }
 
   .floppy-shutter {
@@ -414,7 +408,7 @@
   }
 
   .floppy-label {
-    @apply relative mx-auto mt-[6%] aspect-[1.35/1] w-[86%] overflow-hidden rounded-[4px] bg-white;
+    @apply relative mx-auto mt-1.5 aspect-[1.35/1] w-[86%] overflow-hidden rounded-[4px] bg-white sm:mt-2;
     box-shadow:
       inset 0 0 0 1px rgba(0, 0, 0, 0.08),
       0 1px 0 rgba(255, 255, 255, 0.35);
@@ -535,7 +529,9 @@
     animation: none;
   }
 
-  .floppy-disk:hover {
-    transform: none;
+  .floppy-disk,
+  .floppy-disk-tilting {
+    transform: none !important;
+    filter: none;
   }
 }

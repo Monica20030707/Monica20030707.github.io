@@ -1,19 +1,102 @@
-import { useRef } from "react";
+import { useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import { SKILL_NOTES } from "../data/skills";
 import { SkillNoteCard } from "../components/SkillNoteCard";
-import { usePercentDrag } from "../hooks/usePercentDrag";
+import { clamp } from "../utils/clamp";
+
+/** Extra board past the visible frame on each side (fraction of the viewport). */
+const BOARD_OVERFLOW = 0.09;
 
 export function Skills() {
-  const canvasRef = useRef<HTMLDivElement>(null);
-  const initial = Object.fromEntries(
-    SKILL_NOTES.map((n) => [n.label, { left: n.left, top: n.top }])
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const panStart = useRef<{ x: number; y: number; ox: number; oy: number } | null>(
+    null
   );
-  const { positions, dragging, onPointerDown, onPointerMove, onPointerUp } =
-    usePercentDrag({ canvasRef, initial });
+  const [pan, setPan] = useState({ x: 0, y: 0 });
+  const [panning, setPanning] = useState(false);
+
+  const maxPan = () => {
+    const viewport = viewportRef.current;
+    if (!viewport) return { x: 0, y: 0 };
+    const { width, height } = viewport.getBoundingClientRect();
+    return {
+      x: width * BOARD_OVERFLOW,
+      y: height * BOARD_OVERFLOW,
+    };
+  };
+
+  const onBoardPointerDown = (e: ReactPointerEvent<HTMLDivElement>) => {
+    if (e.button !== 0) return;
+    e.preventDefault();
+    panStart.current = {
+      x: e.clientX,
+      y: e.clientY,
+      ox: pan.x,
+      oy: pan.y,
+    };
+    setPanning(true);
+    e.currentTarget.setPointerCapture(e.pointerId);
+  };
+
+  const onBoardPointerMove = (e: ReactPointerEvent<HTMLDivElement>) => {
+    if (!panStart.current) return;
+    const limit = maxPan();
+    setPan({
+      x: clamp(
+        panStart.current.ox + (e.clientX - panStart.current.x),
+        -limit.x,
+        limit.x
+      ),
+      y: clamp(
+        panStart.current.oy + (e.clientY - panStart.current.y),
+        -limit.y,
+        limit.y
+      ),
+    });
+  };
+
+  const onBoardPointerUp = () => {
+    panStart.current = null;
+    setPanning(false);
+  };
+
+  const boardSize = `${(1 + BOARD_OVERFLOW * 2) * 100}%`;
+  const boardOrigin = `${-BOARD_OVERFLOW * 100}%`;
 
   return (
-    <section className="relative min-h-[calc(100dvh-72px)] overflow-hidden bg-[#fafafa] [background-image:radial-gradient(#d4d4d4_1.1px,transparent_1.1px)] [background-size:22px_22px]">
-      <div className="pointer-events-none absolute left-1/2 top-1/2 z-20 w-[min(92vw,280px)] -translate-x-1/2 -translate-y-1/2 max-sm:top-[18%] max-sm:w-[min(92vw,240px)]">
+    <section className="page-enter fixed inset-0 z-0 overflow-hidden bg-[#fafafa]">
+      <div
+        ref={viewportRef}
+        className={`absolute inset-0 touch-none ${
+          panning ? "cursor-grabbing" : "cursor-grab"
+        }`}
+        onPointerDown={onBoardPointerDown}
+        onPointerMove={onBoardPointerMove}
+        onPointerUp={onBoardPointerUp}
+        onPointerCancel={onBoardPointerUp}
+      >
+        <div
+          className="absolute bg-[#fafafa] [background-image:radial-gradient(#d4d4d4_1.1px,transparent_1.1px)] [background-size:28px_28px] will-change-transform"
+          style={{
+            width: boardSize,
+            height: boardSize,
+            left: boardOrigin,
+            top: boardOrigin,
+            transform: `translate3d(${pan.x}px, ${pan.y}px, 0)`,
+          }}
+          aria-label="Skills board"
+        >
+          {SKILL_NOTES.map((note) => (
+            <SkillNoteCard
+              key={note.label}
+              note={note}
+              left={note.left}
+              top={note.top}
+            />
+          ))}
+        </div>
+      </div>
+
+      <div className="pointer-events-none absolute left-1/2 top-1/2 z-20 w-[min(92vw,280px)] -translate-x-1/2 -translate-y-1/2 max-sm:top-[22%] max-sm:w-[min(92vw,240px)]">
         <div
           aria-hidden="true"
           className="absolute left-1/2 top-1/2 -z-10 h-[320px] w-[320px] -translate-x-1/2 -translate-y-1/2 rounded-full max-sm:h-[260px] max-sm:w-[260px]"
@@ -36,31 +119,6 @@ export function Skills() {
             projects
           </p>
         </div>
-      </div>
-
-      <div
-        ref={canvasRef}
-        className="relative z-0 mx-auto h-[min(920px,calc(100dvh-72px))] min-h-[680px] w-full max-w-6xl touch-none max-sm:h-[780px] max-sm:min-h-[780px]"
-        aria-label="Draggable skills board"
-      >
-        {SKILL_NOTES.map((note) => {
-          const pos = positions[note.label] ?? {
-            left: note.left,
-            top: note.top,
-          };
-          return (
-            <SkillNoteCard
-              key={note.label}
-              note={note}
-              left={pos.left}
-              top={pos.top}
-              dragging={dragging === note.label}
-              onPointerDown={(e) => onPointerDown(e, note.label)}
-              onPointerMove={onPointerMove}
-              onPointerUp={onPointerUp}
-            />
-          );
-        })}
       </div>
     </section>
   );

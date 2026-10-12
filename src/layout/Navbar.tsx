@@ -22,9 +22,9 @@ export function Navbar() {
   const closeMenu = () => setIsMobileMenuOpen(false);
 
   return (
-    <nav className="sticky top-0 z-50 pt-4">
+    <nav className="pointer-events-none sticky top-0 z-50 pt-4">
       <div className="page-column-wide">
-        <div className="flex items-center justify-center gap-2.5 sm:gap-3">
+        <div className="pointer-events-auto flex items-center justify-center gap-2.5 sm:gap-3">
           <Link
             to="/"
             onClick={closeMenu}
@@ -73,7 +73,7 @@ export function Navbar() {
         </div>
 
         {isMobileMenuOpen && (
-          <div className="mt-3 rounded-2xl border border-hairline bg-canvas/95 p-2 shadow-sm backdrop-blur-md md:hidden">
+          <div className="pointer-events-auto mt-3 rounded-2xl border border-hairline bg-canvas/95 p-2 shadow-sm backdrop-blur-md md:hidden">
             {navItems.map((item) => (
               <NavLink
                 key={item.to}
