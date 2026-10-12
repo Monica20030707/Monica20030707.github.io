@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import { ImageIcon } from "lucide-react";
 import { SKILL_NOTES } from "../data/skills";
 import { SkillNoteCard } from "../components/SkillNoteCard";
 import { usePercentDrag } from "../hooks/usePercentDrag";
@@ -24,12 +23,6 @@ export function Skills() {
           }}
         />
         <div className="relative flex flex-col items-center text-center">
-          <ImageIcon
-            size={28}
-            strokeWidth={1.5}
-            className="text-mute"
-            aria-hidden="true"
-          />
           <h1 className="mt-4 font-display text-[42px] leading-none text-ink sm:text-[52px]">
             Skills
           </h1>
