@@ -22,7 +22,6 @@ export function FloppyDisk({ project, index }: Props) {
     const rect = el.getBoundingClientRect();
     const px = (e.clientX - rect.left) / rect.width;
     const py = (e.clientY - rect.top) / rect.height;
-    // Cursor side tips backward into the page.
     setTilt({
       x: Math.round((0.5 - py) * MAX_TILT * 10) / 10,
       y: Math.round((px - 0.5) * MAX_TILT * 10) / 10,
@@ -53,12 +52,15 @@ export function FloppyDisk({ project, index }: Props) {
       onPointerMove={onPointerMove}
       onPointerLeave={onPointerLeave}
     >
-      <div className="floppy-shutter" aria-hidden="true">
+      <span className="floppy-grain" aria-hidden="true" />
+      <span className="floppy-arrow" aria-hidden="true" />
+
+      <div className="floppy-shutter-well" aria-hidden="true">
+        <div className="floppy-shutter-media" />
         <div className="floppy-shutter-plate">
-          <span className="floppy-shutter-slot" />
-          <span className="floppy-shutter-slot floppy-shutter-slot-sm" />
+          <span className="floppy-shutter-dent" />
+          <span className="floppy-shutter-window" />
         </div>
-        <div className="floppy-shutter-ridge" />
       </div>
 
       <div className="floppy-label">
@@ -68,18 +70,15 @@ export function FloppyDisk({ project, index }: Props) {
           className="floppy-label-art"
           draggable={false}
         />
-        <div className="floppy-label-overlay">
-          {project.tag && (
-            <span className="floppy-label-tag">{project.tag}</span>
-          )}
-          <p className="floppy-label-title">{label}</p>
-        </div>
+        {project.tag && (
+          <span className="floppy-label-tag">{project.tag}</span>
+        )}
       </div>
 
       <div className="floppy-footer">
         <span className="floppy-footer-key">TITLE</span>
+        <span className="floppy-footer-rule" aria-hidden="true" />
         <span className="floppy-footer-name">{label}</span>
-        <span className="floppy-tab" aria-hidden="true" />
       </div>
     </a>
   );
