@@ -1,8 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=Press+Start+2P&display=swap');
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@reference "./index.css";
 
 :root {
   --primary: #111111;
