@@ -1,4 +1,4 @@
-import { useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
+import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import { SKILL_NOTES } from "../data/skills";
 import { SkillNoteCard } from "../components/SkillNoteCard";
 import { clamp } from "../utils/clamp";
@@ -13,6 +13,40 @@ export function Skills() {
   );
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [panning, setPanning] = useState(false);
+  const returnAnim = useRef<number | null>(null);
+
+  const cancelReturn = () => {
+    if (returnAnim.current !== null) {
+      cancelAnimationFrame(returnAnim.current);
+      returnAnim.current = null;
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (returnAnim.current !== null) {
+        cancelAnimationFrame(returnAnim.current);
+      }
+    };
+  }, []);
+
+  /** Glide the board back to its resting spot on release. */
+  const glideHome = (from: { x: number; y: number }) => {
+    cancelReturn();
+    if (from.x === 0 && from.y === 0) return;
+    const start = performance.now();
+    const duration = 550;
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / duration);
+      // easeOutBack with a subtle overshoot for a springy feel
+      const c1 = 1.2;
+      const c3 = c1 + 1;
+      const eased = 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
+      setPan({ x: from.x * (1 - eased), y: from.y * (1 - eased) });
+      returnAnim.current = t < 1 ? requestAnimationFrame(tick) : null;
+    };
+    returnAnim.current = requestAnimationFrame(tick);
+  };
 
   const maxPan = () => {
     const viewport = viewportRef.current;
@@ -27,6 +61,7 @@ export function Skills() {
   const onBoardPointerDown = (e: ReactPointerEvent<HTMLDivElement>) => {
     if (e.button !== 0) return;
     e.preventDefault();
+    cancelReturn();
     panStart.current = {
       x: e.clientX,
       y: e.clientY,
@@ -57,6 +92,7 @@ export function Skills() {
   const onBoardPointerUp = () => {
     panStart.current = null;
     setPanning(false);
+    glideHome(pan);
   };
 
   const boardSize = `${(1 + BOARD_OVERFLOW * 2) * 100}%`;
