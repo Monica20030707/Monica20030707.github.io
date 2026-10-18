@@ -237,7 +237,7 @@
   }
 
   .connect-footer-marquee-track {
-    @apply flex w-max items-center gap-[0.12em];
+    @apply flex w-max items-center;
     animation: connect-marquee 28s linear infinite;
   }
 
@@ -247,7 +247,11 @@
     font-weight: 400;
     line-height: 0.9;
     letter-spacing: -0.03em;
-    @apply shrink-0 whitespace-nowrap pr-[0.18em] text-white;
+    /* em is on the name itself so space scales with the big type */
+    margin-inline-end: 0.5em;
+    transform: scaleY(1.12);
+    transform-origin: center;
+    @apply shrink-0 whitespace-nowrap text-white;
   }
 
   .contact-pager {
@@ -749,12 +753,54 @@
     filter: contrast(1.55) brightness(1.05);
   }
 
+  /*
+   * Molded shutter bay (like Closed.png / Retro '98):
+   * raised plastic lip around a sunken rectangle; steel slides inside.
+   */
+  .floppy-shutter-bay {
+    @apply pointer-events-none absolute overflow-hidden;
+    top: 0;
+    left: 26.5%;
+    width: 47%;
+    height: 24%;
+    border-radius: 0 0 2px 2px;
+    background: color-mix(in srgb, var(--floppy-color) 78%, #000);
+    box-shadow:
+      /* sunken floor */
+      inset 0 4px 6px rgba(0, 0, 0, 0.22),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.14),
+      inset 2px 0 3px rgba(0, 0, 0, 0.16),
+      inset -2px 0 3px rgba(0, 0, 0, 0.16),
+      /* outer raised rim against the disk face */
+      0 0 0 1px color-mix(in srgb, var(--floppy-color) 70%, #fff),
+      0 1px 0 rgba(255, 255, 255, 0.2),
+      0 2px 0 rgba(0, 0, 0, 0.08);
+  }
+
+  /* Top plastic overhang / lip of the dip */
+  .floppy-shutter-bay::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 11%;
+    z-index: 3;
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--floppy-color) 88%, #fff) 0%,
+      color-mix(in srgb, var(--floppy-color) 70%, #000) 100%
+    );
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
   .floppy-big-hole {
     @apply pointer-events-none absolute select-none;
-    top: 3.5%;
-    left: 42%;
-    width: 14.2%;
+    top: 12%;
+    left: 34%;
+    width: 28%;
     height: auto;
+    z-index: 1;
   }
 
   .floppy-small-hole {
@@ -768,16 +814,17 @@
   .floppy-steel {
     @apply pointer-events-none absolute select-none;
     top: 0;
-    left: 28%;
-    width: 54%;
+    left: 2%;
+    width: 115%;
     height: auto;
+    z-index: 2;
     transition: transform 320ms cubic-bezier(0.22, 0.8, 0.28, 1);
     will-change: transform;
   }
 
   .floppy-disk:hover .floppy-steel,
   .floppy-disk-tilting .floppy-steel {
-    transform: translateX(-38%);
+    transform: translateX(-34%);
   }
 
   .floppy-label {

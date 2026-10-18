@@ -46,22 +46,20 @@ function FloppyShell({
       <span className="floppy-noise" aria-hidden="true" />
       <span className="floppy-noise floppy-noise-deep" aria-hidden="true" />
       {showMetal && (
-        <>
+        <span className="floppy-shutter-bay" aria-hidden="true">
           <img
             src={bigHoleSrc}
             alt=""
             draggable={false}
             className="floppy-big-hole"
-            aria-hidden="true"
           />
           <img
             src={steelSrc}
             alt=""
             draggable={false}
             className="floppy-steel"
-            aria-hidden="true"
           />
-        </>
+        </span>
       )}
       {showWriteProtect && (
         <img

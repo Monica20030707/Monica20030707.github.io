@@ -25,15 +25,11 @@ export function Hero() {
             </h1>
 
             <p className="mx-auto mt-6 max-w-md text-body-md text-body">
-              Currently an{" "}
+              Based in Seattle and currently{" "}
               <strong className="font-medium text-ink">
-                Associate Full Stack Engineer
-              </strong>{" "}
-              in Seattle, shipping{" "}
-              <strong className="font-medium text-ink">
-                things people enjoy using
+                Associate Software Engineer
               </strong>
-              .
+              . Building things people enjoy using.
             </p>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { FileText, Mail } from "lucide-react";
+import { FileText, Linkedin, Mail } from "lucide-react";
 import { ContactPager } from "./ContactPager";
 import { SITE } from "../data/site";
 
@@ -34,6 +34,15 @@ export function ConnectFooter() {
               className={iconClass}
             >
               <FileText size={18} strokeWidth={1.75} />
+            </a>
+            <a
+              href={SITE.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className={iconClass}
+            >
+              <Linkedin size={18} strokeWidth={1.75} />
             </a>
           </div>
         </div>

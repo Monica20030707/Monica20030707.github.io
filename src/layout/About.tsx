@@ -23,9 +23,12 @@ export function About() {
 
       <div className="about-copy mx-auto mt-10 max-w-xl px-6 md:mt-12">
         <p className="about-lede">
-          I&apos;m a{" "}
-          <strong className="font-medium text-ink">software engineer</strong>{" "}
-          who loves learning new things and making games with my husband!
+          I care most about{" "}
+          <strong className="font-medium text-ink">functionality</strong> and{" "}
+          <strong className="font-medium text-ink">simplicity</strong>.
+          That&apos;s been the core of how I design, write code, and choose what
+          to build. If it already does the job, there&apos;s no need to reinvent
+          the wheel.
         </p>
 
         <div className="about-block">
