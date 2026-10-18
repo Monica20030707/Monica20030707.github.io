@@ -10,6 +10,7 @@ import { SiteFooter } from "./layout/Footer";
 import { ConnectFooter } from "./layout/ConnectFooter";
 
 import "./assets/styles/App.css";
+import "./assets/styles/responsive.css";
 
 const titles: Record<string, string> = {
   "/": "Monica Nguyen",

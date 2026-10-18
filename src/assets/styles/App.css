@@ -103,15 +103,32 @@
   }
 
   .nav-pill {
-    @apply inline-flex h-12 items-center gap-1 rounded-full border border-hairline bg-canvas/90 px-1.5 shadow-sm backdrop-blur-md sm:h-14;
+    @apply relative inline-flex h-12 items-center gap-1 rounded-full bg-canvas p-1 sm:h-14 sm:p-1.5;
+    /* 1px edge + soft drop share one curve (no separate border gap). */
+    box-shadow:
+      0 0 0 1px rgba(0, 0, 0, 0.08),
+      0 1px 2px rgba(0, 0, 0, 0.06);
+  }
+
+  .nav-pill-label {
+    @apply inline;
+  }
+
+  .nav-pill-indicator {
+    @apply pointer-events-none absolute top-1 bottom-1 left-0 z-0 rounded-full sm:top-1.5 sm:bottom-1.5;
+    background: #e8e8e8;
+    transition:
+      transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      width 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 160ms ease;
   }
 
   .nav-pill-link {
-    @apply inline-flex h-[calc(100%-6px)] items-center gap-1.5 rounded-full px-4 text-[13px] font-medium text-charcoal transition-colors hover:bg-surface-soft hover:text-ink sm:px-5 sm:text-[14px];
+    @apply relative z-10 inline-flex h-full items-center gap-1.5 rounded-full px-4 text-[13px] font-medium text-charcoal transition-colors hover:text-ink sm:px-5 sm:text-[14px];
   }
 
   .nav-pill-link-active {
-    @apply bg-surface-soft text-ink;
+    @apply text-ink;
   }
 
   .nav-circle {
@@ -167,21 +184,45 @@
 
   .photo-deck-card {
     @apply absolute left-0 top-0 overflow-visible rounded-[22px] border border-black/5 bg-surface-soft shadow-sm;
-    transform: translate(calc(-50% + var(--deck-x, 0px)), calc(-50% + var(--deck-y, 0px))) rotate(var(--deck-r, 0deg));
-    transition: transform 280ms ease;
+    /* Start stacked like a deck, then fan to final offsets. */
+    transform: translate(-50%, -50%) rotate(var(--deck-stack-r, 0deg));
+    transition: transform 820ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: calc(var(--deck-i, 0) * 55ms);
+    will-change: transform;
+  }
+
+  .photo-deck-stage.is-spread .photo-deck-card {
+    transform: translate(
+        calc(-50% + var(--deck-x, 0px)),
+        calc(-50% + var(--deck-y, 0px))
+      )
+      rotate(var(--deck-r, 0deg));
   }
 
   .photo-deck-card img {
     @apply pointer-events-none rounded-[22px];
   }
 
-  .photo-deck-card:hover {
+  .photo-deck-stage.is-spread .photo-deck-card:hover {
     z-index: 20;
-    transform: translate(calc(-50% + var(--deck-x, 0px)), calc(-50% + var(--deck-y, 0px))) rotate(var(--deck-r, 0deg)) scale(1.05);
+    transform: translate(
+        calc(-50% + var(--deck-x, 0px)),
+        calc(-50% + var(--deck-y, 0px))
+      )
+      rotate(var(--deck-r, 0deg)) scale(1.05);
+    transition-delay: 0ms;
+    transition-duration: 280ms;
   }
 
   .photo-card-tag {
     @apply absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full border border-black/5 px-2.5 py-1 font-mono text-[10px] font-medium lowercase tracking-wide text-ink shadow-sm;
+    opacity: 0;
+    transition: opacity 280ms ease;
+  }
+
+  .photo-deck-stage.is-spread .photo-card-tag {
+    opacity: 1;
+    transition-delay: 520ms;
   }
 
   .connect-footer-marquee {
@@ -291,11 +332,19 @@
 
   /* Rotate uses a CSS variable — keep out of Tailwind */
   .skill-note {
-    @apply absolute flex flex-col justify-between rounded-[4px] border border-black/5 px-3.5 py-3 select-none;
+    @apply absolute flex cursor-grab flex-col justify-between rounded-[4px] border border-black/5 px-3.5 py-3 select-none;
     transform: translate(-50%, -50%) rotate(var(--note-rotate, 0deg));
     box-shadow:
       0 1px 2px rgba(0, 0, 0, 0.04),
       0 8px 18px rgba(0, 0, 0, 0.06);
+  }
+
+  .skill-note-dragging {
+    @apply cursor-grabbing;
+    z-index: 40;
+    box-shadow:
+      0 4px 10px rgba(0, 0, 0, 0.08),
+      0 18px 32px rgba(0, 0, 0, 0.14);
   }
 
   .skill-note-sm {
@@ -358,22 +407,13 @@
   .floppy-disk {
     --tilt-x: 0deg;
     --tilt-y: 0deg;
-    @apply relative block w-full aspect-square no-underline;
-    clip-path: polygon(
-      0% 0%,
-      78% 0%,
-      100% 12%,
-      100% 90%,
-      92% 90%,
-      92% 100%,
-      8% 100%,
-      8% 90%,
-      0% 90%
-    );
+    --floppy-color: #7ec8ff;
+    @apply relative block w-full no-underline;
+    aspect-ratio: 380 / 400;
     transform: rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateZ(0);
     transform-style: preserve-3d;
     will-change: transform;
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+    filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.12));
     transition: transform 220ms ease-out;
   }
 
@@ -381,71 +421,66 @@
     transition: transform 180ms ease-out;
   }
 
-  .floppy-disk:hover .floppy-shutter-plate,
-  .floppy-disk-tilting .floppy-shutter-plate {
-    transform: translateX(-34%);
+  .floppy-body,
+  .floppy-noise {
+    @apply pointer-events-none absolute inset-0;
+    background-color: var(--floppy-color);
+    -webkit-mask-image: var(--floppy-shape);
+    mask-image: var(--floppy-shape);
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
   }
 
-  .floppy-grain {
-    @apply pointer-events-none absolute inset-0 opacity-[0.18];
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  .floppy-noise {
+    background-color: transparent;
+    background-image: var(--floppy-noise);
+    background-size: cover;
+    opacity: 0.28;
     mix-blend-mode: multiply;
   }
 
-  .floppy-arrow {
-    @apply pointer-events-none absolute left-[9%] top-[5%] h-[9%] w-[8%];
-    background: currentColor;
-    color: rgba(0, 0, 0, 0.14);
-    clip-path: polygon(50% 0%, 100% 42%, 68% 42%, 68% 100%, 32% 100%, 32% 42%, 0% 42%);
-    filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.25));
+  .floppy-big-hole {
+    @apply pointer-events-none absolute select-none;
+    top: 3.5%;
+    left: 42%;
+    width: 14.2%;
+    height: auto;
   }
 
-  .floppy-shutter-well {
-    @apply absolute left-[14%] right-[14%] top-0 h-[20%] overflow-hidden;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.22), rgba(0, 0, 0, 0.08));
+  .floppy-small-hole {
+    @apply pointer-events-none absolute select-none;
+    right: 9%;
+    bottom: 7.5%;
+    width: 6.3%;
+    height: auto;
   }
 
-  .floppy-shutter-media {
-    @apply absolute inset-x-[18%] top-[10%] bottom-[8%] rounded-[2px] bg-[#141414];
-    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.35);
-  }
-
-  .floppy-shutter-plate {
-    @apply absolute left-[8%] top-0 flex h-full w-[78%] items-center;
-    background:
-      repeating-linear-gradient(
-        90deg,
-        #d8d8d8 0px,
-        #ececec 1px,
-        #c8c8c8 2px,
-        #dedede 3px
-      ),
-      linear-gradient(180deg, #efefef 0%, #c4c4c4 48%, #aeadad 100%);
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.7),
-      inset 0 -1px 0 rgba(0, 0, 0, 0.22),
-      0 1px 2px rgba(0, 0, 0, 0.12);
+  .floppy-steel {
+    @apply pointer-events-none absolute select-none;
+    top: 0;
+    left: 28%;
+    width: 54%;
+    height: auto;
     transition: transform 320ms cubic-bezier(0.22, 0.8, 0.28, 1);
+    will-change: transform;
   }
 
-  .floppy-shutter-dent {
-    @apply absolute left-[8%] top-1/2 h-[18%] w-[12%] -translate-y-1/2 rounded-[1px];
-    background: rgba(0, 0, 0, 0.12);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2);
-  }
-
-  .floppy-shutter-window {
-    @apply absolute right-[14%] top-[10%] bottom-[10%] w-[22%] rounded-[2px] bg-[#141414];
-    box-shadow:
-      inset 0 0 0 1px rgba(0, 0, 0, 0.35),
-      0 0 0 1px rgba(255, 255, 255, 0.2);
+  .floppy-disk:hover .floppy-steel,
+  .floppy-disk-tilting .floppy-steel {
+    transform: translateX(-38%);
   }
 
   .floppy-label {
-    @apply absolute left-[8%] right-[8%] top-[24%] bottom-[22%] overflow-hidden rounded-[6px] bg-black;
-    box-shadow:
-      inset 0 0 0 1px rgba(0, 0, 0, 0.18),
-      0 1px 0 rgba(255, 255, 255, 0.2);
+    @apply absolute overflow-hidden rounded-[5px] bg-black;
+    left: 9%;
+    right: 9%;
+    top: 30%;
+    bottom: 20%;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
   }
 
   .floppy-label-art {
@@ -457,7 +492,11 @@
   }
 
   .floppy-footer {
-    @apply absolute bottom-[8%] left-[8%] right-[8%] flex h-[11%] items-center gap-2 rounded-[3px] bg-[#f4f4f1] px-2.5;
+    @apply absolute flex items-center gap-2 rounded-[3px] bg-[#f4f4f1] px-2.5;
+    left: 9%;
+    right: 9%;
+    bottom: 8.5%;
+    height: 10%;
     background-image: repeating-linear-gradient(
       180deg,
       transparent 0,
@@ -465,9 +504,7 @@
       rgba(0, 0, 0, 0.06) 5px,
       rgba(0, 0, 0, 0.06) 6px
     );
-    box-shadow:
-      inset 0 0 0 1px rgba(0, 0, 0, 0.08),
-      0 1px 0 rgba(255, 255, 255, 0.35);
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
   }
 
   .floppy-footer-key {
@@ -555,13 +592,26 @@
     animation: none;
   }
 
+  .photo-deck-card {
+    transition: none !important;
+    transform: translate(
+        calc(-50% + var(--deck-x, 0px)),
+        calc(-50% + var(--deck-y, 0px))
+      )
+      rotate(var(--deck-r, 0deg)) !important;
+  }
+
+  .photo-card-tag {
+    opacity: 1 !important;
+  }
+
   .floppy-disk,
   .floppy-disk-tilting {
     transform: none !important;
   }
 
-  .floppy-disk:hover .floppy-shutter-plate,
-  .floppy-disk-tilting .floppy-shutter-plate {
+  .floppy-disk:hover .floppy-steel,
+  .floppy-disk-tilting .floppy-steel {
     transform: none;
   }
 }

@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+import type { CSSProperties, PointerEventHandler } from "react";
 import type { SkillNote } from "../data/skills";
 import { cn } from "../utils/utils";
 
@@ -12,12 +12,28 @@ type Props = {
   note: SkillNote;
   left: number;
   top: number;
+  dragging?: boolean;
+  onPointerDown: PointerEventHandler<HTMLElement>;
+  onPointerMove: PointerEventHandler<HTMLElement>;
+  onPointerUp: PointerEventHandler<HTMLElement>;
 };
 
-export function SkillNoteCard({ note, left, top }: Props) {
+export function SkillNoteCard({
+  note,
+  left,
+  top,
+  dragging,
+  onPointerDown,
+  onPointerMove,
+  onPointerUp,
+}: Props) {
   return (
     <article
-      className={cn("skill-note", sizeClass[note.size ?? "md"])}
+      className={cn(
+        "skill-note",
+        sizeClass[note.size ?? "md"],
+        dragging && "skill-note-dragging"
+      )}
       style={
         {
           backgroundColor: note.color,
@@ -26,6 +42,10 @@ export function SkillNoteCard({ note, left, top }: Props) {
           top: `${top}%`,
         } as CSSProperties
       }
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={onPointerUp}
+      onPointerCancel={onPointerUp}
     >
       <span className="skill-note-group">{note.group}</span>
       <p className="skill-note-label">{note.label}</p>

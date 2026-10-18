@@ -11,10 +11,15 @@ export type PercentPos = { left: number; top: number };
 type Options = {
   canvasRef: RefObject<HTMLElement | null>;
   initial: Record<string, PercentPos>;
-  pad?: number;
+  /** Edge padding in percent. Set false for free placement with no border. */
+  pad?: number | false;
 };
 
-export function usePercentDrag({ canvasRef, initial, pad = 4 }: Options) {
+export function usePercentDrag({
+  canvasRef,
+  initial,
+  pad = 4,
+}: Options) {
   const dragOffset = useRef({ x: 0, y: 0 });
   const [positions, setPositions] = useState(initial);
   const [dragging, setDragging] = useState<string | null>(null);
@@ -28,6 +33,7 @@ export function usePercentDrag({ canvasRef, initial, pad = 4 }: Options) {
     if (!canvas || !pos) return;
 
     e.preventDefault();
+    e.stopPropagation();
     const rect = canvas.getBoundingClientRect();
     dragOffset.current = {
       x: e.clientX - rect.left - (pos.left / 100) * rect.width,
@@ -39,21 +45,25 @@ export function usePercentDrag({ canvasRef, initial, pad = 4 }: Options) {
 
   const onPointerMove = (e: ReactPointerEvent<HTMLElement>) => {
     if (!dragging || !canvasRef.current) return;
+    e.stopPropagation();
     const rect = canvasRef.current.getBoundingClientRect();
-    const left = clamp(
-      ((e.clientX - rect.left - dragOffset.current.x) / rect.width) * 100,
-      pad,
-      100 - pad
-    );
-    const top = clamp(
-      ((e.clientY - rect.top - dragOffset.current.y) / rect.height) * 100,
-      pad,
-      100 - pad
-    );
+    let left =
+      ((e.clientX - rect.left - dragOffset.current.x) / rect.width) * 100;
+    let top =
+      ((e.clientY - rect.top - dragOffset.current.y) / rect.height) * 100;
+
+    if (pad !== false) {
+      left = clamp(left, pad, 100 - pad);
+      top = clamp(top, pad, 100 - pad);
+    }
+
     setPositions((prev) => ({ ...prev, [dragging]: { left, top } }));
   };
 
-  const onPointerUp = () => setDragging(null);
+  const onPointerUp = (e?: ReactPointerEvent<HTMLElement>) => {
+    e?.stopPropagation();
+    setDragging(null);
+  };
 
   return {
     positions,

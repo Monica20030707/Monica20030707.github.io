@@ -1,6 +1,11 @@
 import { useRef, useState, type CSSProperties, type PointerEvent } from "react";
 import { ImageWithFallback } from "../components/ImageWithFallback";
 import type { FloppyProject } from "../data/projects";
+import shapeSrc from "../assets/floppy-disk/Shape.png";
+import steelSrc from "../assets/floppy-disk/Steel.png";
+import noiseSrc from "../assets/floppy-disk/noise.png";
+import bigHoleSrc from "../assets/floppy-disk/Big Hole.png";
+import smallHoleSrc from "../assets/floppy-disk/Small Hole.png";
 
 type Props = {
   project: FloppyProject;
@@ -42,26 +47,42 @@ export function FloppyDisk({ project, index }: Props) {
       className={`floppy-disk${tilt.active ? " floppy-disk-tilting" : ""}`}
       style={
         {
-          backgroundColor: project.color,
           animationDelay: `${index * 40}ms`,
+          "--floppy-color": project.color,
           "--tilt-x": `${tilt.x}deg`,
           "--tilt-y": `${tilt.y}deg`,
+          "--floppy-shape": `url(${shapeSrc})`,
+          "--floppy-noise": `url(${noiseSrc})`,
         } as CSSProperties
       }
       aria-label={`${project.title}. ${project.description}`}
       onPointerMove={onPointerMove}
       onPointerLeave={onPointerLeave}
     >
-      <span className="floppy-grain" aria-hidden="true" />
-      <span className="floppy-arrow" aria-hidden="true" />
+      <span className="floppy-body" aria-hidden="true" />
+      <span className="floppy-noise" aria-hidden="true" />
 
-      <div className="floppy-shutter-well" aria-hidden="true">
-        <div className="floppy-shutter-media" />
-        <div className="floppy-shutter-plate">
-          <span className="floppy-shutter-dent" />
-          <span className="floppy-shutter-window" />
-        </div>
-      </div>
+      <img
+        src={bigHoleSrc}
+        alt=""
+        draggable={false}
+        className="floppy-big-hole"
+        aria-hidden="true"
+      />
+      <img
+        src={smallHoleSrc}
+        alt=""
+        draggable={false}
+        className="floppy-small-hole"
+        aria-hidden="true"
+      />
+      <img
+        src={steelSrc}
+        alt=""
+        draggable={false}
+        className="floppy-steel"
+        aria-hidden="true"
+      />
 
       <div className="floppy-label">
         <ImageWithFallback
