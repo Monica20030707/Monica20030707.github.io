@@ -44,4 +44,21 @@
   .nav-mobile-menu {
     display: none !important;
   }
+
+  .floppy-disk-modal {
+    width: min(94vw, calc(88dvh * 380 / 400));
+  }
+
+  .floppy-back-surface {
+    inset: 9% 10% 8% 10%;
+    gap: 0.85rem;
+  }
+
+  .floppy-back-title {
+    font-size: 13px;
+  }
+
+  .floppy-back-copy {
+    font-size: 14px;
+  }
 }

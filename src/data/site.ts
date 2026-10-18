@@ -3,4 +3,6 @@ export const SITE = {
   email: "thuybohr@gmail.com",
   linkedin: "https://www.linkedin.com/in/thuy-nguyen-46505121b/",
   github: "https://github.com/Monica20030707",
+  /** Drop your resume PDF in /public and keep this path in sync */
+  cv: "/Monica_Nguyen_CV.pdf",
 } as const;

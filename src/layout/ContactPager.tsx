@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Github, Linkedin } from "lucide-react";
 import { SITE } from "../data/site";
 
 function formatTime(date: Date) {
@@ -42,21 +43,34 @@ export function ContactPager() {
           MN Communications
         </p>
 
-        <div className="mt-5 flex items-center gap-2.5 sm:mt-6 sm:gap-3">
-          <div className="contact-pager-speaker" aria-hidden="true">
-            <span />
-            <span />
-            <span />
-          </div>
+        <div className="contact-pager-actions">
+          <div className="contact-pager-actions-left">
+            <div className="contact-pager-speaker" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+            </div>
 
-          <a
-            href={SITE.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="contact-pager-btn contact-pager-btn-secondary"
-          >
-            LinkedIn
-          </a>
+            <a
+              href={SITE.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+              className="contact-pager-icon"
+            >
+              <Github size={18} strokeWidth={1.75} />
+            </a>
+
+            <a
+              href={SITE.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="contact-pager-icon"
+            >
+              <Linkedin size={18} strokeWidth={1.75} />
+            </a>
+          </div>
 
           <a
             href={`mailto:${SITE.email}`}

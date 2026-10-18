@@ -5,13 +5,15 @@ export function About() {
     <section className="pb-section-sm pt-10 md:pb-section-md md:pt-14 lg:pb-section">
       <div className="mx-auto w-full max-w-2xl px-6 text-center">
         <h1 className="display-hero text-ink">
-          My real name is Thuy.
+          My name is Thuy
           <br />
-          But I go by <em className="italic">Monica</em>.
+          but I go by <em className="italic">Monica</em>
         </h1>
-        <p className="mx-auto mt-4 max-w-md text-body-md text-body">
-          Looks harder than it actually is — CS grad, full-stack builder, and
-          occasional game tinkerer.
+        <p className="mx-auto mt-4 max-w-lg text-pretty text-body-md text-body">
+          It&apos;s pronounced{" "}
+          <em className="italic text-ink">&ldquo;twee&rdquo;</em>, and no
+          worries if you need a{" "}
+          <span className="whitespace-nowrap">second try!</span>
         </p>
       </div>
 
@@ -19,28 +21,52 @@ export function About() {
         <PhotoPile />
       </div>
 
-      <div className="mx-auto mt-10 max-w-xl space-y-4 px-6 text-center text-body-md text-body md:mt-12">
-        <p>
-          I&apos;m a recent{" "}
-          <strong className="font-medium text-ink">Computer Science</strong>{" "}
-          grad who&apos;s excited about building things people actually enjoy
-          using. Most of my work has been in{" "}
-          <strong className="font-medium text-ink">full-stack web</strong> and
-          mobile development, where I get to take an idea and turn it into
-          something real.
+      <div className="about-copy mx-auto mt-10 max-w-xl px-6 md:mt-12">
+        <p className="about-lede">
+          I&apos;m a{" "}
+          <strong className="font-medium text-ink">software engineer</strong>{" "}
+          who loves learning new things and making games with my husband!
         </p>
-        <p>
-          During internships I wore a lot of hats — jumping between{" "}
-          <strong className="font-medium text-ink">front-end</strong>,{" "}
-          <strong className="font-medium text-ink">backend</strong>, and even
-          data work. That taught me to adapt quickly and stay curious, which I
-          think is one of my biggest strengths.
-        </p>
-        <p>
-          Outside of work, I love experimenting with{" "}
-          <strong className="font-medium text-ink">game development</strong>.
-          It&apos;s where I get to be playful with coding, try wild ideas, and
-          push myself to learn without worrying too much about the rules.
+
+        <div className="about-block">
+          <h2 className="about-kicker">What I do</h2>
+          <p>
+            I work across the stack and enjoy learning new technologies. Lately,
+            I&apos;ve been exploring{" "}
+            <strong className="font-medium text-ink">AWS</strong> and{" "}
+            <strong className="font-medium text-ink">cloud computing</strong>.
+            I&apos;ve also played around with AI for a body-recognition project
+            and built an Arduino project connected to Pi-hole. New things are my
+            favorite things to learn!
+          </p>
+        </div>
+
+        <div className="about-block">
+          <h2 className="about-kicker">What I make</h2>
+          <p>
+            I&apos;m proud of learning how to make games. My husband and I create
+            game assets and indie games together, including a horror game that
+            started on itch.io and made its way to{" "}
+            <strong className="font-medium text-ink">Steam</strong>. We recently
+            built a company website that pulls content straight from the Steam
+            API, and we&apos;re very proud of how it turned out. We also keep AI
+            out of our games, 100%.
+          </p>
+        </div>
+
+        <div className="about-block">
+          <h2 className="about-kicker">When I&apos;m not building</h2>
+          <p>
+            I&apos;m probably playing a game, learning a new recipe, or taking{" "}
+            <strong className="font-medium text-ink">Libby</strong> out for a
+            walk or hike. She loves chasing a ball and is extremely spoiled. I
+            can&apos;t help it!
+          </p>
+        </div>
+
+        <p className="about-close">
+          I&apos;m always up for learning something new, making something fun,
+          or chatting with fellow builders.
         </p>
       </div>
     </section>

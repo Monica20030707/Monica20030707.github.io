@@ -303,23 +303,31 @@
     @apply block h-[2px] w-3.5 -rotate-[20deg] rounded-full bg-black/50;
   }
 
-  .contact-pager-btn {
-    @apply inline-flex h-10 items-center justify-center rounded-full text-[12px] font-medium transition-all sm:h-11 sm:text-[13px];
+  .contact-pager-actions {
+    @apply mt-5 flex items-center justify-between gap-2.5 sm:mt-6 sm:gap-3;
   }
 
-  .contact-pager-btn-secondary {
-    @apply flex-1 px-4 text-white/85;
+  .contact-pager-actions-left {
+    @apply flex items-center gap-2.5 sm:gap-3;
+  }
+
+  .contact-pager-icon {
+    @apply inline-flex size-10 shrink-0 items-center justify-center rounded-full text-white/85 transition-all sm:size-11;
     background: #1c1c1c;
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
   }
 
-  .contact-pager-btn-secondary:hover {
+  .contact-pager-icon:hover {
     @apply text-white;
     background: #222;
   }
 
+  .contact-pager-btn {
+    @apply inline-flex h-10 shrink-0 items-center justify-center rounded-full text-[12px] font-medium transition-all sm:h-11 sm:text-[13px];
+  }
+
   .contact-pager-btn-primary {
-    @apply flex-[1.25] px-4 font-semibold text-[#2a2a2a];
+    @apply w-auto px-4 font-semibold text-[#2a2a2a];
     background: linear-gradient(180deg, #ffcc33 0%, #f0b000 100%);
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.4),
@@ -368,6 +376,154 @@
     @apply text-[20px] font-semibold leading-none text-ink sm:text-[24px];
   }
 
+  /* Pull wash under sticky nav so hue isn’t cut off by a white bar. */
+  .contact-wash {
+    margin-top: -4.5rem;
+    padding-top: 4.5rem;
+    background:
+      radial-gradient(
+        90% 70% at 12% 0%,
+        rgba(255, 225, 74, 0.16) 0%,
+        transparent 55%
+      ),
+      radial-gradient(
+        70% 55% at 100% 18%,
+        rgba(184, 224, 255, 0.2) 0%,
+        transparent 52%
+      ),
+      var(--canvas);
+  }
+
+  .contact-page {
+    @apply flex min-h-[calc(100dvh-4.5rem)] flex-col justify-center px-6 pb-16 pt-14 sm:px-10 sm:pb-20 sm:pt-16 md:px-12;
+    background: transparent;
+  }
+
+  .contact-page-inner {
+    @apply mx-auto grid w-full max-w-5xl gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:items-start lg:gap-14;
+  }
+
+  .contact-page-intro {
+    @apply max-w-md;
+  }
+
+  .contact-page-lede {
+    @apply mt-5 text-body-md leading-relaxed text-body sm:mt-6;
+  }
+
+  .contact-page-email-line {
+    @apply mt-6 text-body-md text-body;
+  }
+
+  .contact-page-email {
+    @apply font-medium text-ink underline decoration-hairline-strong underline-offset-4 transition-colors;
+  }
+
+  .contact-page-email:hover {
+    @apply decoration-ink;
+  }
+
+  .contact-page-social {
+    @apply mt-6 flex flex-wrap gap-3;
+  }
+
+  .contact-page-chip {
+    @apply inline-flex h-pill items-center gap-2 rounded-full border border-hairline-strong bg-canvas px-4 text-button-md text-ink transition-colors;
+  }
+
+  .contact-page-chip:hover {
+    @apply bg-surface-soft;
+  }
+
+  .contact-page-form {
+    @apply flex flex-col gap-5 rounded-[1.75rem] border border-hairline bg-white/80 p-6 shadow-[0_18px_40px_rgba(0,0,0,0.04)] backdrop-blur-sm sm:p-8;
+  }
+
+  .contact-page-field {
+    @apply flex flex-col gap-1.5;
+  }
+
+  .contact-page-field label {
+    @apply text-body-sm font-medium text-ink;
+  }
+
+  .contact-page-input {
+    @apply h-11 rounded-full border-hairline bg-canvas px-4 text-body-md text-ink placeholder:text-mute focus-visible:border-ink focus-visible:ring-focus-ring;
+  }
+
+  .contact-page-textarea {
+    @apply min-h-[9.5rem] resize-none rounded-2xl border-hairline bg-canvas px-4 py-3 text-body-md text-ink placeholder:text-mute focus-visible:border-ink focus-visible:ring-focus-ring;
+  }
+
+  .contact-page-submit {
+    @apply mt-1 w-full sm:w-auto;
+  }
+
+  .about-copy {
+    @apply flex flex-col gap-8 text-left text-body-md leading-relaxed text-body;
+  }
+
+  .about-lede {
+    @apply text-body-md leading-relaxed text-body;
+  }
+
+  .about-block {
+    @apply flex flex-col gap-2.5;
+  }
+
+  .about-kicker {
+    @apply font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-ink/85;
+  }
+
+  .about-close {
+    @apply border-t border-hairline pt-8 text-ink;
+  }
+
+  .work-ask {
+    white-space: nowrap;
+    padding-inline: 0.06em;
+    margin-inline: -0.06em;
+    background-image: linear-gradient(
+      transparent 68%,
+      color-mix(in srgb, var(--tag-yellow) 88%, white) 68%,
+      color-mix(in srgb, var(--tag-yellow) 88%, white) 90%,
+      transparent 90%
+    );
+    background-repeat: no-repeat;
+  }
+
+  .work-lede {
+    @apply mt-5 flex max-w-sm flex-col gap-4 text-left text-body-md leading-relaxed text-body sm:mt-6 sm:max-w-lg sm:gap-5;
+  }
+
+  .work-mark {
+    display: inline;
+    padding: 0.05em 0.28em;
+    margin: 0 -0.04em;
+    border-radius: 0.28em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .work-mark-green {
+    background: color-mix(in srgb, var(--tag-green) 72%, white);
+  }
+
+  .work-mark-pink {
+    background: color-mix(in srgb, var(--tag-pink) 70%, white);
+  }
+
+  .work-mark-yellow {
+    background: color-mix(in srgb, var(--tag-yellow) 75%, white);
+  }
+
+  .work-hand {
+    font-family: "Caveat", "Instrument Serif", cursive;
+    @apply not-italic text-[1.35em] font-semibold leading-none text-ink;
+  }
+
   .floppy-shelf {
     @apply relative mt-2 w-full pb-8 pt-6 sm:pb-10 sm:pt-8;
     background:
@@ -384,47 +540,166 @@
     mask-image: linear-gradient(
       to right,
       transparent,
-      black 4%,
-      black 96%,
+      black 8%,
+      black 92%,
       transparent
     );
   }
 
   .floppy-carousel-track {
-    @apply flex w-max items-stretch gap-8 py-8 sm:gap-10 md:gap-12;
+    @apply flex w-max items-center gap-8 py-8 sm:gap-10 md:gap-12;
     animation: floppy-marquee 48s linear infinite;
   }
 
-  .floppy-carousel:hover .floppy-carousel-track {
+  .floppy-carousel:hover .floppy-carousel-track,
+  .floppy-shelf.is-paused .floppy-carousel-track {
     animation-play-state: paused;
   }
 
   .floppy-carousel-item {
-    @apply w-[230px] shrink-0 sm:w-[260px] md:w-[290px];
-    perspective: 700px;
+    flex: 0 0 230px;
+    width: 230px;
   }
 
+  @media (min-width: 640px) {
+    .floppy-carousel-item {
+      flex-basis: 260px;
+      width: 260px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .floppy-carousel-item {
+      flex-basis: 290px;
+      width: 290px;
+    }
+  }
+
+  .floppy-disk-slot {
+    position: relative;
+    width: 100%;
+  }
+
+  /* Flat carousel card — tilt via self perspective (marquee transform flattens parent 3D). */
   .floppy-disk {
     --tilt-x: 0deg;
     --tilt-y: 0deg;
     --floppy-color: #7ec8ff;
-    @apply relative block w-full no-underline;
+    @apply relative block w-full border-0 bg-transparent p-0 text-left no-underline;
     aspect-ratio: 380 / 400;
-    transform: rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateZ(0);
-    transform-style: preserve-3d;
-    will-change: transform;
+    transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
     filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.12));
     transition: transform 220ms ease-out;
+    cursor: pointer;
+    will-change: transform;
   }
 
   .floppy-disk-tilting {
     transition: transform 180ms ease-out;
   }
 
+  .floppy-disk.is-opening {
+    opacity: 0.45;
+    pointer-events: none;
+  }
+
+  .floppy-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 80;
+    border: 0;
+    padding: 0;
+    background: rgba(20, 20, 20, 0.55);
+    backdrop-filter: blur(3px);
+    animation: floppy-backdrop-in 220ms ease both;
+  }
+
+  @keyframes floppy-backdrop-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Expanded detail view — portaled to document.body */
+  .floppy-disk-modal {
+    --floppy-color: #7ec8ff;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    z-index: 90;
+    width: min(92vw, calc(90dvh * 380 / 400));
+    aspect-ratio: 380 / 400;
+    transform: translate(-50%, -50%);
+    filter: drop-shadow(0 24px 50px rgba(0, 0, 0, 0.35));
+    animation: floppy-expand-in 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @keyframes floppy-expand-in {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.86);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+
+  /* Whole disk face is the writing surface (colored shell shows through). */
+  .floppy-back-surface {
+    @apply absolute flex flex-col gap-4 overflow-auto text-left;
+    inset: 10% 11% 9% 11%;
+    color: #1a1a1a;
+  }
+
+  .floppy-back-top {
+    @apply flex flex-col gap-2.5;
+  }
+
+  .floppy-back-tag {
+    @apply self-start rounded-sm bg-black/10 px-2 py-1 font-mono text-[11px] font-medium uppercase tracking-wide text-ink;
+  }
+
+  .floppy-back-title {
+    font-family: "Press Start 2P", var(--font-mono), monospace;
+    @apply text-[14px] leading-relaxed text-ink sm:text-[16px];
+  }
+
+  .floppy-back-copy {
+    @apply text-[15px] leading-snug text-ink/80 sm:text-[16px];
+  }
+
+  .floppy-back-stack {
+    @apply flex flex-col gap-2;
+  }
+
+  .floppy-back-kicker {
+    @apply text-[10px] font-semibold uppercase tracking-[0.14em] text-ink/50;
+  }
+
+  .floppy-back-chips {
+    @apply flex flex-wrap gap-2;
+  }
+
+  .floppy-back-chip {
+    @apply rounded-full bg-black/10 px-3 py-1.5 text-[13px] font-medium text-ink;
+  }
+
+  .floppy-back-details {
+    @apply m-0 flex list-disc flex-col gap-2 pl-5 text-[14px] leading-snug text-ink/75 sm:text-[15px];
+  }
+
+  .floppy-back-link {
+    @apply mt-auto inline-flex self-start rounded-full bg-ink px-4 py-2 text-[13px] font-medium text-white no-underline transition-opacity hover:opacity-85;
+  }
+
   .floppy-body,
+  .floppy-shade,
   .floppy-noise {
     @apply pointer-events-none absolute inset-0;
-    background-color: var(--floppy-color);
     -webkit-mask-image: var(--floppy-shape);
     mask-image: var(--floppy-shape);
     -webkit-mask-size: 100% 100%;
@@ -435,12 +710,43 @@
     mask-position: center;
   }
 
+  .floppy-body {
+    background-color: var(--floppy-color);
+  }
+
+  /* Soft plastic bevel — light corner + darker edge for depth. */
+  .floppy-shade {
+    background:
+      radial-gradient(
+        120% 90% at 22% 18%,
+        rgba(255, 255, 255, 0.38) 0%,
+        transparent 48%
+      ),
+      linear-gradient(
+        155deg,
+        rgba(255, 255, 255, 0.16) 0%,
+        transparent 40%,
+        rgba(0, 0, 0, 0.22) 100%
+      );
+    mix-blend-mode: soft-light;
+    opacity: 0.95;
+  }
+
   .floppy-noise {
     background-color: transparent;
     background-image: var(--floppy-noise);
-    background-size: cover;
-    opacity: 0.28;
+    background-size: 160% 160%;
+    background-position: center;
+    opacity: 0.42;
     mix-blend-mode: multiply;
+  }
+
+  /* Second grain pass — finer tile, stronger contrast for material depth. */
+  .floppy-noise-deep {
+    background-size: 95% 95%;
+    opacity: 0.55;
+    mix-blend-mode: soft-light;
+    filter: contrast(1.55) brightness(1.05);
   }
 
   .floppy-big-hole {
@@ -608,6 +914,11 @@
   .floppy-disk,
   .floppy-disk-tilting {
     transform: none !important;
+  }
+
+  .floppy-backdrop,
+  .floppy-disk-modal {
+    animation: none;
   }
 
   .floppy-disk:hover .floppy-steel,
