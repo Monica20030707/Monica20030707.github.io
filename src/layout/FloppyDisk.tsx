@@ -54,6 +54,7 @@ function FloppyShell({
             className="floppy-bay"
             aria-hidden="true"
           />
+          <span className="floppy-index-hole" aria-hidden="true" />
           <img
             src={steelSrc}
             alt=""

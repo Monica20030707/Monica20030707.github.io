@@ -3,10 +3,12 @@ import { Github } from "lucide-react";
 import { SITE } from "../data/site";
 
 function formatTime(date: Date) {
-  return date.toLocaleTimeString("en-US", {
+  const clock = date.toLocaleTimeString("en-US", {
     hour: "numeric",
     minute: "2-digit",
+    timeZone: "America/Los_Angeles",
   });
+  return `${clock} PST`;
 }
 
 export function ContactPager() {
