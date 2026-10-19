@@ -465,7 +465,7 @@
     filter: brightness(1.08);
   }
 
-  /* Phone.png is 350x443: taller body, Contact Me on its own row. */
+  /* Narrow pager (350x443 proportions): taller body, Contact Me on its own row. */
   @container (max-width: 400px) {
     .contact-pager-shell {
       display: flex;
@@ -926,7 +926,7 @@
   }
 
   /*
-   * Shutter bay (Dark Inside.png): a faint sunken tint plus the dark magnetic
+   * Shutter bay (Dark-Inside.png): a faint sunken tint plus the dark magnetic
    * window. The steel sits on top and slides left to reveal the window.
    * 269x123 @ (37, 1) on the 380x400 board.
    */
@@ -1028,7 +1028,7 @@
     box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.06);
   }
 
-  /* Label (Bottom Area.png): 300x226 @ (40, 174); flush with the bottom edge. */
+  /* Label: 300x226 @ (40, 174); flush with the bottom edge. */
   .floppy-label {
     @apply absolute flex flex-col overflow-hidden rounded-t-[5px] bg-black;
     left: 10.526%;
@@ -1054,7 +1054,7 @@
     @apply absolute right-2 top-2 rounded-sm bg-white/90 px-1.5 py-0.5 font-mono text-[8px] font-medium uppercase tracking-wide text-ink;
   }
 
-  /* Title strip (Description.png): lined paper, TITLE key, handwritten name over a rule. */
+  /* Title strip: lined paper, TITLE key, handwritten name over a rule. */
   .floppy-footer {
     @apply relative shrink-0 bg-[#eae3e3];
     height: 23%;

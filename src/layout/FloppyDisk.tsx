@@ -11,7 +11,7 @@ import { ImageWithFallback } from "../components/ImageWithFallback";
 import type { FloppyProject } from "../data/projects";
 import shapeSrc from "../assets/floppy-disk/Shape.png";
 import steelSrc from "../assets/floppy-disk/Steel.png";
-import darkInsideSrc from "../assets/floppy-disk/Dark Inside.png";
+import darkInsideSrc from "../assets/floppy-disk/Dark-Inside.png";
 import noiseSrc from "../assets/floppy-disk/noise.png";
 
 type Props = {
@@ -24,10 +24,10 @@ type Props = {
 const MAX_TILT = 5;
 
 /*
- * Geometry is taken from Closed.png / the reference screenshot (380x400 art board):
- *   - Dark Inside (bay + magnetic window)  269x123 @ (37, 1)
+ * Geometry on the 380x400 art board (same size as Shape.png):
+ *   - Dark-Inside (bay + magnetic window)  269x123 @ (37, 1)
  *   - Steel shutter                        205x126 @ (88, -2) closed, (37, -2) open
- *   - Label (Bottom Area, minus shadow)    300x226 @ (40, 174)
+ *   - Label                                300x226 @ (40, 174)
  *   - Molded arrow                          16x27  @ (10, 25)
  *   - Molded square / write-protect hole    16x16  @ (10, 360) / (354, 360)
  * Everything below is expressed as a percentage of that board so it scales.
