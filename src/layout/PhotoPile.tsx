@@ -49,7 +49,7 @@ export function PhotoPile() {
           const style = {
             width: card.w,
             height: card.h,
-            zIndex: card.z,
+            "--deck-z": card.z,
             "--deck-x": `${card.offsetX}px`,
             "--deck-y": `${card.offsetY}px`,
             "--deck-r": `${card.rotate}deg`,

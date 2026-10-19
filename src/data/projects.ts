@@ -2,10 +2,14 @@ export type FloppyProject = {
   title: string;
   shortTitle?: string;
   description: string;
-  /** Extra lines shown on the enlarged disk back. */
+  /** Extra lines shown in the project detail panel. */
   details?: string[];
-  /** Tech stack chips on the disk back. */
+  /** Tech stack chips (optional). */
   stack?: string[];
+  /** Meta row under the CTA — Client / Service / Year. */
+  client?: string;
+  service?: string;
+  year?: string;
   image: string;
   color: string;
   href: string;
@@ -23,7 +27,10 @@ export const PROJECTS: FloppyProject[] = [
       "Focused on a calm UI that non-technical users can follow.",
     ],
     stack: ["React", "Pose detection", "Vercel"],
-    image: "/image/project_frailtyTester.jpg",
+    client: "Personal",
+    service: "Web Development",
+    year: "2024",
+    image: "/image/floppydisk-cover/frailtyTester.jpg",
     color: "#7ec8ff",
     href: "https://balance-tester-my-youth-span.vercel.app",
     tag: "Live",
@@ -37,7 +44,10 @@ export const PROJECTS: FloppyProject[] = [
       "Python tooling wired into a simple contributor workflow.",
     ],
     stack: ["Python", "LaTeX", "GitHub Actions"],
-    image: "/image/project_orangeLeaf.jpg",
+    client: "Personal",
+    service: "Tooling",
+    year: "2024",
+    image: "/image/floppydisk-cover/orangeLeaf.jpg",
     color: "#d4f06e",
     href: "https://github.com/Monica20030707/OrangeLeaf",
     tag: "Python",
@@ -51,7 +61,10 @@ export const PROJECTS: FloppyProject[] = [
       "TypeScript UI tuned for scanning trends quickly.",
     ],
     stack: ["TypeScript", "Perspective", "React"],
-    image: "/image/project_stockDashboard.jpg",
+    client: "Personal",
+    service: "Web Development",
+    year: "2024",
+    image: "/image/floppydisk-cover/stockDashboard.jpg",
     color: "#ffb4d9",
     href: "https://github.com/Monica20030707/tradingDashboard-UI",
     tag: "TS",
@@ -65,7 +78,10 @@ export const PROJECTS: FloppyProject[] = [
       "Designed as a pipeline you can extend with new sources.",
     ],
     stack: ["AWS", "Rekognition", "Database"],
-    image: "/image/project_licenseReader.jpg",
+    client: "School",
+    service: "Cloud Pipeline",
+    year: "2023",
+    image: "/image/floppydisk-cover/licenseReader.jpg",
     color: "#ffc48a",
     href: "https://github.com/Monica20030707/AWS_rekonigition-N-read-database",
     tag: "AWS",
@@ -79,7 +95,10 @@ export const PROJECTS: FloppyProject[] = [
       "Trained and evaluated on handwritten digit data.",
     ],
     stack: ["Python", "NumPy", "ML"],
-    image: "/image/project_MLdata.jpg",
+    client: "School",
+    service: "Machine Learning",
+    year: "2023",
+    image: "/image/floppydisk-cover/MLdata.jpg",
     color: "#c9b6ff",
     href: "https://github.com/Monica20030707/Artificial-Neutral-Network_ML",
     tag: "ML",
@@ -93,7 +112,10 @@ export const PROJECTS: FloppyProject[] = [
       "A small language-tooling project that still feels playful.",
     ],
     stack: ["Java", "ANTLR"],
-    image: "/image/project_reversePcalculator.jpg",
+    client: "School",
+    service: "Language Tools",
+    year: "2023",
+    image: "/image/floppydisk-cover/reversePcalculator.jpg",
     color: "#7dddd3",
     href: "https://github.com/Monica20030707/reverse-Polish_calculator",
     tag: "Java",

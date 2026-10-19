@@ -46,19 +46,24 @@
   }
 
   .floppy-disk-modal {
-    width: min(94vw, calc(88dvh * 380 / 400));
+    width: min(94vw, 34rem);
+    border-radius: 1.25rem;
   }
 
   .floppy-back-surface {
-    inset: 9% 10% 8% 10%;
-    gap: 0.85rem;
+    gap: 1.35rem;
+    padding: 1.35rem 1.35rem 1.4rem;
   }
 
   .floppy-back-title {
-    font-size: 13px;
+    font-size: 24px;
   }
 
   .floppy-back-copy {
-    font-size: 14px;
+    font-size: 13px;
+  }
+
+  .floppy-back-frame {
+    border-width: 8px;
   }
 }

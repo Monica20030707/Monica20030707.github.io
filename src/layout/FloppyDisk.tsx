@@ -1,4 +1,5 @@
 import {
+  useLayoutEffect,
   useRef,
   useState,
   type CSSProperties,
@@ -7,6 +8,7 @@ import {
   type ReactNode,
 } from "react";
 import { createPortal } from "react-dom";
+import { ArrowUpRight } from "lucide-react";
 import { ImageWithFallback } from "../components/ImageWithFallback";
 import type { FloppyProject } from "../data/projects";
 import shapeSrc from "../assets/floppy-disk/Shape.png";
@@ -22,6 +24,12 @@ type Props = {
 };
 
 const MAX_TILT = 5;
+
+/* Dark window inside Dark-Inside.png on the 380x400 board, with the shutter open. */
+const WINDOW = { x: 171, y: 21, w: 40, h: 90 };
+const BOARD = { w: 380, h: 400 };
+const POP_MS = 520;
+const POP_EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
 
 /*
  * Geometry on the 380x400 art board (same size as Shape.png):
@@ -83,52 +91,120 @@ function FloppyShell({
 }
 
 function FloppyBackContent({ project }: { project: FloppyProject }) {
+  const meta = [
+    project.client ? { label: "Client", value: project.client } : null,
+    project.service ? { label: "Service", value: project.service } : null,
+    project.year ? { label: "Year", value: project.year } : null,
+  ].filter(Boolean) as { label: string; value: string }[];
+
   return (
     <div className="floppy-back-surface">
-      <div className="floppy-back-top">
-        {project.tag && <span className="floppy-back-tag">{project.tag}</span>}
-        <p className="floppy-back-title">{project.title}</p>
+      <div className="floppy-back-info">
+        <h2 className="floppy-back-title">{project.title}</h2>
         <p className="floppy-back-copy">{project.description}</p>
+
+        <a
+          href={project.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="floppy-back-link"
+          onClick={(e) => e.stopPropagation()}
+        >
+          View Project
+          <ArrowUpRight size={15} strokeWidth={2} aria-hidden="true" />
+        </a>
+
+        {meta.length > 0 && (
+          <dl className="floppy-back-meta">
+            {meta.map((item) => (
+              <div key={item.label} className="floppy-back-meta-item">
+                <dt>{item.label}</dt>
+                <dd>{item.value}</dd>
+              </div>
+            ))}
+          </dl>
+        )}
       </div>
 
-      {project.stack && project.stack.length > 0 && (
-        <div className="floppy-back-stack">
-          <span className="floppy-back-kicker">Tech stack</span>
-          <div className="floppy-back-chips">
-            {project.stack.map((item) => (
-              <span key={item} className="floppy-back-chip">
-                {item}
-              </span>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {project.details && project.details.length > 0 && (
-        <ul className="floppy-back-details">
-          {project.details.map((line) => (
-            <li key={line}>{line}</li>
-          ))}
-        </ul>
-      )}
-
-      <a
-        href={project.href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="floppy-back-link"
-        onClick={(e) => e.stopPropagation()}
-      >
-        Open project
-      </a>
+      <figure className="floppy-back-frame">
+        <ImageWithFallback
+          src={project.image}
+          alt=""
+          className="floppy-back-frame-art"
+          draggable={false}
+        />
+      </figure>
     </div>
   );
 }
 
 export function FloppyDisk({ project, index, flipped = false, onFlip }: Props) {
   const ref = useRef<HTMLDivElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const originRef = useRef<DOMRect | null>(null);
   const [tilt, setTilt] = useState({ x: 0, y: 0, active: false });
   const label = project.shortTitle ?? project.title;
+
+  const toggle = () => {
+    const el = ref.current;
+    if (!flipped && el) {
+      const r = el.getBoundingClientRect();
+      originRef.current = new DOMRect(
+        r.left + (r.width * WINDOW.x) / BOARD.w,
+        r.top + (r.height * WINDOW.y) / BOARD.h,
+        (r.width * WINDOW.w) / BOARD.w,
+        (r.height * WINDOW.h) / BOARD.h
+      );
+    }
+    onFlip?.();
+  };
+
+  /* Grow the card out of the disk's dark window. */
+  useLayoutEffect(() => {
+    const modal = modalRef.current;
+    const from = originRef.current;
+    if (!flipped || !modal || !from) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const to = modal.getBoundingClientRect();
+    const dx = from.left + from.width / 2 - (to.left + to.width / 2);
+    const dy = from.top + from.height / 2 - (to.top + to.height / 2);
+    const sx = from.width / to.width;
+    const sy = from.height / to.height;
+
+    modal.style.animation = "none";
+    const pop = modal.animate(
+      [
+        {
+          transform: `translate(-50%, -50%) translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`,
+          backgroundColor: "#2b2b2b",
+        },
+        {
+          transform: "translate(-50%, -50%)",
+          backgroundColor: "#0c0c0c",
+        },
+      ],
+      { duration: POP_MS, easing: POP_EASE }
+    );
+
+    const gloss = modal.querySelector<HTMLElement>(".floppy-modal-gloss");
+    const glossFade = gloss?.animate(
+      [{ opacity: 1 }, { opacity: 0.8, offset: 0.35 }, { opacity: 0 }],
+      { duration: POP_MS, easing: "ease-out", fill: "forwards" }
+    );
+
+    const surface = modal.querySelector<HTMLElement>(".floppy-back-surface");
+    const reveal = surface?.animate(
+      [{ opacity: 0 }, { opacity: 0, offset: 0.5 }, { opacity: 1 }],
+      { duration: POP_MS, easing: "ease-out" }
+    );
+
+    return () => {
+      pop.cancel();
+      glossFade?.cancel();
+      reveal?.cancel();
+    };
+  }, [flipped]);
 
   const shellStyle = {
     animationDelay: `${index * 40}ms`,
@@ -159,7 +235,7 @@ export function FloppyDisk({ project, index, flipped = false, onFlip }: Props) {
 
   const onClick = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
-    onFlip?.();
+    toggle();
   };
 
   const modal =
@@ -173,16 +249,15 @@ export function FloppyDisk({ project, index, flipped = false, onFlip }: Props) {
           onClick={() => onFlip?.()}
         />
         <div
+          ref={modalRef}
           className="floppy-disk-modal"
-          style={shellStyle}
           role="dialog"
           aria-modal="true"
           aria-label={`${project.title}. ${project.description}`}
           onClick={(e) => e.stopPropagation()}
         >
-          <FloppyShell showMetal={false}>
-            <FloppyBackContent project={project} />
-          </FloppyShell>
+          <span className="floppy-modal-gloss" aria-hidden="true" />
+          <FloppyBackContent project={project} />
         </div>
       </>,
       document.body
@@ -216,11 +291,12 @@ export function FloppyDisk({ project, index, flipped = false, onFlip }: Props) {
         onKeyDown={(e) => {
           if (e.key === "Enter" || e.key === " ") {
             e.preventDefault();
-            onFlip?.();
+            toggle();
           }
         }}
       >
         <FloppyShell>
+          <span className="floppy-label-ridge" aria-hidden="true" />
           <div className="floppy-label">
             <div className="floppy-label-art-wrap">
               <ImageWithFallback
