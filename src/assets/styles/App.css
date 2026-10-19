@@ -258,10 +258,11 @@
     @apply w-full max-w-[340px] sm:max-w-[460px] md:max-w-[520px];
     container-type: inline-size;
     transform-origin: center center;
+    transition: transform 180ms ease;
   }
 
   .contact-pager:hover {
-    animation: pager-giggle 0.55s ease-in-out infinite;
+    animation: pager-buzz 1.3s linear infinite;
   }
 
   .contact-pager-shell {
@@ -275,14 +276,33 @@
       0 18px 40px rgba(0, 0, 0, 0.45);
   }
 
-  .contact-pager-shell::before {
+  /*
+   * Same speckle as the floppy shell: light specks (::before) with darker
+   * pits under them (::after). The well, screen and buttons sit above on
+   * z-1 so the grain only shows on the pager body.
+   */
+  .contact-pager-shell::before,
+  .contact-pager-shell::after {
     content: "";
     @apply pointer-events-none absolute inset-0;
     border-radius: inherit;
+    background-repeat: repeat;
+  }
+
+  .contact-pager-shell::before {
+    background-image:
+      url("../floppy-disk/noise.png"), url("../floppy-disk/noise.png");
+    background-size: 340px auto;
+    background-position: center;
+    opacity: 0.72;
+  }
+
+  .contact-pager-shell::after {
     background-image: url("../floppy-disk/noise.png");
-    background-size: 720px auto;
-    opacity: 0.22;
-    mix-blend-mode: overlay;
+    background-size: 220px auto;
+    background-position: left top;
+    opacity: 0.32;
+    mix-blend-mode: multiply;
   }
 
   .contact-pager-well {
@@ -302,7 +322,10 @@
     padding: 3.1cqi 3.4cqi 2.2cqi;
     border-radius: 2.85cqi;
     background: #a3c959;
-    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+    box-shadow:
+      0 0 0 1px rgba(0, 0, 0, 0.7),
+      0 0 16px 2px rgba(0, 0, 0, 0.65),
+      0 10px 18px rgba(0, 0, 0, 0.4);
     font-family: "Press Start 2P", var(--font-mono), monospace;
     color: #000;
     -webkit-font-smoothing: none;
@@ -409,8 +432,10 @@
     color: #797979;
     background: #141414;
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.05),
-      0 8px 16px rgba(0, 0, 0, 0.35);
+      inset 0 1px 0 rgba(255, 255, 255, 0.06),
+      0 0 0 1px rgba(0, 0, 0, 0.75),
+      0 0 14px 2px rgba(0, 0, 0, 0.6),
+      0 8px 14px rgba(0, 0, 0, 0.45);
   }
 
   .contact-pager-key {
@@ -429,13 +454,57 @@
     background: #c48818;
     box-shadow:
       inset 0 1px 0 rgba(255, 220, 140, 0.28),
-      0 8px 16px rgba(0, 0, 0, 0.35);
+      0 0 0 1px rgba(0, 0, 0, 0.45),
+      0 0 16px 3px rgba(0, 0, 0, 0.55),
+      0 10px 18px rgba(0, 0, 0, 0.42);
   }
 
   .contact-pager-key:hover,
   .contact-pager-pill:hover,
   .contact-pager-cta:hover {
     filter: brightness(1.08);
+  }
+
+  /* Phone.png is 350x443: taller body, Contact Me on its own row. */
+  @container (max-width: 400px) {
+    .contact-pager-shell {
+      display: flex;
+      flex-direction: column;
+      aspect-ratio: 350 / 443;
+      padding: 10.8cqi 8cqi 8.3cqi;
+      border-radius: 11.4cqi;
+    }
+
+    .contact-pager-screen {
+      aspect-ratio: 253 / 119;
+    }
+
+    .contact-pager-actions {
+      margin-top: auto;
+      flex-wrap: wrap;
+      row-gap: 3.4cqi;
+      padding-top: 4cqi;
+    }
+
+    .contact-pager-key,
+    .contact-pager-pill,
+    .contact-pager-cta {
+      height: 15cqi;
+    }
+
+    .contact-pager-key {
+      width: 15cqi;
+    }
+
+    .contact-pager-speaker {
+      height: 15cqi;
+    }
+
+    .contact-pager-cta {
+      flex-basis: 100%;
+      width: 100%;
+      margin-left: 0;
+    }
   }
 
   /* Rotate uses a CSS variable — keep out of Tailwind */
@@ -657,21 +726,21 @@
   }
 
   .floppy-carousel-item {
-    flex: 0 0 230px;
-    width: 230px;
+    flex: 0 0 258px;
+    width: 258px;
   }
 
   @media (min-width: 640px) {
     .floppy-carousel-item {
-      flex-basis: 260px;
-      width: 260px;
+      flex-basis: 292px;
+      width: 292px;
     }
   }
 
   @media (min-width: 768px) {
     .floppy-carousel-item {
-      flex-basis: 290px;
-      width: 290px;
+      flex-basis: 328px;
+      width: 328px;
     }
   }
 
@@ -1064,26 +1133,84 @@
   }
 }
 
-@keyframes pager-giggle {
+/* Two short buzzes then a rest, held slightly larger while hovered. */
+@keyframes pager-buzz {
   0%,
+  31%,
+  38%,
+  69%,
   100% {
-    transform: translateX(0) rotate(0deg);
+    transform: translate(0, 0) rotate(0deg) scale(1.03);
   }
 
-  20% {
-    transform: translateX(-7px) rotate(-1.4deg);
+  2%,
+  41% {
+    transform: translate(-1.1px, 0.4px) rotate(-0.3deg) scale(1.03);
   }
 
-  40% {
-    transform: translateX(7px) rotate(1.4deg);
+  4%,
+  43% {
+    transform: translate(1.1px, -0.6px) rotate(0.3deg) scale(1.03);
   }
 
-  60% {
-    transform: translateX(-5px) rotate(-1deg);
+  6%,
+  45% {
+    transform: translate(-0.9px, -0.4px) rotate(-0.25deg) scale(1.03);
   }
 
-  80% {
-    transform: translateX(5px) rotate(1deg);
+  8%,
+  47% {
+    transform: translate(1.2px, 0.5px) rotate(0.35deg) scale(1.03);
+  }
+
+  10%,
+  49% {
+    transform: translate(-1.2px, 0.3px) rotate(-0.35deg) scale(1.03);
+  }
+
+  12%,
+  51% {
+    transform: translate(0.9px, -0.4px) rotate(0.25deg) scale(1.03);
+  }
+
+  14%,
+  53% {
+    transform: translate(-1.1px, 0.6px) rotate(-0.3deg) scale(1.03);
+  }
+
+  16%,
+  55% {
+    transform: translate(1.2px, -0.3px) rotate(0.3deg) scale(1.03);
+  }
+
+  18%,
+  57% {
+    transform: translate(-0.8px, -0.5px) rotate(-0.2deg) scale(1.03);
+  }
+
+  20%,
+  59% {
+    transform: translate(1px, 0.4px) rotate(0.25deg) scale(1.03);
+  }
+
+  22%,
+  61% {
+    transform: translate(-1.1px, -0.2px) rotate(-0.3deg) scale(1.03);
+  }
+
+  24%,
+  63% {
+    transform: translate(0.8px, 0.5px) rotate(0.2deg) scale(1.03);
+  }
+
+  26%,
+  65% {
+    transform: translate(-0.6px, -0.3px) rotate(-0.15deg) scale(1.03);
+  }
+
+  28%,
+  67% {
+    transform: translate(0.4px, 0.2px) rotate(0.1deg) scale(1.03);
   }
 }
 
