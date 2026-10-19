@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { Github, Linkedin } from "lucide-react";
+import { Github } from "lucide-react";
 import { SITE } from "../data/site";
 
 function formatTime(date: Date) {
-  return date.toLocaleTimeString([], {
+  return date.toLocaleTimeString("en-US", {
     hour: "numeric",
     minute: "2-digit",
   });
@@ -22,60 +22,51 @@ export function ContactPager() {
   return (
     <div className="contact-pager">
       <div className="contact-pager-shell">
-        <div className="contact-pager-screen">
-          <div className="flex items-center justify-between font-mono text-[11px] text-black/80 sm:text-xs">
-            <span>2G</span>
-            <span>{time}</span>
-          </div>
-
-          <div className="mt-8 flex flex-1 flex-col items-center justify-center text-center sm:mt-10">
-            <p className="contact-pager-caption">Contact me via email</p>
-            <a
-              href={`mailto:${SITE.email}`}
-              className="contact-pager-email mt-2 block"
-            >
-              {SITE.email}
-            </a>
-          </div>
-        </div>
-
-        <p className="mt-4 text-[13px] italic tracking-wide text-white/70 sm:mt-5 sm:text-[14px]">
-          MN Communications
-        </p>
-
-        <div className="contact-pager-actions">
-          <div className="contact-pager-actions-left">
-            <div className="contact-pager-speaker" aria-hidden="true">
-              <span />
-              <span />
-              <span />
+        <div className="contact-pager-well">
+          <div className="contact-pager-screen">
+            <div className="contact-pager-status">
+              <span>2G</span>
+              <span>{time}</span>
             </div>
 
-            <a
-              href={SITE.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="GitHub"
-              className="contact-pager-icon"
-            >
-              <Github size={18} strokeWidth={1.75} />
-            </a>
+            <div className="contact-pager-message">
+              <p className="contact-pager-caption">Contact me via email</p>
+              <a href={`mailto:${SITE.email}`} className="contact-pager-email">
+                {SITE.email}
+              </a>
+            </div>
+          </div>
 
-            <a
-              href={SITE.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn"
-              className="contact-pager-icon"
-            >
-              <Linkedin size={18} strokeWidth={1.75} />
-            </a>
+          <p className="contact-pager-brand">Monica 1XXX</p>
+        </div>
+
+        <div className="contact-pager-actions">
+          <div className="contact-pager-speaker" aria-hidden="true">
+            <span />
+            <span />
+            <span />
           </div>
 
           <a
-            href={`mailto:${SITE.email}`}
-            className="contact-pager-btn contact-pager-btn-primary"
+            href={SITE.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+            className="contact-pager-key"
           >
+            <Github size={16} strokeWidth={1.75} />
+          </a>
+
+          <a
+            href={SITE.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="contact-pager-pill"
+          >
+            LinkedIn
+          </a>
+
+          <a href={`mailto:${SITE.email}`} className="contact-pager-cta">
             Contact Me
           </a>
         </div>

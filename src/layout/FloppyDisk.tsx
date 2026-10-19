@@ -11,9 +11,8 @@ import { ImageWithFallback } from "../components/ImageWithFallback";
 import type { FloppyProject } from "../data/projects";
 import shapeSrc from "../assets/floppy-disk/Shape.png";
 import steelSrc from "../assets/floppy-disk/Steel.png";
+import darkInsideSrc from "../assets/floppy-disk/Dark Inside.png";
 import noiseSrc from "../assets/floppy-disk/noise.png";
-import bigHoleSrc from "../assets/floppy-disk/Big Hole.png";
-import smallHoleSrc from "../assets/floppy-disk/Small Hole.png";
 
 type Props = {
   project: FloppyProject;
@@ -24,60 +23,60 @@ type Props = {
 
 const MAX_TILT = 5;
 
+/*
+ * Geometry is taken from Closed.png / the reference screenshot (380x400 art board):
+ *   - Dark Inside (bay + magnetic window)  269x123 @ (37, 1)
+ *   - Steel shutter                        205x126 @ (88, -2) closed, (37, -2) open
+ *   - Label (Bottom Area, minus shadow)    300x226 @ (40, 174)
+ *   - Molded arrow                          16x27  @ (10, 25)
+ *   - Molded square / write-protect hole    16x16  @ (10, 360) / (354, 360)
+ * Everything below is expressed as a percentage of that board so it scales.
+ */
 function FloppyShell({
   children,
-  footerKey,
-  footerName,
   showMetal = true,
-  showFooter = true,
-  showWriteProtect = true,
 }: {
   children: ReactNode;
-  footerKey?: string;
-  footerName?: string;
   showMetal?: boolean;
-  showFooter?: boolean;
-  showWriteProtect?: boolean;
 }) {
   return (
     <>
       <span className="floppy-body" aria-hidden="true" />
-      <span className="floppy-shade" aria-hidden="true" />
       <span className="floppy-noise" aria-hidden="true" />
       <span className="floppy-noise floppy-noise-deep" aria-hidden="true" />
+      <span className="floppy-shade" aria-hidden="true" />
       {showMetal && (
-        <span className="floppy-shutter-bay" aria-hidden="true">
+        <>
           <img
-            src={bigHoleSrc}
+            src={darkInsideSrc}
             alt=""
             draggable={false}
-            className="floppy-big-hole"
+            className="floppy-bay"
+            aria-hidden="true"
           />
           <img
             src={steelSrc}
             alt=""
             draggable={false}
             className="floppy-steel"
+            aria-hidden="true"
           />
-        </span>
-      )}
-      {showWriteProtect && (
-        <img
-          src={smallHoleSrc}
-          alt=""
-          draggable={false}
-          className="floppy-small-hole"
-          aria-hidden="true"
-        />
+          <svg
+            className="floppy-arrow"
+            viewBox="0 0 16 27"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M8 1 L15 15 H11.5 V26 H4.5 V15 H1 Z" />
+          </svg>
+          <span className="floppy-notch floppy-notch-left" aria-hidden="true" />
+          <span
+            className="floppy-notch floppy-notch-right"
+            aria-hidden="true"
+          />
+        </>
       )}
       {children}
-      {showFooter && footerKey && footerName && (
-        <div className="floppy-footer">
-          <span className="floppy-footer-key">{footerKey}</span>
-          <span className="floppy-footer-rule" aria-hidden="true" />
-          <span className="floppy-footer-name">{footerName}</span>
-        </div>
-      )}
     </>
   );
 }
@@ -180,7 +179,7 @@ export function FloppyDisk({ project, index, flipped = false, onFlip }: Props) {
           aria-label={`${project.title}. ${project.description}`}
           onClick={(e) => e.stopPropagation()}
         >
-          <FloppyShell showMetal={false} showFooter={false}>
+          <FloppyShell showMetal={false}>
             <FloppyBackContent project={project} />
           </FloppyShell>
         </div>
@@ -220,17 +219,24 @@ export function FloppyDisk({ project, index, flipped = false, onFlip }: Props) {
           }
         }}
       >
-        <FloppyShell footerKey="TITLE" footerName={label}>
+        <FloppyShell>
           <div className="floppy-label">
-            <ImageWithFallback
-              src={project.image}
-              alt=""
-              className="floppy-label-art"
-              draggable={false}
-            />
-            {project.tag && (
-              <span className="floppy-label-tag">{project.tag}</span>
-            )}
+            <div className="floppy-label-art-wrap">
+              <ImageWithFallback
+                src={project.image}
+                alt=""
+                className="floppy-label-art"
+                draggable={false}
+              />
+              {project.tag && (
+                <span className="floppy-label-tag">{project.tag}</span>
+              )}
+            </div>
+            <div className="floppy-footer">
+              <span className="floppy-footer-key">Title</span>
+              <span className="floppy-footer-name">{label}</span>
+              <span className="floppy-footer-rule" aria-hidden="true" />
+            </div>
           </div>
         </FloppyShell>
       </div>

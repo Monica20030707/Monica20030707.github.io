@@ -24,12 +24,17 @@ export function Hero() {
               they&apos;re not.
             </h1>
 
-            <p className="mx-auto mt-6 max-w-md text-body-md text-body">
-              Based in Seattle and currently{" "}
+            <p className="mx-auto mt-6 max-w-lg text-pretty text-body-md text-body">
+              Based in{" "}
               <strong className="font-medium text-ink">
+                Seattle, Washington
+              </strong>{" "}
+              and currently{" "}
+              <strong className="whitespace-nowrap font-medium text-ink">
                 Associate Software Engineer
               </strong>
-              . Building things people enjoy using.
+              . Building things people{" "}
+              <span className="whitespace-nowrap">enjoy using.</span>
             </p>
           </div>
         </div>
