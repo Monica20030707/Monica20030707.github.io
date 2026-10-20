@@ -1,8 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=Press+Start+2P&display=swap');
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=Press+Start+2P&display=swap');
+@reference "./index.css";
 
 :root {
   --primary: #111111;
@@ -106,15 +103,32 @@
   }
 
   .nav-pill {
-    @apply inline-flex h-12 items-center gap-1 rounded-full border border-hairline bg-canvas/90 px-1.5 shadow-sm backdrop-blur-md sm:h-14;
+    @apply relative inline-flex h-12 items-center gap-1 rounded-full bg-canvas p-1 sm:h-14 sm:p-1.5;
+    /* 1px edge + soft drop share one curve (no separate border gap). */
+    box-shadow:
+      0 0 0 1px rgba(0, 0, 0, 0.08),
+      0 1px 2px rgba(0, 0, 0, 0.06);
+  }
+
+  .nav-pill-label {
+    @apply inline;
+  }
+
+  .nav-pill-indicator {
+    @apply pointer-events-none absolute top-1 bottom-1 left-0 z-0 rounded-full sm:top-1.5 sm:bottom-1.5;
+    background: #e8e8e8;
+    transition:
+      transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      width 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 160ms ease;
   }
 
   .nav-pill-link {
-    @apply inline-flex h-[calc(100%-6px)] items-center gap-1.5 rounded-full px-4 text-[13px] font-medium text-charcoal transition-colors hover:bg-surface-soft hover:text-ink sm:px-5 sm:text-[14px];
+    @apply relative z-10 inline-flex h-full items-center gap-1.5 rounded-full px-4 text-[13px] font-medium text-charcoal transition-colors hover:text-ink sm:px-5 sm:text-[14px];
   }
 
   .nav-pill-link-active {
-    @apply bg-surface-soft text-ink;
+    @apply text-ink;
   }
 
   .nav-circle {
@@ -170,21 +184,47 @@
 
   .photo-deck-card {
     @apply absolute left-0 top-0 overflow-visible rounded-[22px] border border-black/5 bg-surface-soft shadow-sm;
-    transform: translate(calc(-50% + var(--deck-x, 0px)), calc(-50% + var(--deck-y, 0px))) rotate(var(--deck-r, 0deg));
-    transition: transform 280ms ease;
+    z-index: var(--deck-z, 1);
+    /* Start stacked like a deck, then fan to final offsets. */
+    transform: translate(-50%, -50%) rotate(var(--deck-stack-r, 0deg));
+    transition: transform 820ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: calc(var(--deck-i, 0) * 55ms);
+    will-change: transform;
+  }
+
+  .photo-deck-stage.is-spread .photo-deck-card {
+    transform: translate(
+        calc(-50% + var(--deck-x, 0px)),
+        calc(-50% + var(--deck-y, 0px))
+      )
+      rotate(var(--deck-r, 0deg));
   }
 
   .photo-deck-card img {
     @apply pointer-events-none rounded-[22px];
   }
 
-  .photo-deck-card:hover {
-    z-index: 20;
-    transform: translate(calc(-50% + var(--deck-x, 0px)), calc(-50% + var(--deck-y, 0px))) rotate(var(--deck-r, 0deg)) scale(1.05);
+  .photo-deck-stage.is-spread .photo-deck-card:hover,
+  .photo-deck-stage.is-spread .photo-deck-card:focus-within {
+    z-index: 50;
+    transform: translate(
+        calc(-50% + var(--deck-x, 0px)),
+        calc(-50% + var(--deck-y, 0px))
+      )
+      rotate(var(--deck-r, 0deg)) scale(1.05);
+    transition-delay: 0ms;
+    transition-duration: 280ms;
   }
 
   .photo-card-tag {
     @apply absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full border border-black/5 px-2.5 py-1 font-mono text-[10px] font-medium lowercase tracking-wide text-ink shadow-sm;
+    opacity: 0;
+    transition: opacity 280ms ease;
+  }
+
+  .photo-deck-stage.is-spread .photo-card-tag {
+    opacity: 1;
+    transition-delay: 520ms;
   }
 
   .connect-footer-marquee {
@@ -199,7 +239,7 @@
   }
 
   .connect-footer-marquee-track {
-    @apply flex w-max items-center gap-[0.12em];
+    @apply flex w-max items-center;
     animation: connect-marquee 28s linear infinite;
   }
 
@@ -209,87 +249,299 @@
     font-weight: 400;
     line-height: 0.9;
     letter-spacing: -0.03em;
-    @apply shrink-0 whitespace-nowrap pr-[0.18em] text-white;
+    /* em is on the name itself so space scales with the big type */
+    margin-inline-end: 0.5em;
+    transform: scaleY(1.12);
+    transform-origin: center;
+    @apply shrink-0 whitespace-nowrap text-white;
   }
 
   .contact-pager {
-    @apply w-full max-w-[360px] sm:max-w-[420px] md:max-w-[460px];
+    @apply w-full max-w-[340px] sm:max-w-[460px] md:max-w-[520px];
+    container-type: inline-size;
     transform-origin: center center;
+    transition: transform 180ms ease;
   }
 
   .contact-pager:hover {
-    animation: pager-giggle 0.55s ease-in-out infinite;
+    animation: pager-buzz 1.3s linear infinite;
   }
 
   .contact-pager-shell {
-    @apply rounded-[26px] px-5 pb-5 pt-5 sm:rounded-[30px] sm:px-6 sm:pb-6 sm:pt-6;
-    background: #2b2b2b;
+    @apply relative overflow-hidden;
+    padding: 4.4cqi 4.3cqi 5.3cqi;
+    border-radius: 7.1cqi;
+    background: linear-gradient(180deg, #2e2e2e 0%, #262626 48%, #242424 100%);
     box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.05) inset,
-      0 16px 36px rgba(0, 0, 0, 0.5);
+      inset 0 1px 0 rgba(255, 255, 255, 0.07),
+      inset 0 -2px 0 rgba(0, 0, 0, 0.28),
+      0 18px 40px rgba(0, 0, 0, 0.45);
+  }
+
+  /*
+   * Same speckle as the floppy shell: light specks (::before) with darker
+   * pits under them (::after). The well, screen and buttons sit above on
+   * z-1 so the grain only shows on the pager body.
+   */
+  .contact-pager-shell::before,
+  .contact-pager-shell::after {
+    content: "";
+    @apply pointer-events-none absolute inset-0;
+    border-radius: inherit;
+    background-repeat: repeat;
+  }
+
+  .contact-pager-shell::before {
+    background-image:
+      url("../floppy-disk/noise.png"), url("../floppy-disk/noise.png");
+    background-size: 340px auto;
+    background-position: center;
+    opacity: 0.72;
+  }
+
+  .contact-pager-shell::after {
+    background-image: url("../floppy-disk/noise.png");
+    background-size: 220px auto;
+    background-position: left top;
+    opacity: 0.32;
+    mix-blend-mode: multiply;
+  }
+
+  .contact-pager-well {
+    @apply relative z-[1];
+    padding: 3.5cqi 4.3cqi 3.4cqi;
+    border-radius: 3.6cqi;
+    background: #121212;
+    box-shadow:
+      inset 0 10px 16px rgba(0, 0, 0, 0.55),
+      inset 0 1px 2px rgba(0, 0, 0, 0.85),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.04);
   }
 
   .contact-pager-screen {
-    @apply relative flex min-h-[150px] flex-col overflow-hidden rounded-[14px] px-4 py-3.5 sm:min-h-[168px] sm:rounded-[16px] sm:px-5 sm:py-4;
-    background: #b8d15a;
-    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+    @apply relative z-[1] flex w-full flex-col overflow-hidden;
+    aspect-ratio: 464 / 158;
+    padding: 3.1cqi 3.4cqi 2.2cqi;
+    border-radius: 2.85cqi;
+    background: #a3c959;
+    box-shadow:
+      0 0 0 1px rgba(0, 0, 0, 0.7),
+      0 0 16px 2px rgba(0, 0, 0, 0.65),
+      0 10px 18px rgba(0, 0, 0, 0.4);
+    font-family: "Press Start 2P", var(--font-mono), monospace;
+    color: #000;
+    -webkit-font-smoothing: none;
   }
 
   .contact-pager-screen::after {
     content: "";
-    @apply pointer-events-none absolute inset-0 opacity-[0.1];
+    @apply pointer-events-none absolute inset-0;
     background-image: repeating-linear-gradient(
       0deg,
-      rgba(0, 0, 0, 0.4) 0,
-      rgba(0, 0, 0, 0.4) 1px,
+      rgba(0, 0, 0, 0.16) 0,
+      rgba(0, 0, 0, 0.16) 1px,
       transparent 1px,
-      transparent 3px
+      transparent 4px
     );
+    opacity: 0.18;
+    mix-blend-mode: multiply;
+  }
+
+  .contact-pager-status {
+    @apply relative z-[1] flex items-center justify-between gap-2 whitespace-nowrap;
+    font-size: clamp(7px, 1.9cqi, 10px);
+    line-height: 1.6;
+  }
+
+  .contact-pager-message {
+    @apply relative z-[1] flex flex-1 flex-col items-center justify-center text-center;
+    gap: 3.6cqi;
+    padding-bottom: 1.2cqi;
   }
 
   .contact-pager-caption {
-    font-family: var(--font-mono);
-    @apply text-[12px] text-black/75 sm:text-[13px];
+    font-size: clamp(7px, 1.9cqi, 10px);
+    line-height: 1.6;
   }
 
   .contact-pager-email {
-    font-family: var(--font-mono);
-    @apply max-w-full break-all text-[16px] font-bold tracking-tight text-black transition-opacity hover:opacity-75 sm:text-[19px];
+    max-width: 100%;
+    font-size: clamp(9px, 3.15cqi, 15px);
+    line-height: 1.45;
+    color: #000;
+    transition: opacity 160ms ease;
+  }
+
+  .contact-pager-email:hover {
+    opacity: 0.72;
+  }
+
+  .contact-pager-brand {
+    @apply relative z-[1] w-full;
+    margin-top: 3.2cqi;
+    font-family: "Caveat", cursive;
+    font-weight: 600;
+    font-style: normal;
+    font-size: clamp(22px, 5.2cqi, 30px);
+    line-height: 1;
+    letter-spacing: 0.01em;
+    color: #8a8a8a;
+  }
+
+  .contact-pager-actions {
+    @apply relative z-[1] flex items-center;
+    margin-top: 4.6cqi;
+    gap: 2.2cqi;
   }
 
   .contact-pager-speaker {
-    @apply mr-1 flex h-8 flex-col justify-center gap-[5px];
+    @apply flex shrink-0 items-center;
+    height: clamp(36px, 10.6cqi, 56px);
+    gap: 0.85cqi;
+    margin-right: 1.1cqi;
   }
 
   .contact-pager-speaker span {
-    @apply block h-[2px] w-3.5 -rotate-[20deg] rounded-full bg-black/50;
-  }
-
-  .contact-pager-btn {
-    @apply inline-flex h-10 items-center justify-center rounded-full text-[12px] font-medium transition-all sm:h-11 sm:text-[13px];
-  }
-
-  .contact-pager-btn-secondary {
-    @apply flex-1 px-4 text-white/85;
-    background: #1c1c1c;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
-  }
-
-  .contact-pager-btn-secondary:hover {
-    @apply text-white;
-    background: #222;
-  }
-
-  .contact-pager-btn-primary {
-    @apply flex-[1.25] px-4 font-semibold text-[#2a2a2a];
-    background: linear-gradient(180deg, #ffcc33 0%, #f0b000 100%);
+    display: block;
+    width: 1.85cqi;
+    min-width: 6px;
+    height: 68%;
+    border-radius: 999px;
+    background: #101010;
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.4),
-      0 1px 0 rgba(0, 0, 0, 0.2);
+      inset -1px 0 0 rgba(255, 255, 255, 0.14),
+      1px 0 1px rgba(0, 0, 0, 0.45);
+    transform: skewX(-18deg);
   }
 
-  .contact-pager-btn-primary:hover {
-    filter: brightness(1.05);
+  .contact-pager-key,
+  .contact-pager-pill,
+  .contact-pager-cta {
+    @apply inline-flex shrink-0 items-center justify-center;
+    height: clamp(40px, 10.6cqi, 56px);
+    border-radius: 999px;
+    font-family: var(--font-sans);
+    font-size: clamp(12px, 2.7cqi, 15px);
+    font-weight: 500;
+    line-height: 1;
+    transition:
+      filter 160ms ease,
+      transform 160ms ease;
+  }
+
+  .contact-pager-key,
+  .contact-pager-pill {
+    color: #797979;
+    background: #141414;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.06),
+      0 0 0 1px rgba(0, 0, 0, 0.75),
+      0 0 14px 2px rgba(0, 0, 0, 0.6),
+      0 8px 14px rgba(0, 0, 0, 0.45);
+  }
+
+  .contact-pager-key {
+    width: clamp(40px, 10.6cqi, 56px);
+  }
+
+  .contact-pager-pill {
+    padding-inline: 1.35em;
+  }
+
+  .contact-pager-cta {
+    margin-left: auto;
+    padding-inline: 1.7em;
+    font-weight: 700;
+    color: #1a1203;
+    background: #c48818;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 220, 140, 0.28),
+      0 0 0 1px rgba(0, 0, 0, 0.45),
+      0 0 16px 3px rgba(0, 0, 0, 0.55),
+      0 10px 18px rgba(0, 0, 0, 0.42);
+  }
+
+  .contact-pager-key:hover,
+  .contact-pager-pill:hover,
+  .contact-pager-cta:hover {
+    filter: brightness(1.08);
+  }
+
+  /* Narrow pager (350x443 proportions): taller body, Contact Me on its own row. */
+  @container (max-width: 400px) {
+    .contact-pager-shell {
+      display: flex;
+      flex-direction: column;
+      aspect-ratio: 350 / 443;
+      padding: 10.8cqi 8cqi 8.3cqi;
+      border-radius: 11.4cqi;
+    }
+
+    .contact-pager-screen {
+      aspect-ratio: 253 / 119;
+    }
+
+    /* Speaker left, keys right, tucked under the screen with the open space above Contact Me. */
+    .contact-pager-actions {
+      display: grid;
+      flex: 1;
+      grid-template-columns: auto 1fr auto auto;
+      grid-template-rows: auto 1fr auto;
+      align-items: center;
+      column-gap: 2.8cqi;
+      row-gap: 0;
+      margin-top: 0;
+      padding-top: 9cqi;
+      padding-bottom: 3cqi;
+    }
+
+    .contact-pager-speaker {
+      grid-column: 1;
+      grid-row: 1;
+      margin-right: 0;
+    }
+
+    .contact-pager-key {
+      grid-column: 3;
+      grid-row: 1;
+    }
+
+    .contact-pager-pill {
+      grid-column: 4;
+      grid-row: 1;
+    }
+
+    /* Match the full-size pager (clamp ceiling at 520px), not the narrow cqi scale. */
+    .contact-pager-key,
+    .contact-pager-pill {
+      height: 56px;
+      font-size: 14px;
+    }
+
+    .contact-pager-key {
+      width: 56px;
+    }
+
+    .contact-pager-speaker {
+      height: 56px;
+      gap: 4.5px;
+    }
+
+    .contact-pager-speaker span {
+      width: 10px;
+      min-width: 10px;
+    }
+
+    .contact-pager-cta {
+      height: 15cqi;
+    }
+
+    .contact-pager-cta {
+      grid-column: 1 / -1;
+      grid-row: 3;
+      width: 100%;
+      margin-left: 0;
+    }
   }
 
   /* Rotate uses a CSS variable — keep out of Tailwind */
@@ -299,21 +551,11 @@
     box-shadow:
       0 1px 2px rgba(0, 0, 0, 0.04),
       0 8px 18px rgba(0, 0, 0, 0.06);
-    transition: box-shadow 200ms ease, filter 200ms ease;
-  }
-
-  .skill-note:hover {
-    z-index: 30;
-    filter: brightness(1.02);
-    box-shadow:
-      0 2px 4px rgba(0, 0, 0, 0.06),
-      0 12px 24px rgba(0, 0, 0, 0.1);
   }
 
   .skill-note-dragging {
     @apply cursor-grabbing;
     z-index: 40;
-    filter: brightness(1.03);
     box-shadow:
       0 4px 10px rgba(0, 0, 0, 0.08),
       0 18px 32px rgba(0, 0, 0, 0.14);
@@ -340,127 +582,589 @@
     @apply text-[20px] font-semibold leading-none text-ink sm:text-[24px];
   }
 
+  /* Pull wash under sticky nav so hue isn’t cut off by a white bar. */
+  .contact-wash {
+    margin-top: -4.5rem;
+    padding-top: 4.5rem;
+    background:
+      radial-gradient(
+        90% 70% at 12% 0%,
+        rgba(255, 225, 74, 0.16) 0%,
+        transparent 55%
+      ),
+      radial-gradient(
+        70% 55% at 100% 18%,
+        rgba(184, 224, 255, 0.2) 0%,
+        transparent 52%
+      ),
+      var(--canvas);
+  }
+
+  .contact-page {
+    @apply flex min-h-[calc(100dvh-4.5rem)] flex-col justify-center px-6 pb-16 pt-14 sm:px-10 sm:pb-20 sm:pt-16 md:px-12;
+    background: transparent;
+  }
+
+  .contact-page-inner {
+    @apply mx-auto grid w-full max-w-5xl gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:items-start lg:gap-14;
+  }
+
+  .contact-page-intro {
+    @apply max-w-md;
+  }
+
+  .contact-page-lede {
+    @apply mt-5 text-body-md leading-relaxed text-body sm:mt-6;
+  }
+
+  .contact-page-email-line {
+    @apply mt-6 text-body-md text-body;
+  }
+
+  .contact-page-email {
+    @apply font-medium text-ink underline decoration-hairline-strong underline-offset-4 transition-colors;
+  }
+
+  .contact-page-email:hover {
+    @apply decoration-ink;
+  }
+
+  .contact-page-social {
+    @apply mt-6 flex flex-wrap gap-3;
+  }
+
+  .contact-page-chip {
+    @apply inline-flex h-pill items-center gap-2 rounded-full border border-hairline-strong bg-canvas px-4 text-button-md text-ink transition-colors;
+  }
+
+  .contact-page-chip:hover {
+    @apply bg-surface-soft;
+  }
+
+  .contact-page-form {
+    @apply flex flex-col gap-5 rounded-[1.75rem] border border-hairline bg-white/80 p-6 shadow-[0_18px_40px_rgba(0,0,0,0.04)] backdrop-blur-sm sm:p-8;
+  }
+
+  .contact-page-field {
+    @apply flex flex-col gap-1.5;
+  }
+
+  .contact-page-field label {
+    @apply text-body-sm font-medium text-ink;
+  }
+
+  .contact-page-input {
+    @apply h-11 rounded-full border-hairline bg-canvas px-4 text-body-md text-ink placeholder:text-mute focus-visible:border-ink focus-visible:ring-focus-ring;
+  }
+
+  .contact-page-textarea {
+    @apply min-h-[9.5rem] resize-none rounded-2xl border-hairline bg-canvas px-4 py-3 text-body-md text-ink placeholder:text-mute focus-visible:border-ink focus-visible:ring-focus-ring;
+  }
+
+  .contact-page-submit {
+    @apply mt-1 w-full sm:w-auto;
+  }
+
+  .about-copy {
+    @apply flex flex-col gap-8 text-left text-body-md leading-relaxed text-body;
+  }
+
+  .about-lede {
+    @apply text-body-md leading-relaxed text-body;
+  }
+
+  .about-block {
+    @apply flex flex-col gap-2.5;
+  }
+
+  .about-kicker {
+    @apply font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-ink/85;
+  }
+
+  .about-close {
+    @apply border-t border-hairline pt-8 text-ink;
+  }
+
+  .work-ask {
+    white-space: nowrap;
+    padding-inline: 0.06em;
+    margin-inline: -0.06em;
+    background-image: linear-gradient(
+      transparent 68%,
+      color-mix(in srgb, var(--tag-yellow) 88%, white) 68%,
+      color-mix(in srgb, var(--tag-yellow) 88%, white) 90%,
+      transparent 90%
+    );
+    background-repeat: no-repeat;
+  }
+
+  .work-lede {
+    @apply mt-5 flex max-w-sm flex-col gap-4 text-left text-body-md leading-relaxed text-body sm:mt-6 sm:max-w-lg sm:gap-5;
+  }
+
+  .work-mark {
+    display: inline;
+    padding: 0.05em 0.28em;
+    margin: 0 -0.04em;
+    border-radius: 0.28em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .work-mark-green {
+    background: color-mix(in srgb, var(--tag-green) 72%, white);
+  }
+
+  .work-mark-pink {
+    background: color-mix(in srgb, var(--tag-pink) 70%, white);
+  }
+
+  .work-mark-yellow {
+    background: color-mix(in srgb, var(--tag-yellow) 75%, white);
+  }
+
+  .work-hand {
+    font-family: "Caveat", "Instrument Serif", cursive;
+    @apply not-italic text-[1.35em] font-semibold leading-none text-ink;
+  }
+
+  .floppy-shelf {
+    @apply relative mt-2 w-full pb-8 pt-6 sm:pb-10 sm:pt-8;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(244, 245, 247, 0.9) 32%,
+        rgba(236, 238, 241, 1) 100%
+      );
+  }
+
   .floppy-carousel {
-    @apply w-full overflow-hidden pb-2;
+    @apply w-full overflow-hidden;
     mask-image: linear-gradient(
       to right,
       transparent,
-      black 6%,
-      black 94%,
+      black 8%,
+      black 92%,
       transparent
     );
   }
 
   .floppy-carousel-track {
-    @apply flex w-max items-stretch gap-6 py-4 sm:gap-8;
-    animation: floppy-marquee 42s linear infinite;
+    @apply flex w-max items-center gap-8 py-8 sm:gap-10 md:gap-12;
+    animation: floppy-marquee 48s linear infinite;
   }
 
-  .floppy-carousel:hover .floppy-carousel-track {
+  .floppy-carousel:hover .floppy-carousel-track,
+  .floppy-shelf.is-paused .floppy-carousel-track {
     animation-play-state: paused;
   }
 
   .floppy-carousel-item {
-    @apply w-[220px] shrink-0 sm:w-[250px] md:w-[270px];
+    flex: 0 0 258px;
+    width: 258px;
   }
 
+  @media (min-width: 640px) {
+    .floppy-carousel-item {
+      flex-basis: 292px;
+      width: 292px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .floppy-carousel-item {
+      flex-basis: 328px;
+      width: 328px;
+    }
+  }
+
+  .floppy-disk-slot {
+    position: relative;
+    width: 100%;
+  }
+
+  /* Flat carousel card — tilt via self perspective (marquee transform flattens parent 3D). */
   .floppy-disk {
-    @apply relative block w-full aspect-[3/3.15] rounded-[18px] p-3 pt-0 no-underline sm:rounded-[20px] sm:p-3.5;
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.35),
-      inset 0 -2px 0 rgba(0, 0, 0, 0.08),
-      0 14px 28px rgba(0, 0, 0, 0.28);
-    transform-origin: center center;
-    transition: transform 280ms ease, filter 280ms ease, box-shadow 280ms ease;
+    --tilt-x: 0deg;
+    --tilt-y: 0deg;
+    --floppy-color: #7ec8ff;
+    @apply relative block w-full border-0 bg-transparent p-0 text-left no-underline;
+    aspect-ratio: 380 / 400;
+    transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+    filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.12));
+    transition: transform 220ms ease-out;
+    cursor: pointer;
+    will-change: transform;
   }
 
-  .floppy-disk:hover {
-    transform: rotate(-4deg) translateY(-4px) scale(1.02);
-    filter: brightness(1.03);
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.35),
-      inset 0 -2px 0 rgba(0, 0, 0, 0.08),
-      0 22px 36px rgba(0, 0, 0, 0.32);
+  .floppy-disk-tilting {
+    transition: transform 180ms ease-out;
   }
 
-  .floppy-carousel-item:nth-child(even) .floppy-disk:hover {
-    transform: rotate(4deg) translateY(-4px) scale(1.02);
+  .floppy-disk.is-opening {
+    opacity: 0.45;
+    pointer-events: none;
   }
 
-  .floppy-shutter {
-    @apply relative mx-auto mt-0 flex h-[18%] w-[72%] items-end justify-center;
+  .floppy-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 80;
+    border: 0;
+    padding: 0;
+    background: rgba(20, 20, 20, 0.55);
+    backdrop-filter: blur(3px);
+    animation: floppy-backdrop-in 220ms ease both;
   }
 
-  .floppy-shutter-plate {
-    @apply relative flex h-full w-full items-center justify-center gap-3 rounded-b-[6px];
-    background: linear-gradient(180deg, #d8d8d8 0%, #bdbdbd 45%, #a8a8a8 100%);
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.65),
-      inset 0 -1px 0 rgba(0, 0, 0, 0.2),
-      0 1px 2px rgba(0, 0, 0, 0.15);
+  @keyframes floppy-backdrop-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 
-  .floppy-shutter-slot {
-    @apply block h-[42%] w-[28%] rounded-[3px] bg-[#8e8e8e];
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25);
+  /* Dark detail canvas — portaled to document.body (not a giant floppy). */
+  .floppy-disk-modal {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    z-index: 90;
+    display: flex;
+    width: min(94vw, 36rem);
+    max-height: min(88dvh, 46rem);
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    border-radius: 1.5rem;
+    background-color: #0c0c0c;
+    box-shadow: 0 24px 50px rgba(0, 0, 0, 0.45);
+    animation: floppy-expand-in 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
-  .floppy-shutter-slot-sm {
-    @apply w-[14%];
+  @keyframes floppy-expand-in {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.94);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
   }
 
-  .floppy-shutter-ridge {
-    @apply absolute -bottom-[3px] left-[8%] right-[8%] h-[3px] rounded-full bg-black/10;
+  /* Diagonal sheen of the disk's dark window; only visible while the card pops out. */
+  .floppy-modal-gloss {
+    @apply pointer-events-none absolute inset-0 z-10;
+    opacity: 0;
+    background: linear-gradient(
+      125deg,
+      transparent 0 30%,
+      rgba(255, 255, 255, 0.07) 30% 46%,
+      transparent 46% 58%,
+      rgba(255, 255, 255, 0.05) 58% 64%,
+      transparent 64%
+    );
   }
 
+  .floppy-back-surface {
+    @apply relative z-0 flex w-full flex-col gap-7 overflow-auto text-left;
+    padding: 1.75rem 1.75rem 1.75rem;
+    color: rgba(255, 255, 255, 0.88);
+  }
+
+  .floppy-back-info {
+    @apply flex flex-col items-start gap-4;
+  }
+
+  .floppy-back-title {
+    font-family: var(--font-sans);
+    @apply m-0 text-[28px] font-semibold tracking-tight text-white sm:text-[32px];
+  }
+
+  .floppy-back-copy {
+    @apply m-0 max-w-[22rem] text-[14px] leading-relaxed text-white/55 sm:text-[15px];
+  }
+
+  .floppy-back-link {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-white/35 px-4 py-2 text-[13px] font-medium text-white no-underline transition-colors;
+  }
+
+  .floppy-back-link:hover {
+    @apply border-white/70 bg-white/5;
+  }
+
+  .floppy-back-meta {
+    @apply m-0 mt-1 grid w-full grid-cols-3 gap-3;
+  }
+
+  .floppy-back-meta-item {
+    @apply flex min-w-0 flex-col gap-1;
+  }
+
+  .floppy-back-meta-item dt {
+    @apply text-[11px] font-medium text-white/40;
+  }
+
+  .floppy-back-meta-item dd {
+    @apply m-0 truncate text-[13px] font-semibold text-white sm:text-[14px];
+  }
+
+  .floppy-back-frame {
+    @apply relative m-0 w-full overflow-hidden bg-white;
+    aspect-ratio: 4 / 5;
+    border: 10px solid #fff;
+    border-radius: 2px;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+    transform: rotate(-1.5deg);
+  }
+
+  .floppy-back-frame-art {
+    @apply pointer-events-none size-full object-cover;
+  }
+
+  .floppy-body,
+  .floppy-shade,
+  .floppy-noise {
+    @apply pointer-events-none absolute inset-0;
+    -webkit-mask-image: var(--floppy-shape);
+    mask-image: var(--floppy-shape);
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+  }
+
+  .floppy-body {
+    background-color: var(--floppy-color);
+  }
+
+  /* Soft plastic bevel — light corner + darker edge for depth. */
+  .floppy-shade {
+    background:
+      radial-gradient(
+        120% 90% at 22% 18%,
+        rgba(255, 255, 255, 0.38) 0%,
+        transparent 48%
+      ),
+      linear-gradient(
+        155deg,
+        rgba(255, 255, 255, 0.16) 0%,
+        transparent 40%,
+        rgba(0, 0, 0, 0.22) 100%
+      );
+    mix-blend-mode: soft-light;
+    opacity: 0.7;
+  }
+
+  /*
+   * noise.png is a fine speckle with its alpha locked at ~8%. Two aligned
+   * copies build just enough gray grain, tiled small so the specks stay
+   * fine instead of reading as big patches.
+   */
+  .floppy-noise {
+    background-color: transparent;
+    background-image: var(--floppy-noise), var(--floppy-noise);
+    background-repeat: repeat;
+    background-size: 340px auto;
+    background-position: center;
+    opacity: 0.72;
+    mix-blend-mode: normal;
+  }
+
+  /* Darker pits under the gray specks, same grain, slightly tighter. */
+  .floppy-noise-deep {
+    background-image: var(--floppy-noise);
+    background-size: 220px auto;
+    background-position: left top;
+    opacity: 0.32;
+    mix-blend-mode: multiply;
+  }
+
+  /*
+   * Shutter bay (Dark-Inside.png): a faint sunken tint plus the dark magnetic
+   * window. The steel sits on top and slides left to reveal the window.
+   * 269x123 @ (37, 1) on the 380x400 board.
+   */
+  .floppy-bay {
+    @apply pointer-events-none absolute select-none;
+    left: 9.737%;
+    top: 0.25%;
+    width: 70.789%;
+    height: auto;
+    z-index: 1;
+    filter: brightness(2.4);
+  }
+
+  /* 205x126 @ (88, -2) closed → (37, -2) open: slides 51px = 24.878% of itself. */
+  .floppy-steel {
+    @apply pointer-events-none absolute select-none;
+    left: 23.158%;
+    top: -0.5%;
+    width: 53.947%;
+    height: auto;
+    z-index: 2;
+    transition: transform 320ms cubic-bezier(0.22, 0.8, 0.28, 1);
+    will-change: transform;
+  }
+
+  .floppy-disk:hover .floppy-steel,
+  .floppy-disk:focus-visible .floppy-steel,
+  .floppy-disk-tilting .floppy-steel,
+  .floppy-disk.is-opening .floppy-steel {
+    transform: translateX(-24.878%);
+  }
+
+  /*
+   * Tiny hole in the steel (20x12 @ local 18,18). It shows the shell while
+   * closed. The black sits where that hole lands once the shutter slides
+   * left, and a window mask travels with the shutter so the black only
+   * shows through the hole.
+   * Open hole on the 380x400 board: (55, 16). Closed hole is 51px to the right.
+   */
+  .floppy-index-hole {
+    @apply pointer-events-none absolute;
+    left: 14.211%;
+    top: 3.75%;
+    width: 18.947%;
+    height: 3.5%;
+    z-index: 1;
+    background: linear-gradient(90deg, #111 0 30.556%, transparent 30.556%);
+    -webkit-mask-image: linear-gradient(#000, #000);
+    mask-image: linear-gradient(#000, #000);
+    -webkit-mask-size: 30.556% 100%;
+    mask-size: 30.556% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: 100% 0;
+    mask-position: 100% 0;
+    transition:
+      mask-position 320ms cubic-bezier(0.22, 0.8, 0.28, 1),
+      -webkit-mask-position 320ms cubic-bezier(0.22, 0.8, 0.28, 1);
+  }
+
+  .floppy-disk:hover .floppy-index-hole,
+  .floppy-disk:focus-visible .floppy-index-hole,
+  .floppy-disk-tilting .floppy-index-hole,
+  .floppy-disk.is-opening .floppy-index-hole {
+    -webkit-mask-position: 0 0;
+    mask-position: 0 0;
+  }
+
+  /* Molded plastic details: arrow top-left, square bottom-left, open write-protect hole bottom-right. */
+  .floppy-arrow {
+    @apply pointer-events-none absolute;
+    left: 2.632%;
+    top: 6.25%;
+    width: 4.211%;
+    height: 6.75%;
+    fill: rgba(0, 0, 0, 0.04);
+    stroke: rgba(0, 0, 0, 0.22);
+    stroke-width: 1;
+    stroke-linejoin: round;
+    overflow: visible;
+  }
+
+  .floppy-notch {
+    @apply pointer-events-none absolute;
+    top: 90%;
+    width: 4.211%;
+    height: 4%;
+  }
+
+  .floppy-notch-left {
+    left: 2.632%;
+    background: rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.28);
+  }
+
+  .floppy-notch-right {
+    left: 93.158%;
+    background: #141414;
+    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.06);
+  }
+
+  /* Label: 300x226 @ (40, 174); flush with the bottom edge. */
   .floppy-label {
-    @apply relative mx-auto mt-[6%] aspect-[1.35/1] w-[86%] overflow-hidden rounded-[4px] bg-white;
-    box-shadow:
-      inset 0 0 0 1px rgba(0, 0, 0, 0.08),
-      0 1px 0 rgba(255, 255, 255, 0.35);
+    @apply absolute flex flex-col overflow-hidden rounded-t-[5px] bg-black;
+    left: 10.526%;
+    right: 10.526%;
+    top: 43.5%;
+    bottom: 0;
+  }
+
+  /* Molded lip sitting a few pixels out from the cover, open at the bottom. */
+  .floppy-label-ridge {
+    @apply pointer-events-none absolute;
+    left: calc(10.526% - 5px);
+    right: calc(10.526% - 5px);
+    top: calc(43.5% - 5px);
+    bottom: 0;
+    border: 1px solid color-mix(in srgb, var(--floppy-color) 82%, #000);
+    border-bottom: 0;
+    border-radius: 8px 8px 0 0;
+  }
+
+  .floppy-label-art-wrap {
+    @apply relative min-h-0 flex-1 overflow-hidden;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.22);
   }
 
   .floppy-label-art {
     @apply pointer-events-none size-full object-cover;
   }
 
-  .floppy-label-overlay {
-    @apply absolute inset-0 flex flex-col items-center justify-center bg-black/25 px-3 text-center;
-    background-image: linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.05),
-      rgba(0, 0, 0, 0.35)
-    );
-  }
-
   .floppy-label-tag {
     @apply absolute right-2 top-2 rounded-sm bg-white/90 px-1.5 py-0.5 font-mono text-[8px] font-medium uppercase tracking-wide text-ink;
   }
 
-  .floppy-label-title {
-    font-family: "Press Start 2P", var(--font-mono), monospace;
-    @apply text-[11px] leading-relaxed text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.55)] sm:text-[12px];
-  }
-
+  /* Title strip: lined paper, TITLE key, handwritten name over a rule. */
   .floppy-footer {
-    @apply absolute bottom-[7%] left-[7%] right-[7%] flex h-[14%] items-center gap-2 rounded-[3px] bg-[#f7f7f4] px-2.5;
-    box-shadow:
-      inset 0 0 0 1px rgba(0, 0, 0, 0.08),
-      0 1px 0 rgba(255, 255, 255, 0.4);
+    @apply relative shrink-0 bg-[#eae3e3];
+    height: 23%;
+    container-type: size;
+    background-image: repeating-linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.045) 0,
+      rgba(0, 0, 0, 0.045) 1px,
+      transparent 1px,
+      transparent 20.5%
+    );
+    background-position: 0 8%;
+    box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.22);
   }
 
   .floppy-footer-key {
-    @apply shrink-0 text-[8px] font-semibold uppercase tracking-[0.14em] text-black/45;
+    @apply absolute uppercase text-black/45;
+    left: 4%;
+    top: 44%;
+    font-size: 15cqh;
+    line-height: 1;
+    letter-spacing: 0.12em;
+    font-weight: 500;
   }
 
   .floppy-footer-name {
     font-family: "Caveat", "Instrument Serif", cursive;
-    @apply min-w-0 flex-1 truncate text-[18px] font-semibold leading-none text-ink sm:text-[20px];
+    @apply absolute truncate text-center font-semibold text-ink;
+    left: 22%;
+    right: 22%;
+    bottom: 33%;
+    font-size: 42cqh;
+    line-height: 1;
   }
 
-  .floppy-tab {
-    @apply ml-auto size-3 shrink-0 rounded-[2px] bg-[#1a1a1a];
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  .floppy-footer-rule {
+    @apply absolute h-px bg-black/35;
+    left: 4%;
+    right: 4%;
+    top: 67%;
   }
 }
 
@@ -500,26 +1204,84 @@
   }
 }
 
-@keyframes pager-giggle {
+/* Two short buzzes then a rest, held slightly larger while hovered. */
+@keyframes pager-buzz {
   0%,
+  31%,
+  38%,
+  69%,
   100% {
-    transform: translateX(0) rotate(0deg);
+    transform: translate(0, 0) rotate(0deg) scale(1.03);
   }
 
-  20% {
-    transform: translateX(-7px) rotate(-1.4deg);
+  2%,
+  41% {
+    transform: translate(-1.1px, 0.4px) rotate(-0.3deg) scale(1.03);
   }
 
-  40% {
-    transform: translateX(7px) rotate(1.4deg);
+  4%,
+  43% {
+    transform: translate(1.1px, -0.6px) rotate(0.3deg) scale(1.03);
   }
 
-  60% {
-    transform: translateX(-5px) rotate(-1deg);
+  6%,
+  45% {
+    transform: translate(-0.9px, -0.4px) rotate(-0.25deg) scale(1.03);
   }
 
-  80% {
-    transform: translateX(5px) rotate(1deg);
+  8%,
+  47% {
+    transform: translate(1.2px, 0.5px) rotate(0.35deg) scale(1.03);
+  }
+
+  10%,
+  49% {
+    transform: translate(-1.2px, 0.3px) rotate(-0.35deg) scale(1.03);
+  }
+
+  12%,
+  51% {
+    transform: translate(0.9px, -0.4px) rotate(0.25deg) scale(1.03);
+  }
+
+  14%,
+  53% {
+    transform: translate(-1.1px, 0.6px) rotate(-0.3deg) scale(1.03);
+  }
+
+  16%,
+  55% {
+    transform: translate(1.2px, -0.3px) rotate(0.3deg) scale(1.03);
+  }
+
+  18%,
+  57% {
+    transform: translate(-0.8px, -0.5px) rotate(-0.2deg) scale(1.03);
+  }
+
+  20%,
+  59% {
+    transform: translate(1px, 0.4px) rotate(0.25deg) scale(1.03);
+  }
+
+  22%,
+  61% {
+    transform: translate(-1.1px, -0.2px) rotate(-0.3deg) scale(1.03);
+  }
+
+  24%,
+  63% {
+    transform: translate(0.8px, 0.5px) rotate(0.2deg) scale(1.03);
+  }
+
+  26%,
+  65% {
+    transform: translate(-0.6px, -0.3px) rotate(-0.15deg) scale(1.03);
+  }
+
+  28%,
+  67% {
+    transform: translate(0.4px, 0.2px) rotate(0.1deg) scale(1.03);
   }
 }
 
@@ -535,7 +1297,31 @@
     animation: none;
   }
 
-  .floppy-disk:hover {
-    transform: none;
+  .photo-deck-card {
+    transition: none !important;
+    transform: translate(
+        calc(-50% + var(--deck-x, 0px)),
+        calc(-50% + var(--deck-y, 0px))
+      )
+      rotate(var(--deck-r, 0deg)) !important;
+  }
+
+  .photo-card-tag {
+    opacity: 1 !important;
+  }
+
+  .floppy-disk,
+  .floppy-disk-tilting {
+    transform: none !important;
+  }
+
+  .floppy-backdrop,
+  .floppy-disk-modal {
+    animation: none;
+  }
+
+  .floppy-disk .floppy-steel,
+  .floppy-disk .floppy-index-hole {
+    transition: none;
   }
 }

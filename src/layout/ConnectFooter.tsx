@@ -1,7 +1,9 @@
-import { Link } from "react-router-dom";
-import { Mail, FileText, Linkedin } from "lucide-react";
+import { FileText, Linkedin, Mail } from "lucide-react";
 import { ContactPager } from "./ContactPager";
 import { SITE } from "../data/site";
+
+const iconClass =
+  "flex size-11 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 sm:size-12";
 
 export function ConnectFooter() {
   return (
@@ -20,23 +22,25 @@ export function ConnectFooter() {
             <a
               href={`mailto:${SITE.email}`}
               aria-label="Email"
-              className="flex size-11 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 sm:size-12"
+              className={iconClass}
             >
               <Mail size={18} strokeWidth={1.75} />
             </a>
-            <Link
-              to="/contact"
-              aria-label="Contact"
-              className="flex size-11 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 sm:size-12"
+            <a
+              href={SITE.cv}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Download CV"
+              className={iconClass}
             >
               <FileText size={18} strokeWidth={1.75} />
-            </Link>
+            </a>
             <a
               href={SITE.linkedin}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
-              className="flex size-11 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 sm:size-12"
+              className={iconClass}
             >
               <Linkedin size={18} strokeWidth={1.75} />
             </a>

@@ -1,13 +1,6 @@
-import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
-import {
-  Folder,
-  Code2,
-  Smile,
-  Mail,
-  Menu,
-  X,
-} from "lucide-react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { Folder, Code2, Smile, Mail } from "lucide-react";
 import { ImageWithFallback } from "../components/ImageWithFallback";
 
 const navItems = [
@@ -17,20 +10,47 @@ const navItems = [
 ];
 
 export function Navbar() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const pillRef = useRef<HTMLDivElement>(null);
+  const linkRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+  const [indicator, setIndicator] = useState({
+    left: 0,
+    width: 0,
+    ready: false,
+  });
 
-  const closeMenu = () => setIsMobileMenuOpen(false);
+  const activeIndex = navItems.findIndex((item) => location.pathname === item.to);
+
+  const updateIndicator = useCallback(() => {
+    const pill = pillRef.current;
+    const link = linkRefs.current[activeIndex];
+    if (!pill || !link || activeIndex < 0) {
+      setIndicator((prev) => ({ ...prev, ready: false }));
+      return;
+    }
+    const pillRect = pill.getBoundingClientRect();
+    const linkRect = link.getBoundingClientRect();
+    setIndicator({
+      left: linkRect.left - pillRect.left,
+      width: linkRect.width,
+      ready: true,
+    });
+  }, [activeIndex]);
+
+  useLayoutEffect(() => {
+    updateIndicator();
+  }, [updateIndicator, location.pathname]);
+
+  useEffect(() => {
+    window.addEventListener("resize", updateIndicator);
+    return () => window.removeEventListener("resize", updateIndicator);
+  }, [updateIndicator]);
 
   return (
-    <nav className="sticky top-0 z-50 pt-4">
+    <nav className="pointer-events-none sticky top-0 z-50 pt-4">
       <div className="page-column-wide">
-        <div className="flex items-center justify-center gap-2.5 sm:gap-3">
-          <Link
-            to="/"
-            onClick={closeMenu}
-            className="nav-avatar"
-            aria-label="Home"
-          >
+        <div className="pointer-events-auto flex items-center justify-center gap-2 sm:gap-3">
+          <Link to="/" className="nav-avatar" aria-label="Home">
             <ImageWithFallback
               src="/monica_avatar.png"
               alt="Monica Nguyen"
@@ -38,59 +58,37 @@ export function Navbar() {
             />
           </Link>
 
-          <div className="nav-pill hidden md:inline-flex">
-            {navItems.map((item) => (
+          <div ref={pillRef} className="nav-pill">
+            <span
+              className="nav-pill-indicator"
+              aria-hidden="true"
+              style={{
+                width: indicator.width,
+                transform: `translateX(${indicator.left}px)`,
+                opacity: indicator.ready ? 1 : 0,
+              }}
+            />
+            {navItems.map((item, index) => (
               <NavLink
                 key={item.to}
                 to={item.to}
+                ref={(node) => {
+                  linkRefs.current[index] = node;
+                }}
                 className={({ isActive }) =>
                   `nav-pill-link ${isActive ? "nav-pill-link-active" : ""}`
                 }
               >
-                <item.icon size={14} strokeWidth={1.75} />
-                {item.label}
+                <item.icon size={20} strokeWidth={2} />
+                <span className="nav-pill-label">{item.label}</span>
               </NavLink>
             ))}
           </div>
 
-          <Link
-            to="/contact"
-            className="nav-mail"
-            aria-label="Contact"
-            onClick={closeMenu}
-          >
-            <Mail size={18} strokeWidth={2} />
+          <Link to="/contact" className="nav-mail" aria-label="Contact">
+            <Mail size={20} strokeWidth={2} />
           </Link>
-
-          <button
-            type="button"
-            className="nav-circle md:hidden"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {isMobileMenuOpen ? <X size={16} /> : <Menu size={16} />}
-          </button>
         </div>
-
-        {isMobileMenuOpen && (
-          <div className="mt-3 rounded-2xl border border-hairline bg-canvas/95 p-2 shadow-sm backdrop-blur-md md:hidden">
-            {navItems.map((item) => (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                onClick={closeMenu}
-                className={({ isActive }) =>
-                  `nav-pill-link w-full justify-start ${
-                    isActive ? "nav-pill-link-active" : ""
-                  }`
-                }
-              >
-                <item.icon size={14} strokeWidth={1.75} />
-                {item.label}
-              </NavLink>
-            ))}
-          </div>
-        )}
       </div>
     </nav>
   );

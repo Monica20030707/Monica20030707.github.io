@@ -10,6 +10,7 @@ import { SiteFooter } from "./layout/Footer";
 import { ConnectFooter } from "./layout/ConnectFooter";
 
 import "./assets/styles/App.css";
+import "./assets/styles/responsive.css";
 
 const titles: Record<string, string> = {
   "/": "Monica Nguyen",
@@ -39,10 +40,21 @@ function Page({ children }: { children: ReactNode }) {
   );
 }
 
-function ShowcasePage({ children }: { children: ReactNode }) {
+function ShowcasePage({
+  children,
+  wash = false,
+}: {
+  children: ReactNode;
+  wash?: boolean;
+}) {
   return (
     <div className="page-enter flex min-h-[calc(100dvh-72px)] flex-col bg-black">
-      <div className="relative z-10 flex-1 overflow-hidden rounded-b-[2.5rem] bg-canvas sm:rounded-b-[3rem]">
+      <div
+        className={[
+          "relative z-10 flex-1 overflow-hidden rounded-b-[2.5rem] sm:rounded-b-[3rem]",
+          wash ? "contact-wash" : "bg-canvas",
+        ].join(" ")}
+      >
         {children}
       </div>
       <ConnectFooter />
@@ -82,14 +94,7 @@ export default function App() {
               </ShowcasePage>
             }
           />
-          <Route
-            path="/skills"
-            element={
-              <Page>
-                <Skills />
-              </Page>
-            }
-          />
+          <Route path="/skills" element={<Skills />} />
           <Route
             path="/work"
             element={
@@ -101,9 +106,9 @@ export default function App() {
           <Route
             path="/contact"
             element={
-              <Page>
+              <ShowcasePage wash>
                 <Contact />
-              </Page>
+              </ShowcasePage>
             }
           />
           <Route

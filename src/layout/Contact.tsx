@@ -1,7 +1,7 @@
 import { Button } from "../components/button";
 import { Input } from "../components/input";
 import { Textarea } from "../components/textarea";
-import { Github, Linkedin, Mail } from "lucide-react";
+import { FileText, Github, Linkedin, Mail } from "lucide-react";
 import { useState } from "react";
 import { SITE } from "../data/site";
 
@@ -32,96 +32,90 @@ export function Contact() {
   };
 
   return (
-    <section className="section-pad">
-      <div className="page-column">
-        <div className="rounded-lg bg-surface-dark text-on-dark px-8 py-6 mb-section-sm md:mb-10">
-          <h2 className="heading-lg mb-2">Let&apos;s connect</h2>
-          <p className="text-body-sm text-white/70">
-            Ready to collaborate on something useful? Send a note.
+    <section className="contact-page">
+      <div className="contact-page-inner">
+        <div className="contact-page-intro">
+          <h1 className="display-hero text-balance text-ink">
+            Let&apos;s{" "}
+            <em className="italic">connect</em>
+          </h1>
+          <p className="contact-page-lede">
+            Ready to collaborate on something useful? Send a note, or find me on
+            the usual platforms.
           </p>
+
+          <p className="contact-page-email-line">
+            Email me at{" "}
+            <a href={`mailto:${SITE.email}`} className="contact-page-email">
+              {SITE.email}
+            </a>
+          </p>
+
+          <div className="contact-page-social">
+            <a
+              href={SITE.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact-page-chip"
+            >
+              <Github size={16} strokeWidth={1.75} />
+              GitHub
+            </a>
+            <a
+              href={SITE.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact-page-chip"
+            >
+              <Linkedin size={16} strokeWidth={1.75} />
+              LinkedIn
+            </a>
+            <a
+              href={SITE.cv}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact-page-chip"
+            >
+              <FileText size={16} strokeWidth={1.75} />
+              CV
+            </a>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-          <div className="space-y-6">
-            <p className="text-body-md text-body">
-              Find me on social platforms, or email directly at{" "}
-              <a
-                href={`mailto:${SITE.email}`}
-                className="text-ink underline"
-              >
-                {SITE.email}
-              </a>
-              .
-            </p>
-
-            <div className="flex gap-3">
-              <a
-                href={SITE.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex h-pill items-center gap-2 rounded-full border border-hairline-strong px-4 text-button-md text-ink"
-              >
-                <Github size={16} />
-                GitHub
-              </a>
-              <a
-                href={SITE.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex h-pill items-center gap-2 rounded-full border border-hairline-strong px-4 text-button-md text-ink"
-              >
-                <Linkedin size={16} />
-                LinkedIn
-              </a>
-            </div>
+        <form onSubmit={handleSubmit} className="contact-page-form">
+          <div className="contact-page-field">
+            <label htmlFor="email">Email</label>
+            <Input
+              id="email"
+              type="email"
+              name="email"
+              placeholder="you@example.com"
+              value={formData.email}
+              onChange={handleInputChange}
+              required
+              className="contact-page-input"
+            />
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-1.5">
-              <label
-                htmlFor="email"
-                className="text-body-sm font-medium text-ink"
-              >
-                Email
-              </label>
-              <Input
-                id="email"
-                type="email"
-                name="email"
-                placeholder="you@example.com"
-                value={formData.email}
-                onChange={handleInputChange}
-                required
-                className="h-10 rounded-full border-hairline bg-canvas px-4 text-body-md text-ink placeholder:text-mute focus-visible:border-ink focus-visible:ring-focus-ring"
-              />
-            </div>
+          <div className="contact-page-field">
+            <label htmlFor="message">Message</label>
+            <Textarea
+              id="message"
+              name="message"
+              placeholder="Tell me about your project or just say hello..."
+              value={formData.message}
+              onChange={handleInputChange}
+              required
+              rows={6}
+              className="contact-page-textarea"
+            />
+          </div>
 
-            <div className="space-y-1.5">
-              <label
-                htmlFor="message"
-                className="text-body-sm font-medium text-ink"
-              >
-                Message
-              </label>
-              <Textarea
-                id="message"
-                name="message"
-                placeholder="Tell me about your project or just say hello..."
-                value={formData.message}
-                onChange={handleInputChange}
-                required
-                rows={5}
-                className="rounded-lg border-hairline bg-canvas px-4 py-3 text-body-md text-ink placeholder:text-mute focus-visible:border-ink focus-visible:ring-focus-ring resize-none"
-              />
-            </div>
-
-            <Button type="submit" className="w-full sm:w-auto">
-              <Mail size={16} />
-              Send message
-            </Button>
-          </form>
-        </div>
-
+          <Button type="submit" className="contact-page-submit">
+            <Mail size={16} strokeWidth={1.75} />
+            Send message
+          </Button>
+        </form>
       </div>
     </section>
   );
